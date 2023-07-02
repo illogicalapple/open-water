@@ -1,0 +1,91 @@
+[gd_scene load_steps=11 format=3 uid="uid://ce17c81jacq53"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_whca7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ntqk"]
+albedo_color = Color(0.411765, 0.313726, 0.188235, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qy1k6"]
+size = Vector3(32, 0.5, 32)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i6wcq"]
+size = Vector3(32, 0.5, 32)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dvrvf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_na8c2"]
+albedo_color = Color(0, 0.223529, 0.976471, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2snvr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8tnaj"]
+size = Vector3(38592.5, 0.563, 880.673)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j1bh7"]
+albedo_color = Color(0.541176, 0.372549, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_brgo6"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_whca7")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 7.073, 0)
+
+[node name="Menu" type="VBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Port" type="LineEdit" parent="Menu"]
+layout_mode = 2
+text = "9999"
+placeholder_text = "Port"
+
+[node name="Join" type="Button" parent="Menu"]
+layout_mode = 2
+text = "Join"
+
+[node name="Host" type="Button" parent="Menu"]
+layout_mode = 2
+text = "Host"
+
+[node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.310413, -0.0586481, 0.210363)
+
+[node name="Floor" type="MeshInstance3D" parent="Floor"]
+material_override = SubResource("StandardMaterial3D_0ntqk")
+mesh = SubResource("BoxMesh_qy1k6")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_i6wcq")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(607936, 0, 0, 0, 3.2455, 0, 0, 0, 820.534, 0, -2.55976, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_dvrvf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+material_override = SubResource("StandardMaterial3D_na8c2")
+transparency = 0.4
+mesh = SubResource("BoxMesh_2snvr")
+
+[node name="Land" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.46756, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Land"]
+shape = SubResource("BoxShape3D_8tnaj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Land"]
+transform = Transform3D(38592.5, 0, 0, 0, 0.563395, 0, 0, 0, 880.673, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_j1bh7")
+cast_shadow = 0
+mesh = SubResource("BoxMesh_brgo6")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://player_character/player_character.tscn")
+spawn_path = NodePath("..")
+
+[connection signal="pressed" from="Menu/Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="Menu/Host" to="." method="_on_host_pressed"]
