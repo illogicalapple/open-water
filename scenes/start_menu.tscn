@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://riiby56w7xo0"]
 
-[ext_resource type="Texture2D" uid="uid://qrpitt5aymu3" path="res://assets/images/sea-ge73e726b1_1280.jpg" id="1_86yh1"]
 [ext_resource type="Script" path="res://scenes/start_menu.gd" id="1_ir7u2"]
 [ext_resource type="FontFile" uid="uid://dx8lolqoauhjo" path="res://assets/fonts/Inconsolata/Inconsolata-Regular.ttf" id="2_67c1w"]
+[ext_resource type="Texture2D" uid="uid://dmnj2vjb2nuo1" path="res://assets/images/background.jpg" id="3_ohxti"]
 
 [sub_resource type="Theme" id="Theme_1oe1s"]
 default_font = ExtResource("2_67c1w")
@@ -25,7 +25,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_86yh1")
+texture = ExtResource("3_ohxti")
 expand_mode = 1
 
 [node name="Main Select" type="MarginContainer" parent="."]
