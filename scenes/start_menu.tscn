@@ -1,0 +1,210 @@
+[gd_scene load_steps=5 format=3 uid="uid://riiby56w7xo0"]
+
+[ext_resource type="Texture2D" uid="uid://qrpitt5aymu3" path="res://assets/images/sea-ge73e726b1_1280.jpg" id="1_86yh1"]
+[ext_resource type="Script" path="res://scenes/start_menu.gd" id="1_ir7u2"]
+[ext_resource type="FontFile" uid="uid://dx8lolqoauhjo" path="res://assets/fonts/Inconsolata/Inconsolata-Regular.ttf" id="2_67c1w"]
+
+[sub_resource type="Theme" id="Theme_1oe1s"]
+default_font = ExtResource("2_67c1w")
+default_font_size = 50
+
+[node name="Main Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_1oe1s")
+script = ExtResource("1_ir7u2")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_86yh1")
+expand_mode = 1
+
+[node name="Main Select" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main Select"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Start" type="Button" parent="Main Select/VBoxContainer"]
+layout_mode = 2
+text = "start game"
+
+[node name="WorldSelect" type="Button" parent="Main Select/VBoxContainer"]
+layout_mode = 2
+text = "choose worlds"
+
+[node name="Settings" type="Button" parent="Main Select/VBoxContainer"]
+layout_mode = 2
+text = "settings"
+
+[node name="exit_game" type="Button" parent="Main Select/VBoxContainer"]
+layout_mode = 2
+text = "exit"
+
+[node name="World Select" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -382.0
+offset_top = -73.0
+offset_right = 382.0
+offset_bottom = 73.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="World Select"]
+layout_mode = 2
+color = Color(1, 1, 1, 0.392157)
+
+[node name="MarginContainer2" type="MarginContainer" parent="World Select"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="World Select/MarginContainer2"]
+layout_mode = 2
+
+[node name="ExitWorldSelect" type="Button" parent="World Select/MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(82.19, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 35
+text = "<"
+
+[node name="GridContainer" type="GridContainer" parent="World Select/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+columns = 4
+
+[node name="Button" type="Button" parent="World Select/MarginContainer2/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "world 1"
+
+[node name="Button2" type="Button" parent="World Select/MarginContainer2/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "world 2"
+
+[node name="Button3" type="Button" parent="World Select/MarginContainer2/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "world 3"
+
+[node name="Button4" type="Button" parent="World Select/MarginContainer2/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "world 4"
+
+[node name="Button5" type="Button" parent="World Select/MarginContainer2/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "world 5"
+
+[node name="Button6" type="Button" parent="World Select/MarginContainer2/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "world 6"
+
+[node name="Button7" type="Button" parent="World Select/MarginContainer2/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "world 7"
+
+[node name="Button8" type="Button" parent="World Select/MarginContainer2/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "world 8"
+
+[node name="Settings" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -382.0
+offset_top = -73.0
+offset_right = 382.0
+offset_bottom = 73.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Settings"]
+layout_mode = 2
+color = Color(1, 1, 1, 0.392157)
+
+[node name="MarginContainer2" type="MarginContainer" parent="Settings"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/MarginContainer2"]
+layout_mode = 2
+
+[node name="ExitWorldSelect" type="Button" parent="Settings/MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(82.19, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 35
+text = "<"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Settings/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/MarginContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Button" type="Button" parent="Settings/MarginContainer2/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "video"
+
+[node name="Button2" type="Button" parent="Settings/MarginContainer2/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "sounds"
+
+[node name="Button3" type="Button" parent="Settings/MarginContainer2/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "controls"
+
+[node name="Button4" type="Button" parent="Settings/MarginContainer2/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "key mapping"
+
+[node name="Label" type="Label" parent="Settings/MarginContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "There will be
+details here"
+
+[connection signal="pressed" from="Main Select/VBoxContainer/Start" to="." method="start_pressed"]
+[connection signal="pressed" from="Main Select/VBoxContainer/WorldSelect" to="." method="enter_world_select"]
+[connection signal="pressed" from="Main Select/VBoxContainer/Settings" to="." method="enter_settings_menu"]
+[connection signal="pressed" from="Main Select/VBoxContainer/exit_game" to="." method="exit_pressed"]
+[connection signal="pressed" from="World Select/MarginContainer2/VBoxContainer/ExitWorldSelect" to="." method="exit_world_select"]
+[connection signal="pressed" from="Settings/MarginContainer2/VBoxContainer/ExitWorldSelect" to="." method="exit_settings_menu"]
