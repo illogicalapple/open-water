@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://ce17c81jacq53"]
+[gd_scene load_steps=16 format=3 uid="uid://ce17c81jacq53"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_whca7"]
+[ext_resource type="Shader" path="res://main.gdshader" id="2_6w6rm"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ntqk"]
 albedo_color = Color(0.411765, 0.313726, 0.188235, 1)
@@ -12,11 +13,37 @@ size = Vector3(32, 0.5, 32)
 size = Vector3(32, 0.5, 32)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dvrvf"]
+size = Vector3(400, 1, 400)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_na8c2"]
-albedo_color = Color(0, 0.223529, 0.976471, 1)
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xqpcs"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_aud2g"]
+width = 200
+height = 200
+generate_mipmaps = false
+seamless = true
+noise = SubResource("FastNoiseLite_xqpcs")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_inw88"]
+metadata/_preview_in_3d_space_ = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jeph3"]
+width = 200
+height = 200
+generate_mipmaps = false
+seamless = true
+noise = SubResource("FastNoiseLite_inw88")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wawqv"]
+render_priority = 0
+shader = ExtResource("2_6w6rm")
+shader_parameter/noise1 = SubResource("NoiseTexture2D_aud2g")
+shader_parameter/noise2 = SubResource("NoiseTexture2D_jeph3")
 
 [sub_resource type="BoxMesh" id="BoxMesh_2snvr"]
+size = Vector3(400, 1, 400)
+subdivide_width = 128
+subdivide_depth = 128
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8tnaj"]
 size = Vector3(38592.5, 0.563, 880.673)
@@ -61,18 +88,19 @@ skeleton = NodePath("../..")
 shape = SubResource("BoxShape3D_i6wcq")
 
 [node name="Area3D" type="Area3D" parent="."]
-transform = Transform3D(607936, 0, 0, 0, 3.2455, 0, 0, 0, 820.534, 0, -2.55976, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.25731, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("BoxShape3D_dvrvf")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
-material_override = SubResource("StandardMaterial3D_na8c2")
-transparency = 0.4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58211, 0)
+material_override = SubResource("ShaderMaterial_wawqv")
+cast_shadow = 0
 mesh = SubResource("BoxMesh_2snvr")
 
 [node name="Land" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.46756, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15.2367, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Land"]
 shape = SubResource("BoxShape3D_8tnaj")
