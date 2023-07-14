@@ -11,11 +11,9 @@
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/sync = true
-properties/0/watch = false
 properties/1/path = NodePath(".:y_rotation")
 properties/1/spawn = true
 properties/1/sync = true
-properties/1/watch = false
 
 [node name="PlayerCharacter" type="CharacterBody3D" groups=["player_characters"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
