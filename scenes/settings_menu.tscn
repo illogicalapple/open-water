@@ -23,6 +23,7 @@ theme = ExtResource("1_chgt2")
 
 [node name="ColorRect" type="ColorRect" parent="MarginContainer"]
 layout_mode = 2
+mouse_filter = 1
 color = Color(1, 1, 1, 0.392157)
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
@@ -36,6 +37,7 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 
 [node name="ExitSettings" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
+process_mode = 3
 custom_minimum_size = Vector2(82.19, 0)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -100,4 +102,5 @@ value = 75.0
 [node name="Value" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/FOV"]
 layout_mode = 2
 
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/ExitSettings" to="." method="exit_settings_menu"]
 [connection signal="value_changed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/FOV/HSlider" to="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu" method="fov_slider_change"]
