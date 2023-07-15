@@ -5,6 +5,7 @@
 [ext_resource type="Script" path="res://scenes/VideoSubMenu.gd" id="3_888ed"]
 
 [node name="Settings" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_oid88")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

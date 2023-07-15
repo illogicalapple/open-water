@@ -6,6 +6,7 @@
 default_font_size = 10
 
 [node name="debug" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_6ifps")
 
 [node name="Control" type="Control" parent="."]

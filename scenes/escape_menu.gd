@@ -19,12 +19,12 @@ func _ready() -> void:
 ## If not in escape menu, will enter escape menu.
 func _unhandled_input(event: InputEvent) -> void:
 	print ("escape")
-#	if event.is_action_pressed("esc"):
-#		match States.game_state:
-#			States.GameStates.ESCAPE_MENU:
-#				exit_sub_menu()
-#			States.GameStates.IN_GAME:
-#				enter_escape_menu()
+	if event.is_action_pressed("esc"):
+		match States.game_state:
+			States.GameStates.ESCAPE_MENU:
+				exit_sub_menu()
+			States.GameStates.IN_GAME:
+				enter_escape_menu()
 	return
 
 func exit_sub_menu() -> void:

@@ -27,7 +27,8 @@ func _physics_process(_delta):
 		move_and_slide()
 		synchronizer.position = global_position
 
-func _input(event):
+func _unhandled_input(event: InputEvent) -> void:
+	print ("game")
 	if synchronizer.is_multiplayer_authority():
 #		if event is InputEventKey and event.is_pressed() and event.keycode == KEY_ESCAPE:
 #			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE else Input.MOUSE_MODE_VISIBLE
