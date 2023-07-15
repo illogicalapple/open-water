@@ -36,9 +36,6 @@ func _ready() -> void:
 	main_menu_state = MainMenuStates.CURRENT
 	escape_menu_state = EscapeMenuStates.NONE
 	settings_menu_state = SettingsMenuStates.NONE
-	
-	
-	set_to_previous_menu()
 
 ## Useful for when debugging and loading straigth into an in-game scene.
 ## Should be called on the ready functions of any non-menu scenes.
