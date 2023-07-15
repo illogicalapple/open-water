@@ -11,7 +11,7 @@ func _ready():
 	camera.current = synchronizer.is_multiplayer_authority()
 	if synchronizer.is_multiplayer_authority(): Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if synchronizer.is_multiplayer_authority():
 		var direction = Vector3.ZERO
 		if not is_on_floor(): direction.y -= 0.4
@@ -25,8 +25,6 @@ func _physics_process(delta):
 		set_up_direction(Vector3.UP)
 		move_and_slide()
 		synchronizer.position = global_position
-
-
 
 func _input(event):
 	if synchronizer.is_multiplayer_authority():
