@@ -1,5 +1,7 @@
 extends Control
 
+## Works with the States autoload to manage the current state of the EscapeMenu.
+
 #@onready var settings_menu := $Settings
 @onready var main_select_menu := $"Main Select"
 var main_menu_scene : PackedScene = preload("res://scenes/start_menu.tscn")
@@ -22,6 +24,8 @@ func _unhandled_input(event: InputEvent) -> void:
 				exit_sub_menu()
 			States.GameStates.IN_GAME:
 				enter_escape_menu()
+
+
 
 func exit_sub_menu() -> void:
 	match States.escape_menu_state:
