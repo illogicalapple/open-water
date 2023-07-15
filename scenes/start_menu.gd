@@ -1,8 +1,9 @@
 extends Control
 
+## Works with the States autoload to manage the current state of the MainMenu.
+
 @onready var world_select_menu := $"World Select"
 @onready var main_select_menu := $"Main Select"
-#@onready var settings_menu := $Settings
 
 var main_scene : PackedScene = preload("res://main.tscn")
 
@@ -10,7 +11,6 @@ var main_scene : PackedScene = preload("res://main.tscn")
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("esc") and States.in_main_menu():
 		exit_sub_menu()
-
 
 func exit_sub_menu() -> void:
 	match States.main_menu_state:

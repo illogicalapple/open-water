@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+## Works with the States autoload to manage the current state of the SettingsMenu.
+
 enum VideoSettings {FOV}
 
 ## Stores all settings from below.
