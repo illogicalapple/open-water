@@ -25,22 +25,16 @@ func _ready() -> void:
 	visible = false
 	pass
 
-
 func save_settings() -> void:
 	pass
 
-func _unhandled_input(event: InputEvent) -> void:
-	print ("settings")
-#
-#func _input(event) -> void:
-#	print("settigs event")
 
 func exit_settings_menu() -> void:
 	# For now, settings menu can can be either from
 	# the main menu or the escape menu.
 	if States.in_main_menu():
 		# Main Menu is not autoloaded, so will have to GET the main menu from tree
-		# and then call the appropriate funciton.
+		# and then call the appropriate function on it.
 		
 		# Getting the Main Menu this way is probably not the best.
 		# For instance, we may Rename it in the future. 
@@ -54,6 +48,3 @@ func exit_settings_menu() -> void:
 		# Calling exit settings is probably faster
 		#EscapeMenu.exit_sub_menu()
 		EscapeMenu.exit_settings_menu()
-
-func _on_h_slider_value_changed(value):
-	video_settings[VideoSettings.FOV] = value
