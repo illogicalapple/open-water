@@ -35,11 +35,15 @@ func add_player_character(id=1):
 func _on_time_set_timeout():
 	time.minute += 1
 	if time.minute > 59:
+		time.minute = 0
 		time.hour += 1
 		if time.hour > 11:
+			time.hour = 0
 			time.am = not time.am
+	$GUI.change_time(time)
 	rpc("change_time", time)
 
+@rpc
 func change_time(new_time):
 	$GUI.change_time(new_time)
 	time = new_time
