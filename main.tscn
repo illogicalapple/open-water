@@ -123,6 +123,7 @@ _spawnable_scenes = PackedStringArray("res://player_character/player_character.t
 spawn_path = NodePath("..")
 
 [node name="TimeSet" type="Timer" parent="."]
+process_mode = 3
 wait_time = 2.0
 autostart = true
 
