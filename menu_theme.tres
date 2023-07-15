@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://yqhp0x75g3lx"]
+
+[ext_resource type="FontFile" uid="uid://dx8lolqoauhjo" path="res://assets/fonts/Inconsolata/Inconsolata-Regular.ttf" id="1_tj0if"]
+
+[resource]
+default_font = ExtResource("1_tj0if")
+default_font_size = 50

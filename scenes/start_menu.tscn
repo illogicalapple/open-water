@@ -1,12 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://riiby56w7xo0"]
+[gd_scene load_steps=4 format=3 uid="uid://riiby56w7xo0"]
 
+[ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://menu_theme.tres" id="1_hy3ew"]
 [ext_resource type="Script" path="res://scenes/start_menu.gd" id="1_ir7u2"]
-[ext_resource type="FontFile" uid="uid://dx8lolqoauhjo" path="res://assets/fonts/Inconsolata/Inconsolata-Regular.ttf" id="2_67c1w"]
 [ext_resource type="Texture2D" uid="uid://dmnj2vjb2nuo1" path="res://assets/images/background.jpg" id="3_ohxti"]
-
-[sub_resource type="Theme" id="Theme_1oe1s"]
-default_font = ExtResource("2_67c1w")
-default_font_size = 50
 
 [node name="Main Menu" type="Control"]
 layout_mode = 3
@@ -15,7 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("Theme_1oe1s")
+theme = ExtResource("1_hy3ew")
 script = ExtResource("1_ir7u2")
 
 [node name="Background" type="TextureRect" parent="."]
@@ -43,6 +39,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Main Select"]
+custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 theme_override_constants/separation = 20
 
