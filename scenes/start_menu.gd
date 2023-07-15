@@ -8,7 +8,7 @@ var main_scene : PackedScene = preload("res://main.tscn")
 
 ## Listens for escape button and exits any sub-menus if pressed.
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("esc"):
+	if event.is_action_pressed("esc") and States.in_main_menu():
 		exit_sub_menu()
 
 
@@ -29,7 +29,6 @@ func start_pressed() -> void:
 func exit_pressed() -> void:
 	get_tree().quit()
 
-
 func enter_world_select() -> void:
 	main_select_menu.visible = false
 	world_select_menu.visible = true
@@ -41,12 +40,12 @@ func enter_settings_menu() -> void:
 	settings_menu.visible = true
 
 func exit_world_select() -> void:
-	States.main_menu_state = States.MainMenuStates.START
+	States.main_menu_state = States.MainMenuStates.CURRENT
 	world_select_menu.visible = false
 	main_select_menu.visible = true
 
 func exit_settings_menu() -> void:
-	States.main_menu_state = States.MainMenuStates.START
+	States.main_menu_state = States.MainMenuStates.CURRENT
 	settings_menu.visible = false
 	main_select_menu.visible = true
 

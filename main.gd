@@ -4,7 +4,6 @@ var multiplayer_peer = ENetMultiplayerPeer.new()
 
 @onready var menu = $Menu
 
-
 func _on_join_pressed():
 	var port = str($Menu/Port.text).to_int()
 	multiplayer_peer.create_client("localhost", port)

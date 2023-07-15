@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://cfabx8qqthunj"]
+[gd_scene load_steps=4 format=3 uid="uid://cfabx8qqthunj"]
 
 [ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://menu_theme.tres" id="1_li3g8"]
+[ext_resource type="Script" path="res://scenes/escape_menu.gd" id="2_ni2dt"]
+[ext_resource type="PackedScene" uid="uid://bgfolw02g0rtq" path="res://scenes/settings_menu.tscn" id="3_meo3l"]
 
 [node name="escape_menu" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,6 +13,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_li3g8")
+script = ExtResource("2_ni2dt")
 
 [node name="Main Select" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -30,7 +34,7 @@ custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Start" type="Button" parent="Main Select/VBoxContainer"]
+[node name="Resume" type="Button" parent="Main Select/VBoxContainer"]
 layout_mode = 2
 text = "resume"
 
@@ -38,10 +42,23 @@ text = "resume"
 layout_mode = 2
 text = "settings"
 
-[node name="main_menu" type="Button" parent="Main Select/VBoxContainer"]
+[node name="MainMenu" type="Button" parent="Main Select/VBoxContainer"]
 layout_mode = 2
 text = "main menu"
 
-[node name="exit_game" type="Button" parent="Main Select/VBoxContainer"]
+[node name="ExitGame" type="Button" parent="Main Select/VBoxContainer"]
 layout_mode = 2
 text = "exit"
+
+[node name="Settings" parent="." instance=ExtResource("3_meo3l")]
+layout_mode = 1
+offset_top = -163.0
+offset_bottom = 163.0
+
+[connection signal="pressed" from="Main Select/VBoxContainer/Resume" to="." method="resume"]
+[connection signal="pressed" from="Main Select/VBoxContainer/Settings" to="." method="enter_settings_menu"]
+[connection signal="pressed" from="Main Select/VBoxContainer/MainMenu" to="." method="main_menu"]
+[connection signal="pressed" from="Main Select/VBoxContainer/ExitGame" to="." method="exit_pressed"]
+[connection signal="pressed" from="Settings/MarginContainer2/VBoxContainer/ExitSettings" to="." method="exit_settings_menu"]
+
+[editable path="Settings"]
