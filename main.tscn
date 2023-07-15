@@ -65,6 +65,7 @@ offset_bottom = 40.0
 
 [node name="Port" type="LineEdit" parent="Menu"]
 layout_mode = 2
+mouse_filter = 1
 text = "9999"
 placeholder_text = "Port"
 

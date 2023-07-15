@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://riiby56w7xo0"]
+[gd_scene load_steps=5 format=3 uid="uid://riiby56w7xo0"]
 
 [ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://menu_theme.tres" id="1_hy3ew"]
 [ext_resource type="Script" path="res://scenes/start_menu.gd" id="1_ir7u2"]
 [ext_resource type="Texture2D" uid="uid://dmnj2vjb2nuo1" path="res://assets/images/background.jpg" id="3_ohxti"]
+[ext_resource type="PackedScene" uid="uid://bgfolw02g0rtq" path="res://scenes/settings_menu.tscn" id="4_t71m2"]
 
 [node name="Main Menu" type="Control"]
 layout_mode = 3
@@ -132,76 +133,16 @@ text = "world 7"
 layout_mode = 2
 text = "world 8"
 
-[node name="Settings" type="MarginContainer" parent="."]
-visible = false
+[node name="Settings" parent="." instance=ExtResource("4_t71m2")]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -382.0
-offset_top = -73.0
-offset_right = 382.0
-offset_bottom = 73.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ColorRect" type="ColorRect" parent="Settings"]
-layout_mode = 2
-color = Color(1, 1, 1, 0.392157)
-
-[node name="MarginContainer2" type="MarginContainer" parent="Settings"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Settings/MarginContainer2"]
-layout_mode = 2
-
-[node name="ExitWorldSelect" type="Button" parent="Settings/MarginContainer2/VBoxContainer"]
-custom_minimum_size = Vector2(82.19, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 35
-text = "<"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Settings/MarginContainer2/VBoxContainer"]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Settings/MarginContainer2/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="Button" type="Button" parent="Settings/MarginContainer2/VBoxContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "video"
-
-[node name="Button2" type="Button" parent="Settings/MarginContainer2/VBoxContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "sounds"
-
-[node name="Button3" type="Button" parent="Settings/MarginContainer2/VBoxContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "controls"
-
-[node name="Button4" type="Button" parent="Settings/MarginContainer2/VBoxContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-text = "key mapping"
-
-[node name="Label" type="Label" parent="Settings/MarginContainer2/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 6
-text = "There will be
-details here"
+offset_top = -163.0
+offset_bottom = 163.0
 
 [connection signal="pressed" from="Main Select/VBoxContainer/Start" to="." method="start_pressed"]
 [connection signal="pressed" from="Main Select/VBoxContainer/WorldSelect" to="." method="enter_world_select"]
 [connection signal="pressed" from="Main Select/VBoxContainer/Settings" to="." method="enter_settings_menu"]
 [connection signal="pressed" from="Main Select/VBoxContainer/exit_game" to="." method="exit_pressed"]
 [connection signal="pressed" from="World Select/MarginContainer2/VBoxContainer/ExitWorldSelect" to="." method="exit_world_select"]
-[connection signal="pressed" from="Settings/MarginContainer2/VBoxContainer/ExitWorldSelect" to="." method="exit_settings_menu"]
+[connection signal="pressed" from="Settings/MarginContainer2/VBoxContainer/ExitSettings" to="." method="exit_settings_menu"]
+
+[editable path="Settings"]
