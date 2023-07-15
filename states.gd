@@ -44,4 +44,8 @@ func in_main_menu() -> bool:
 	else:
 		return false
 
+func set_to_in_game() -> void:
+	game_state = GameStates.IN_GAME
+	escape_menu_state = EscapeMenuStates.NONE
+	main_menu_state = MainMenuStates.NONE
 

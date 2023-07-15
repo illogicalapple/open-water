@@ -4,6 +4,10 @@ extends Control
 @onready var main_select_menu := $"Main Select"
 var main_menu_scene : PackedScene = preload("res://scenes/start_menu.tscn")
 
+## Saves mouse mode used before entering escape menu.
+## When escape menu exots, will reset mouse mode to this.
+var previous_mouse_mode : Input.MouseMode
+
 ## Sets to invisible on start.
 func _ready() -> void:
 	visible = false
@@ -12,7 +16,6 @@ func _ready() -> void:
 ## Also exits escape menu is not in sub menu.
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("esc"):
-		print ("escape pressed")
 		match States.game_state:
 			States.GameStates.ESCAPE_MENU:
 				exit_sub_menu()
@@ -28,7 +31,8 @@ func exit_sub_menu() -> void:
 
 ## Pauses game. This scene's process mode is set to always (so is not affected).
 func enter_escape_menu() -> void:
-	print ("enter escape")
+	previous_mouse_mode = Input.mouse_mode
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	get_tree().paused = true
 	States.game_state = States.GameStates.ESCAPE_MENU
 	States.escape_menu_state = States.EscapeMenuStates.CURRENT
@@ -36,7 +40,7 @@ func enter_escape_menu() -> void:
 
 ## Resumes the game.
 func resume() -> void:
-	print ("exit escape menu")
+	Input.mouse_mode = previous_mouse_mode
 	get_tree().paused = false
 	States.game_state = States.GameStates.IN_GAME
 	States.escape_menu_state = States.EscapeMenuStates.NONE
