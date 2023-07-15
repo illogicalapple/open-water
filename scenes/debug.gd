@@ -8,13 +8,8 @@ extends CanvasLayer
 @onready var settings_menu_state_label : Label = $Control/CurrentStates/SettingsState
 
 func _unhandled_input(event: InputEvent) -> void:
-	print ("debug")
 	if event.is_action_pressed("disable_debug"):
 		toggle_debug_menu()
-
-
-#func _input(event) -> void:
-#	print("debug event")
 
 
 func toggle_debug_menu() -> void:

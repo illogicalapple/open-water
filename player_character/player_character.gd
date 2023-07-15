@@ -29,7 +29,6 @@ func _physics_process(_delta):
 		camera.fov = Settings.video_settings[Settings.VideoSettings.FOV]
 
 func _unhandled_input(event: InputEvent) -> void:
-	print ("game")
 	if synchronizer.is_multiplayer_authority():
 #		if event is InputEventKey and event.is_pressed() and event.keycode == KEY_ESCAPE:
 #			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE else Input.MOUSE_MODE_VISIBLE
@@ -37,7 +36,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			rotate_y(-deg_to_rad(event.relative.x) * mouse_sensitivity)
 			synchronizer.y_rotation = rotation.y
 			camera.rotate_x(-deg_to_rad(event.relative.y) * mouse_sensitivity)
-	pass
 
 
 
