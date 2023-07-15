@@ -1,11 +1,11 @@
 extends Control
 
-@onready var settings_menu := $Settings
+#@onready var settings_menu := $Settings
 @onready var main_select_menu := $"Main Select"
 var main_menu_scene : PackedScene = preload("res://scenes/start_menu.tscn")
 
 ## Saves mouse mode used before entering escape menu.
-## When escape menu exots, will reset mouse mode to this.
+## When escape menu exits, will reset mouse mode to this.
 var previous_mouse_mode : Input.MouseMode
 
 ## Sets to invisible on start.
@@ -14,6 +14,7 @@ func _ready() -> void:
 
 ## Listens for escape button and exits any sub-menus if pressed.
 ## Also exits escape menu is not in sub menu.
+## If not in escape menu, will enter escape menu.
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("esc"):
 		match States.game_state:
@@ -60,11 +61,11 @@ func exit_pressed() -> void:
 	get_tree().quit()
 
 func enter_settings_menu() -> void:
-	settings_menu.visible = true
+	Settings.visible = true
 	main_select_menu.visible = false
 	States.escape_menu_state = States.EscapeMenuStates.SETTINGS
 
 func exit_settings_menu() -> void:
-	settings_menu.visible = false
+	Settings.visible = false
 	main_select_menu.visible = true
 	States.escape_menu_state = States.EscapeMenuStates.CURRENT

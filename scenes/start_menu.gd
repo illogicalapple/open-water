@@ -2,7 +2,7 @@ extends Control
 
 @onready var world_select_menu := $"World Select"
 @onready var main_select_menu := $"Main Select"
-@onready var settings_menu := $Settings
+#@onready var settings_menu := $Settings
 
 var main_scene : PackedScene = preload("res://main.tscn")
 
@@ -34,11 +34,6 @@ func enter_world_select() -> void:
 	world_select_menu.visible = true
 	States.main_menu_state = States.MainMenuStates.CHOOSE_WORLDS
 
-func enter_settings_menu() -> void:
-	States.main_menu_state = States.MainMenuStates.SETTINGS
-	main_select_menu.visible = false
-	settings_menu.visible = true
-
 func exit_world_select() -> void:
 	States.main_menu_state = States.MainMenuStates.CURRENT
 	world_select_menu.visible = false
@@ -46,8 +41,11 @@ func exit_world_select() -> void:
 
 func exit_settings_menu() -> void:
 	States.main_menu_state = States.MainMenuStates.CURRENT
-	settings_menu.visible = false
+	Settings.visible = false
 	main_select_menu.visible = true
 
-
+func enter_settings_menu() -> void:
+	States.main_menu_state = States.MainMenuStates.SETTINGS
+	main_select_menu.visible = false
+	Settings.visible = true
 
