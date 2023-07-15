@@ -55,7 +55,5 @@ func exit_settings_menu() -> void:
 		#EscapeMenu.exit_sub_menu()
 		EscapeMenu.exit_settings_menu()
 
-
-
-
-
+func _on_h_slider_value_changed(value):
+	video_settings[VideoSettings.FOV] = value
