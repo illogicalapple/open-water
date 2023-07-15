@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://menu_theme.tres" id="1_hy3ew"]
 [ext_resource type="Script" path="res://scenes/start_menu.gd" id="1_ir7u2"]
-[ext_resource type="Texture2D" uid="uid://dmnj2vjb2nuo1" path="res://assets/images/background.jpg" id="3_ohxti"]
+[ext_resource type="Texture2D" uid="uid://1grhsng24wdx" path="res://assets/images/background.png" id="3_pqs1v"]
 [ext_resource type="PackedScene" uid="uid://bgfolw02g0rtq" path="res://scenes/settings_menu.tscn" id="4_t71m2"]
 
 [node name="Main Menu" type="Control"]
@@ -22,7 +22,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_ohxti")
+texture = ExtResource("3_pqs1v")
 expand_mode = 1
 
 [node name="Main Select" type="MarginContainer" parent="."]
