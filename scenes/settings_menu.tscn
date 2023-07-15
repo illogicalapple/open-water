@@ -104,4 +104,5 @@ value = 75.0
 layout_mode = 2
 
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/ExitSettings" to="." method="exit_settings_menu"]
+[connection signal="value_changed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/FOV/HSlider" to="." method="_on_h_slider_value_changed"]
 [connection signal="value_changed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/FOV/HSlider" to="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu" method="fov_slider_change"]
