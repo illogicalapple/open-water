@@ -9,15 +9,18 @@ var main_scene : PackedScene = preload("res://main.tscn")
 
 ## Listens for escape button and exits any sub-menus if pressed.
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("esc") and States.in_main_menu():
+	if event.is_action_pressed("esc"):
 		exit_sub_menu()
 
+## If can't call the appropriate exit sub menu function or just too lazy,
+## can simply call this instead, which will exit the current sub menu.
 func exit_sub_menu() -> void:
-	match States.main_menu_state:
-		States.MainMenuStates.CHOOSE_WORLDS:
-			exit_world_select()
-		States.MainMenuStates.SETTINGS:
-			exit_settings_menu()
+	if States.in_main_menu():
+		match States.main_menu_state:
+			States.MainMenuStates.CHOOSE_WORLDS:
+				exit_world_select()
+			States.MainMenuStates.SETTINGS:
+				exit_settings_menu()
 
 ## Begins the game.
 func start_pressed() -> void:
@@ -43,9 +46,11 @@ func exit_settings_menu() -> void:
 	States.main_menu_state = States.MainMenuStates.CURRENT
 	Settings.visible = false
 	main_select_menu.visible = true
+	States.settings_menu_state = States.SettingsMenuStates.CURRENT
 
 func enter_settings_menu() -> void:
 	States.main_menu_state = States.MainMenuStates.SETTINGS
 	main_select_menu.visible = false
 	Settings.visible = true
+	States.settings_menu_state = States.SettingsMenuStates.NONE
 

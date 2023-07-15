@@ -18,21 +18,22 @@ func _ready() -> void:
 ## Also exits escape menu is not in sub menu.
 ## If not in escape menu, will enter escape menu.
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("esc"):
-		match States.game_state:
-			States.GameStates.ESCAPE_MENU:
-				exit_sub_menu()
-			States.GameStates.IN_GAME:
-				enter_escape_menu()
-
-
+	print ("escape")
+#	if event.is_action_pressed("esc"):
+#		match States.game_state:
+#			States.GameStates.ESCAPE_MENU:
+#				exit_sub_menu()
+#			States.GameStates.IN_GAME:
+#				enter_escape_menu()
+	return
 
 func exit_sub_menu() -> void:
-	match States.escape_menu_state:
-		States.EscapeMenuStates.CURRENT:
-			resume()
-		States.EscapeMenuStates.SETTINGS:
-			exit_settings_menu()
+	if States.in_escape_menu():
+		match States.escape_menu_state:
+			States.EscapeMenuStates.CURRENT:
+				resume()
+			States.EscapeMenuStates.SETTINGS:
+				exit_settings_menu()
 
 ## Pauses game. This scene's process mode is set to always (so is not affected).
 func enter_escape_menu() -> void:
@@ -66,10 +67,14 @@ func exit_pressed() -> void:
 
 func enter_settings_menu() -> void:
 	Settings.visible = true
-	main_select_menu.visible = false
+	#main_select_menu.visible = false
+	visible = false
 	States.escape_menu_state = States.EscapeMenuStates.SETTINGS
+	States.settings_menu_state = States.SettingsMenuStates.CURRENT
 
 func exit_settings_menu() -> void:
 	Settings.visible = false
-	main_select_menu.visible = true
+	#main_select_menu.visible = true
+	visible = true
 	States.escape_menu_state = States.EscapeMenuStates.CURRENT
+	States.settings_menu_state = States.SettingsMenuStates.NONE

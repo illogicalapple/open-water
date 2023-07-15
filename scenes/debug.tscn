@@ -25,22 +25,27 @@ offset_bottom = 50.0
 mouse_filter = 2
 
 [node name="GameState" type="Label" parent="Control/CurrentStates"]
+process_mode = 3
 layout_mode = 2
 text = "game_state: "
 
 [node name="MenuState" type="Label" parent="Control/CurrentStates"]
+process_mode = 3
 layout_mode = 2
 text = "main_menu_state: "
 
 [node name="EscapeState" type="Label" parent="Control/CurrentStates"]
+process_mode = 3
 layout_mode = 2
 text = "escape_menu_state: "
 
 [node name="SettingsState" type="Label" parent="Control/CurrentStates"]
+process_mode = 3
 layout_mode = 2
 text = "settings_menu_state: "
 
 [node name="DebugInfo" type="Label" parent="Control"]
+process_mode = 3
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
