@@ -19,6 +19,7 @@ properties/1/watch = false
 
 [node name="PlayerCharacter" type="CharacterBody3D" groups=["player_characters"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+collision_mask = 11
 script = ExtResource("1_tml4c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
