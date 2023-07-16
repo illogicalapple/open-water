@@ -48,6 +48,8 @@ var reset_setting : Dictionary
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	visible = false
+	
 	# Create default_settings: empty dictionaries.
 	default_setting = {
 		"video_settings" : {},
@@ -55,25 +57,24 @@ func _ready() -> void:
 		"key_map_settings": {},
 	}
 	
+	# Load settings.
+	load_settings()
+	
 	# Goes through all settings in video_submenu to set the default.
-	# Adds keys and and sets default values.
-	for key_array in video_submenu.setting_keys:
-		print ("key_array: ", key_array)
-#		"FOV", 
-#		fov_slider.get_path(),
-#		"value",
-		var key = key_array[0]
-		var node_path = key_array[1]
-		var property_path = key_array[2]
+	for key in video_submenu.key_paths.keys():
+		var key_array = video_submenu.key_paths[key]
+		var node_path = key_array[0]
+		var property_path = key_array[1]
+		
 		default_setting["video_settings"] [key] = [node_path, property_path, get_value(node_path, property_path)]
 	
-	visible = false
-	load_settings()
-	# Temporary:
-	#settings = default_setting.duplicate(true)
-	
-	
-	
+	# Check to see if settings does NOT have any values in default.
+	# If this is the case a new setting has been added and MUST be duplicated into settings.
+	# Or error when reseting that value...
+	for key in default_setting["video_settings"]:
+		if not settings["video_settings"].has(key):
+			settings["video_settings"] [key] = default_setting["video_settings"] [key].duplicate(true) #array so should duplicate.
+			print_rich("[color=green]New Setting registed: [b]" , key , "[/b][/color]")
 	
 # Called when entered from MainMenu and EscapeMenu
 func entered() -> void:
@@ -120,20 +121,9 @@ func set_all_video_settings() -> void:
 		var property_path = array_val[1]
 		var value = array_val[2]
 		
-		var node_attempt = get_node_or_null(node_path)
+		print ("array val: ", array_val)
 		
-		# If can't get node, print error and go to next iteration.
-		if node_attempt == null:
-			printerr("attempt to set setting [", key, "] failed. Can't get node: ", node_path)
-			continue
-		
-		# If can't get property on node, print error and go to next iteration.
-		if node_attempt.get_indexed(property_path) == null:
-			printerr("attempt to set setting [", key, "] failed. Can't get property: ", property_path)
-			continue
-		
-		node_attempt.set_indexed(property_path, value)
-
+		attempt_set_value_or_handle_error(key, node_path, property_path, value)
 
 ## Only does video_settings for now.
 func default_all_settings() -> void:
@@ -144,57 +134,94 @@ func reset_all_settings() -> void:
 
 func default_all_video_settings() -> void:
 	settings["video_settings"] = default_setting["video_settings"].duplicate(true)
-	var video_settings = settings["video_settings"]
+	var default_video_settings = settings["video_settings"]
 	
 	# Sets all video_setting values to default.
-	for key in video_settings.keys():
-		var array_val = video_settings [key]
+	for key in default_video_settings.keys():
+		if not default_video_settings.has(key):
+			printerr("attempt to reset setting [", key, "] failed. default_video_settings does not have key.")
+			continue
+			
+		var array_val = default_video_settings [key]
 		var node_path = array_val[0]
 		var property_path = array_val[1]
 		var value = array_val[2]
 		
-		get_node(node_path).set_indexed(property_path, value)
+		attempt_set_value_or_handle_error(key, node_path, property_path, value)
 
 func reset_all_video_settings() -> void:
 	#Duplicates the reset setting's video_settings.
 	settings["video_settings"] = reset_setting["video_settings"].duplicate(true)
-	var video_settings = settings["video_settings"]
+	var reset_video_settings = settings["video_settings"]
 	
 	# Sets all video_setting values to reset values.
-	for key in video_settings.keys():
-		var array_val = video_settings [key]
+	for key in reset_video_settings.keys():
+		
+		if not reset_video_settings.has(key):
+			printerr("attempt to reset setting [", key, "] failed. reset_video_settings does not have key.")
+			continue
+		
+		var array_val = reset_video_settings [key]
 		var node_path = array_val[0]
 		var property_path = array_val[1]
 		var value = array_val[2]
-		
-		get_node(node_path).set_indexed(property_path, value)
 
-func default_single_video_setting(key_val : String) -> void:
+		attempt_set_value_or_handle_error(key, node_path, property_path, value)
+
+func default_single_video_setting(key : String) -> void:
 	var video_settings = settings["video_settings"]
 	
-	var default_array_val = default_setting["video_settings"] [key_val]
-	video_settings[key_val] = default_array_val.duplicate(true) # Is array so should duplicate.
+	if not reset_setting["video_settings"].has(key):
+		printerr("attempt to reset setting to default [", key, "] failed. default_setting does not have key.")
+		return
+	if not video_settings.has(key):
+		printerr("attempt to reset setting to default [", key, "] failed. video_settings does not have key.")
+		return
+	
+	var default_array_val = default_setting["video_settings"] [key]
+	video_settings[key] = default_array_val.duplicate(true) # Is array so should duplicate.
 	
 	var node_path = default_array_val[0]
 	var property_path = default_array_val[1]
 	var value = default_array_val[2]
 	
-	get_node(node_path).set_indexed(property_path, value)
+	attempt_set_value_or_handle_error(key, node_path, property_path, value)
 	
-	var dict_keys = [node_path, property_path]
 
-
-func reset_single_video_setting(key_val : String) -> void:
+func reset_single_video_setting(key : String) -> void:
 	var video_settings = settings["video_settings"]
 	
-	var reset_array_value = reset_setting["video_settings"] [key_val]
-	video_settings[key_val] = reset_array_value.duplicate(true)  # Is array so should duplicate.
+	if not reset_setting["video_settings"].has(key):
+		printerr("attempt to reset setting [", key, "] failed. reset_setting does not have key.")
+		return
+	if not video_settings.has(key):
+		printerr("attempt to reset setting [", key, "] failed. video_settings does not have key.")
+		return
+	
+	var reset_array_value = reset_setting["video_settings"] [key]
+	video_settings[key] = reset_array_value.duplicate(true)  # Is array so should duplicate.
 	
 	var node_path = reset_array_value[0]
 	var property_path = reset_array_value[1]
 	var value = reset_array_value[2]
 	
-	get_node(node_path).set_indexed(property_path, value)
+	attempt_set_value_or_handle_error(key, node_path, property_path, value)
+
+func attempt_set_value_or_handle_error(key : String, node_path : String, property_path : String, value) -> void:
+	var node_attempt = get_node_or_null(node_path)
+	
+	# If can't get node, print error and go to next iteration.
+	if node_attempt == null:
+		printerr("attempt to set setting [", key, "] failed. Can't get node: ", node_path)
+		return
+	
+	# If can't get property on node, print error and go to next iteration.
+	if node_attempt.get_indexed(property_path) == null:
+		printerr("attempt to set setting [", key, "] failed. Can't get property: ", property_path)
+		return
+	
+	node_attempt.set_indexed(property_path, value)
+
 
 #################################################################################
 
@@ -215,13 +242,15 @@ func save_settings() -> void:
 		printerr("Unable to save settings: ", settings_file.get_open_error())
 		return
 	
+	print ("settings before save: ", settings)
+	
 	# Convert settings Dictionary into JSON formatted String.
-	var settings_json_stringified : String = JSON.stringify(settings)
+	var settings_json_stringified : String = JSON.stringify(settings, "", false, true)
 	
 	# Store JSON String to file.
 	settings_file.store_string(settings_json_stringified)
 	
-	print ("saved to: ", settings_file.get_path_absolute())
+	print ("- saved to: ", settings_file.get_path_absolute())
 	
 	print ("saved settings: ", settings)
 	
