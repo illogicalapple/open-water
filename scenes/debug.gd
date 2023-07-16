@@ -6,6 +6,7 @@ extends CanvasLayer
 @onready var main_menu_state_label : Label = $Control/CurrentStates/MenuState
 @onready var escape_menu_state_label : Label = $Control/CurrentStates/EscapeState
 @onready var settings_menu_state_label : Label = $Control/CurrentStates/SettingsState
+@onready var character_state_label : Label = $Control/CurrentStates/CharacterState
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("disable_debug"):
@@ -45,10 +46,15 @@ func escape_menu_state_changed(state : States.EscapeMenuStates) -> void:
 
 
 func settings_menu_state_changed(state : States.SettingsMenuStates) -> void:
-	escape_menu_state_label.text = str(
+	settings_menu_state_label.text = str(
 		"settings_menu_state: " +
 		States.SettingsMenuStates.keys()[state]
 	)
 	settings_menu_state_label.visible = false if state == States.SettingsMenuStates.NONE else true
 
-
+func character_state_changed(state : States.CharacterStates) -> void:
+	character_state_label.text = str(
+		"character_state: " +
+		States.CharacterStates.keys()[state]
+	)
+	character_state_label.visible = false if state == States.SettingsMenuStates.NONE else true
