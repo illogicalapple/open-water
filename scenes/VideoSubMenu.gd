@@ -3,8 +3,16 @@ extends ScrollContainer
 @onready var fov_slider_label : Label = $VBoxContainer/FOV/HBoxVontainer/Value
 @onready var fov_slider : HSlider = $VBoxContainer/FOV/HBoxVontainer/HSlider
 
+# Storing save data with 3 values for now.
+# 1. Key for its dictionary (e.g., "FOV")
+# 2. NodePath (must be absolute)
+# 3. PropertyPath.
+# This is going to get really long...
 @onready var setting_keys : Array = [
-	[fov_slider.get_path(), "value"],
+	["FOV", 
+	fov_slider.get_path(),
+	"value",
+	],
 ]
 	
 # Called when the node enters the scene tree for the first time.
@@ -13,14 +21,13 @@ func _ready() -> void:
 
 func fov_slider_change(value: float) -> void:
 	fov_slider_label.text = str(value)
-	Settings.settings["video_settings"] [[fov_slider.get_path(), "value"]] = value
+	var save_value = [fov_slider.get_path(), "value", value]
+	Settings.settings["video_settings"] ["FOV"] = save_value
 
-func fov_to_default(_extra_arg_0: NodePath, extra_arg_1: String) -> void:
-	# Need to send absolte path. 
-	# Ideally signal sends absolute path but can't figure out how.
-	Settings.default_single_video_setting(fov_slider.get_path(), extra_arg_1)
+func set_to_default(key : String) -> void:
+	Settings.default_single_video_setting("FOV")
 
-func fov_to_reset(_extra_arg_0: NodePath, extra_arg_1: String) -> void:
-	Settings.reset_single_video_setting(fov_slider.get_path(), extra_arg_1)
+func reset(key : String) -> void:
+	Settings.reset_single_video_setting("FOV")
 
 
