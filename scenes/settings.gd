@@ -113,7 +113,6 @@ func set_all_setting_values() -> void:
 
 func set_all_video_settings() -> void:
 	var video_settings = settings["video_settings"]
-	print ("setting values from: ", video_settings)
 	
 	for key in video_settings.keys():
 		var array_val = video_settings[key]
@@ -121,7 +120,19 @@ func set_all_video_settings() -> void:
 		var property_path = array_val[1]
 		var value = array_val[2]
 		
-		get_node(node_path).set_indexed(property_path, value)
+		var node_attempt = get_node_or_null(node_path)
+		
+		# If can't get node, print error and go to next iteration.
+		if node_attempt == null:
+			printerr("attempt to set setting [", key, "] failed. Can't get node: ", node_path)
+			continue
+		
+		# If can't get property on node, print error and go to next iteration.
+		if node_attempt.get_indexed(property_path) == null:
+			printerr("attempt to set setting [", key, "] failed. Can't get property: ", property_path)
+			continue
+		
+		node_attempt.set_indexed(property_path, value)
 
 
 ## Only does video_settings for now.
