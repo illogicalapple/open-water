@@ -2,6 +2,7 @@ extends Node
 
 # First-level State:
 enum GameStates {MAIN_MENU, ESCAPE_MENU, IN_GAME, SETTINGS}
+enum CharacterStates {NOCLIP, FLY, SWIM, RUN, NORMAL}
 
 # Second-level States:
 enum MainMenuStates {NONE, CURRENT, CHOOSE_WORLDS, SETTINGS}
@@ -29,6 +30,11 @@ var settings_menu_state := SettingsMenuStates.NONE:
 	set(state):
 		settings_menu_state = state
 		Debug.settings_menu_state_changed(state)
+
+var character_state := CharacterStates.NORMAL:
+	set(state):
+		character_state = state
+		Debug.character_state_changed(state)
 
 
 func _ready() -> void:
