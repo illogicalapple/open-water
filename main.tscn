@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://main.gd" id="1_whca7"]
 [ext_resource type="Shader" path="res://main.gdshader" id="2_6w6rm"]
 [ext_resource type="PackedScene" uid="uid://d2mnnap7exmi7" path="res://scenes/gui.tscn" id="3_lgndg"]
-[ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://menu_theme.tres" id="4_q6qku"]
+[ext_resource type="Theme" path="res://menu_theme.tres" id="4_q6qku"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ntqk"]
 albedo_color = Color(0.411765, 0.313726, 0.188235, 1)
