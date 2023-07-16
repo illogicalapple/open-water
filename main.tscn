@@ -19,7 +19,7 @@ size = Vector3(400, 1, 400)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_xqpcs"]
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_aud2g"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b3lqb"]
 width = 200
 height = 200
 generate_mipmaps = false
@@ -29,7 +29,7 @@ noise = SubResource("FastNoiseLite_xqpcs")
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_inw88"]
 metadata/_preview_in_3d_space_ = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jeph3"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1poex"]
 width = 200
 height = 200
 generate_mipmaps = false
@@ -39,8 +39,8 @@ noise = SubResource("FastNoiseLite_inw88")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wawqv"]
 render_priority = 0
 shader = ExtResource("2_6w6rm")
-shader_parameter/noise1 = SubResource("NoiseTexture2D_aud2g")
-shader_parameter/noise2 = SubResource("NoiseTexture2D_jeph3")
+shader_parameter/noise1 = SubResource("NoiseTexture2D_b3lqb")
+shader_parameter/noise2 = SubResource("NoiseTexture2D_1poex")
 
 [sub_resource type="BoxMesh" id="BoxMesh_2snvr"]
 size = Vector3(400, 1, 400)
