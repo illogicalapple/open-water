@@ -57,15 +57,20 @@ func _ready() -> void:
 	
 	# Goes through all settings in video_submenu to set the default.
 	# Adds keys and and sets default values.
-	for dict_key in video_submenu.setting_keys:
-		default_setting["video_settings"] [dict_key] = get_value(dict_key[0], dict_key[1])
-		
-	
+	for key_array in video_submenu.setting_keys:
+		print ("key_array: ", key_array)
+#		"FOV", 
+#		fov_slider.get_path(),
+#		"value",
+		var key = key_array[0]
+		var node_path = key_array[1]
+		var property_path = key_array[2]
+		default_setting["video_settings"] [key] = [node_path, property_path, get_value(node_path, property_path)]
 	
 	visible = false
-	#load_settings()
+	load_settings()
 	# Temporary:
-	settings = default_setting.duplicate(true)
+	#settings = default_setting.duplicate(true)
 	
 	
 	
@@ -103,6 +108,21 @@ func exit_settings_menu() -> void:
 		#EscapeMenu.exit_sub_menu()
 		EscapeMenu.exit_settings_menu()
 
+func set_all_setting_values() -> void:
+	set_all_video_settings()
+
+func set_all_video_settings() -> void:
+	var video_settings = settings["video_settings"]
+	print ("setting values from: ", video_settings)
+	
+	for key in video_settings.keys():
+		var array_val = video_settings[key]
+		var node_path = array_val[0]
+		var property_path = array_val[1]
+		var value = array_val[2]
+		
+		get_node(node_path).set_indexed(property_path, value)
+
 
 ## Only does video_settings for now.
 func default_all_settings() -> void:
@@ -111,89 +131,59 @@ func default_all_settings() -> void:
 func reset_all_settings() -> void:
 	reset_all_video_settings()
 
-func set_all_setting_values() -> void:
-	print_debug ("loading settings is disabled for now... until its fixed")
-	#set_all_video_settings()
-
-## Currenlt broken...
-## dict_keys is a String instead of an Array...
-## JSON is not LOADING teh dictionary values properly...
-func set_all_video_settings() -> void:
-	var video_settings = settings["video_settings"]
-	
-	print ("setting values from: ", video_settings)
-	
-	for dict_keys in video_settings.keys():
-		
-		print("setting: ", dict_keys)
-		
-		print ("setting: ", [dict_keys[0], dict_keys[1]])
-		
-		var node_path = dict_keys[0]
-		var property_path = dict_keys[1]
-		
-		var value = video_settings [dict_keys] 
-		set_value(node_path, property_path, value)
-
 func default_all_video_settings() -> void:
+	settings["video_settings"] = default_setting["video_settings"].duplicate(true)
 	var video_settings = settings["video_settings"]
-	print ("setting video to default: ", video_settings)
+	
 	# Sets all video_setting values to default.
-	for dict_keys in video_settings:
-		# Gets default value from default.
-		var default_value = default_setting["video_settings"] [dict_keys]
+	for key in video_settings.keys():
+		var array_val = video_settings [key]
+		var node_path = array_val[0]
+		var property_path = array_val[1]
+		var value = array_val[2]
 		
-		## Debug stuff:
-		print ("resetting: ", dict_keys, "\n from: ", video_settings [dict_keys], "\n to: ", default_value)
-		
-		# Sets default value from default.
-		video_settings [dict_keys] = default_value
-		
-		# Set the property in game:
-		var node_path = dict_keys[0]
-		var property_path = dict_keys[1]
-		
-		set_value(node_path, property_path, default_value)
-
-func default_single_video_setting(node_path : NodePath, property_path : String) -> void:
-	var video_settings = settings["video_settings"]
-	var dict_keys = [node_path, property_path]
-	
-	print ("default property path: ", property_path)
-#	print ("using: ", dict_keys)
-#	print ("real: ", default_setting["video_settings"].keys()[0])
-	
-	
-	var default_value = default_setting["video_settings"] [dict_keys]
-	
-	video_settings [dict_keys] = default_value
-	
-	set_value(node_path, property_path, default_value)
+		get_node(node_path).set_indexed(property_path, value)
 
 func reset_all_video_settings() -> void:
 	#Duplicates the reset setting's video_settings.
 	settings["video_settings"] = reset_setting["video_settings"].duplicate(true)
-	
-	# Sets all video settings.
-	for dict_keys in settings["video_settings"].keys():
-		var reset_value = settings["video_settings"] [dict_keys]
-		
-		var node_path = dict_keys[0]
-		var property_path = dict_keys[1]
-		
-		set_value(node_path, property_path, reset_value)
-
-func reset_single_video_setting(node_path : NodePath, property_path : String) -> void:
 	var video_settings = settings["video_settings"]
+	
+	# Sets all video_setting values to reset values.
+	for key in video_settings.keys():
+		var array_val = video_settings [key]
+		var node_path = array_val[0]
+		var property_path = array_val[1]
+		var value = array_val[2]
+		
+		get_node(node_path).set_indexed(property_path, value)
+
+func default_single_video_setting(key_val : String) -> void:
+	var video_settings = settings["video_settings"]
+	
+	var default_array_val = default_setting["video_settings"] [key_val]
+	video_settings[key_val] = default_array_val.duplicate(true) # Is array so should duplicate.
+	
+	var node_path = default_array_val[0]
+	var property_path = default_array_val[1]
+	var value = default_array_val[2]
+	
+	get_node(node_path).set_indexed(property_path, value)
+	
 	var dict_keys = [node_path, property_path]
-	
-	var reset_value = reset_setting["video_settings"] [dict_keys]
-	
-	video_settings [dict_keys] = reset_value
-	
-	set_value(node_path, property_path, reset_value)
 
 
+func reset_single_video_setting(key_val : String) -> void:
+	var video_settings = settings["video_settings"]
+	
+	var reset_array_value = reset_setting["video_settings"] [key_val]
+	video_settings[key_val] = reset_array_value.duplicate(true)  # Is array so should duplicate.
+	
+	var node_path = reset_array_value[0]
+	var property_path = reset_array_value[1]
+	var value = reset_array_value[2]
+	
+	get_node(node_path).set_indexed(property_path, value)
 
 #################################################################################
 
@@ -220,12 +210,16 @@ func save_settings() -> void:
 	# Store JSON String to file.
 	settings_file.store_string(settings_json_stringified)
 	
+	print ("saved to: ", settings_file.get_path_absolute())
+	
+	print ("saved settings: ", settings)
+	
 	# Close File.
 	#settings_file.close() # Can remove this line. Closes by itself anyway.
 	
-	print ("saved to: ", settings_file.get_path_absolute())
 	
-	#print ("saved settings: ", settings)
+	
+	
 
 ## Loads file, parses its content through JSON and sets it to settings Dicrionary.
 ## Prints errors if unable to open or parse.
@@ -263,7 +257,7 @@ func load_settings() -> void:
 			printerr("Loaded settings, but unable to parse: ", parsed_settings_result)
 			return
 		
-#		# At this point, know we can parse, so can get the data and store it in out variable.
+		# At this point, know we can parse, so can get the data and store it in out variable.
 #		var json_data = json.get_data()
 #
 #		if json_data == null:
@@ -271,7 +265,10 @@ func load_settings() -> void:
 #			settings = default_setting.duplicate(true)
 #		else:
 #			settings = json.get_data()
+#			print_debug("Settings gotten form JSON data: ", settings)
+
 		settings = parsed_settings_result
+		#print ("parsed settings: ", settings)
 		set_all_setting_values()
 	else:
 		settings = default_setting.duplicate(true)
