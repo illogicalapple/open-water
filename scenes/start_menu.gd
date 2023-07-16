@@ -44,13 +44,15 @@ func exit_world_select() -> void:
 
 func exit_settings_menu() -> void:
 	States.main_menu_state = States.MainMenuStates.CURRENT
-	Settings.visible = false
+	Settings.exited()
+	
 	main_select_menu.visible = true
 	States.settings_menu_state = States.SettingsMenuStates.CURRENT
 
 func enter_settings_menu() -> void:
+	Settings.entered()
+	
 	States.main_menu_state = States.MainMenuStates.SETTINGS
 	main_select_menu.visible = false
-	Settings.visible = true
 	States.settings_menu_state = States.SettingsMenuStates.NONE
-
+	

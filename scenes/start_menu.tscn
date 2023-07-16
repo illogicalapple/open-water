@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://riiby56w7xo0"]
+[gd_scene load_steps=4 format=3 uid="uid://riiby56w7xo0"]
 
 [ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://menu_theme.tres" id="1_hy3ew"]
 [ext_resource type="Script" path="res://scenes/start_menu.gd" id="1_ir7u2"]
@@ -133,12 +133,8 @@ text = "world 7"
 layout_mode = 2
 text = "world 8"
 
-[node name="Settings" parent="." instance=ExtResource("4_t71m2")]
-
 [connection signal="pressed" from="Main Select/VBoxContainer/Start" to="." method="start_pressed"]
 [connection signal="pressed" from="Main Select/VBoxContainer/WorldSelect" to="." method="enter_world_select"]
 [connection signal="pressed" from="Main Select/VBoxContainer/Settings" to="." method="enter_settings_menu"]
 [connection signal="pressed" from="Main Select/VBoxContainer/exit_game" to="." method="exit_pressed"]
 [connection signal="pressed" from="World Select/MarginContainer2/VBoxContainer/ExitWorldSelect" to="." method="exit_world_select"]
-
-[editable path="Settings"]
