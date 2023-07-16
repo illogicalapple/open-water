@@ -1,8 +1,13 @@
 extends Node3D
 
-var multiplayer_peer = ENetMultiplayerPeer.new()
+var time: Dictionary = {
+	"hour": 7,
+	"minute": 0,
+	"am": true
+}
+var multiplayer_peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 
-@onready var menu = $Menu
+@onready var menu: VBoxContainer = $Menu
 
 func _on_join_pressed():
 	var port = str($Menu/Port.text).to_int()
@@ -25,3 +30,20 @@ func add_player_character(id=1):
 	character.name = str(id)
 	add_child(character)
 	
+
+
+func _on_time_set_timeout():
+	time.minute += 1
+	if time.minute > 59:
+		time.minute = 0
+		time.hour += 1
+		if time.hour > 11:
+			time.hour = 0
+			time.am = not time.am
+	$GUI.change_time(time)
+	rpc("change_time", time)
+
+@rpc
+func change_time(new_time):
+	$GUI.change_time(new_time)
+	time = new_time
