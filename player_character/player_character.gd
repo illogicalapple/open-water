@@ -15,11 +15,20 @@ func _ready():
 
 func _physics_process(delta):
 	if synchronizer.is_multiplayer_authority():
+		if States.character_state == States.CharacterStates.NOCLIP: $CollisionShape3D.disabled = true
+		else: $CollisionShape3D.disabled = false
+		var can_fly = (States.character_state == States.CharacterStates.FLY or States.character_state == States.CharacterStates.NOCLIP)
 		var direction = Vector3.ZERO
 		if not is_on_floor():
-			if not (States.character_state == States.CharacterStates.FLY or States.character_state == States.CharacterStates.NOCLIP):
+			if not can_fly:
 				direction.y -= 0.4
-		if is_on_floor() and Input.is_key_pressed(KEY_SPACE): direction.y +=jumpheight
+			if Input.is_action_pressed("crouch") and can_fly:
+				position.y -= 15 * delta
+		if can_fly:
+			velocity.y = 0
+			if Input.is_action_pressed("jump"): position.y += 15 * delta
+		else:
+			if is_on_floor() and Input.is_key_pressed(KEY_SPACE): direction.y +=jumpheight
 		if Input.is_key_pressed(KEY_W): direction -= global_transform.basis.z
 		elif Input.is_key_pressed(KEY_S): direction += global_transform.basis.z
 		if Input.is_key_pressed(KEY_A): direction -= global_transform.basis.x
@@ -32,6 +41,8 @@ func _physics_process(delta):
 		veloc.x=clamp(veloc.x,-speed,speed)
 		veloc.z=clamp(veloc.z,-speed,speed)
 		veloc.y=clamp(veloc.y,-speed*jumpheight,speed*jumpheight)
+		if can_fly:
+			veloc.y = 0
 		set_velocity(veloc)
 		set_up_direction(Vector3.UP)
 		move_and_slide()
