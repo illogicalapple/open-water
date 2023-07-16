@@ -37,7 +37,10 @@ theme_override_constants/margin_bottom = 10
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="ExitSettings" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ExitSettings" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
 process_mode = 3
 custom_minimum_size = Vector2(82.19, 0)
 layout_mode = 2
@@ -45,6 +48,18 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 35
 text = "<"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="Default all" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
+layout_mode = 2
+text = "default all"
+
+[node name="Reset all" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
+layout_mode = 2
+text = "reset all"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -85,14 +100,18 @@ script = ExtResource("3_888ed")
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="FOV" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer"]
+[node name="FOV" type="VBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxVontainer" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/FOV"]
 layout_mode = 2
 
-[node name="Title" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/FOV"]
+[node name="Title" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/FOV/HBoxVontainer"]
 layout_mode = 2
 text = "fov"
 
-[node name="HSlider" type="HSlider" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/FOV"]
+[node name="HSlider" type="HSlider" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/FOV/HBoxVontainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -100,9 +119,25 @@ min_value = 30.0
 max_value = 95.0
 value = 75.0
 
-[node name="Value" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/FOV"]
+[node name="Value" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/FOV/HBoxVontainer"]
 layout_mode = 2
 
-[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/ExitSettings" to="." method="exit_settings_menu"]
-[connection signal="value_changed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/FOV/HSlider" to="." method="_on_h_slider_value_changed"]
-[connection signal="value_changed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/FOV/HSlider" to="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu" method="fov_slider_change"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/FOV"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 3
+
+[node name="default" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/FOV/HBoxContainer"]
+layout_mode = 2
+text = "default"
+
+[node name="reset" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/FOV/HBoxContainer"]
+layout_mode = 2
+text = "reset"
+
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/ExitSettings" to="." method="exit_settings_menu"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/Default all" to="." method="default_all_settings"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/Reset all" to="." method="reset_all_settings"]
+[connection signal="value_changed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/FOV/HBoxVontainer/HSlider" to="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu" method="fov_slider_change"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/FOV/HBoxContainer/default" to="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu" method="fov_to_default" binds= [NodePath("../../HBoxVontainer/HSlider"), "value"]]
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/FOV/HBoxContainer/reset" to="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu" method="fov_to_reset" binds= [NodePath("../../HBoxVontainer/HSlider"), "value"]]
