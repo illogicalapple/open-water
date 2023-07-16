@@ -1,8 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://ce17c81jacq53"]
+[gd_scene load_steps=19 format=3 uid="uid://ce17c81jacq53"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_whca7"]
 [ext_resource type="Shader" path="res://main.gdshader" id="2_6w6rm"]
 [ext_resource type="PackedScene" uid="uid://d2mnnap7exmi7" path="res://scenes/gui.tscn" id="3_lgndg"]
+[ext_resource type="PackedScene" uid="uid://b0ndy6yikdj1u" path="res://assets/3D models/raft.gltf" id="4_bs8uy"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ntqk"]
 albedo_color = Color(0.411765, 0.313726, 0.188235, 1)
@@ -87,7 +88,11 @@ text = "Host"
 [node name="Floor" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.310413, -0.0586481, 0.210363)
 
+[node name="raft" parent="Floor" instance=ExtResource("4_bs8uy")]
+transform = Transform3D(18, 0, 0, 0, 18, 0, 0, 0, 18, -14.3, -1.04201, -0.210363)
+
 [node name="Floor" type="MeshInstance3D" parent="Floor"]
+visible = false
 material_override = SubResource("StandardMaterial3D_0ntqk")
 mesh = SubResource("BoxMesh_qy1k6")
 skeleton = NodePath("../..")
@@ -95,13 +100,13 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
 shape = SubResource("BoxShape3D_i6wcq")
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="Water" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.25731, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Water"]
 shape = SubResource("BoxShape3D_dvrvf")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+[node name="ff" type="MeshInstance3D" parent="Water"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58211, 0)
 material_override = SubResource("ShaderMaterial_wawqv")
 cast_shadow = 0
@@ -118,15 +123,6 @@ transform = Transform3D(38592.5, 0, 0, 0, 0.563395, 0, 0, 0, 880.673, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_j1bh7")
 cast_shadow = 0
 mesh = SubResource("BoxMesh_brgo6")
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://player_character/player_character.tscn")
-spawn_path = NodePath("..")
-
-[node name="TimeSet" type="Timer" parent="."]
-process_mode = 3
-wait_time = 2.0
-autostart = true
 
 [node name="fencing" type="Node3D" parent="."]
 
@@ -156,6 +152,15 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -32, 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="fencing/StaticBody3D4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 16)
 shape = SubResource("BoxShape3D_r3y4a")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://player_character/player_character.tscn")
+spawn_path = NodePath("..")
+
+[node name="TimeSet" type="Timer" parent="."]
+process_mode = 3
+wait_time = 2.0
+autostart = true
 
 [connection signal="pressed" from="Menu/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="Menu/Host" to="." method="_on_host_pressed"]
