@@ -82,11 +82,11 @@ func _ready() -> void:
 func entered() -> void:
 	visible = true
 	reset_setting = settings.duplicate(true)
-	print ("reset settings: ", reset_setting)
+	#print ("reset settings: ", reset_setting)
 
 # Called when exited from MainMenu and EscapeMenu
 func exited() -> void:
-	print ("exited")
+	#print ("exited")
 	visible = false
 	save_settings()
 	reset_setting = {}
@@ -123,7 +123,7 @@ func set_all_video_settings() -> void:
 		var property_path = array_val[1]
 		var value = array_val[2]
 		
-		print ("array val: ", array_val)
+		#print ("array val: ", array_val)
 		
 		attempt_set_value_or_handle_error(key, node_path, property_path, value)
 
@@ -239,12 +239,12 @@ func save_settings() -> void:
 	var settings_file := FileAccess.open(settings_file_path, FileAccess.WRITE)
 	
 	# Check if there are any errors for opening the file.
-	if settings_file.get_open_error() != Error.OK:
+	if FileAccess.get_open_error() != Error.OK:
 		# Prints error and returns.
-		printerr("Unable to save settings: ", settings_file.get_open_error())
+		printerr("Unable to save settings: ", FileAccess.get_open_error())
 		return
 	
-	print ("settings before save: ", settings)
+	#print ("settings before save: ", settings)
 	
 	# Convert settings Dictionary into JSON formatted String.
 	var settings_json_stringified : String = JSON.stringify(settings, "", false, true)
@@ -252,9 +252,9 @@ func save_settings() -> void:
 	# Store JSON String to file.
 	settings_file.store_string(settings_json_stringified)
 	
-	print ("- saved to: ", settings_file.get_path_absolute())
+	print ("saved to: ", settings_file.get_path_absolute())
 	
-	print ("saved settings: ", settings)
+	#print ("saved settings: ", settings)
 	
 	# Close File.
 	#settings_file.close() # Can remove this line. Closes by itself anyway.
@@ -273,9 +273,9 @@ func load_settings() -> void:
 		print ("loading settings from: ", settings_file.get_path_absolute())
 		
 		# Check if there are any errors for opening the file.
-		if settings_file.get_open_error() != Error.OK:
+		if FileAccess.get_open_error() != Error.OK:
 			# Prints error and returns.
-			printerr("Unable to load settings: ", settings_file.get_open_error())
+			printerr("Unable to load settings: ", FileAccess.get_open_error())
 			return
 		
 		# Get JSON String from file.
@@ -289,7 +289,7 @@ func load_settings() -> void:
 		
 		# Convert settings Dictionary into JSON formatted String.
 		# parse_string() returns errors only.
-		var parsed_settings_result = json.parse_string(settings_json_stringified)
+		var parsed_settings_result = JSON.parse_string(settings_json_stringified)
 		
 		#print_debug("parsed data: ", settings_json_stringified)
 		

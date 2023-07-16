@@ -60,3 +60,14 @@ func fov_slider_change(value: float) -> void:
 
 func mosue_sensitivity_slider_change(value: float) -> void:
 	mouse_sensitivity_label.text = str(value)
+
+# Getters:
+func get_fov() -> float:
+	return fov_slider.value
+func get_mouse_sensitivity() -> float:
+	return mouse_sensitivity_slider.value
+
+
+
+
+
