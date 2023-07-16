@@ -6,6 +6,8 @@ extends CanvasLayer
 
 @onready var video_submenu := $MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu
 
+
+
 #enum VideoSettings {FOV}
 
 func get_value(node : NodePath, property_path : NodePath):
@@ -61,22 +63,25 @@ func _ready() -> void:
 	
 	
 	visible = false
-	call_deferred("load_settings")
+	#load_settings()
+	# Temporary:
+	settings = default_setting.duplicate(true)
 	
-#	print ("Default settings: ", default_setting)
-#	print ("Loaded settings: ", settings)
-
+	
+	
+	
 # Called when entered from MainMenu and EscapeMenu
 func entered() -> void:
 	visible = true
 	reset_setting = settings.duplicate(true)
+	print ("reset settings: ", reset_setting)
 
 # Called when exited from MainMenu and EscapeMenu
 func exited() -> void:
 	print ("exited")
 	visible = false
 	save_settings()
-	reset_setting.clear()
+	reset_setting = {}
 
 func exit_settings_menu() -> void:
 	# For now, settings menu can can be either from

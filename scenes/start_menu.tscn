@@ -1,9 +1,42 @@
-[gd_scene load_steps=4 format=3 uid="uid://riiby56w7xo0"]
+[gd_scene load_steps=12 format=3 uid="uid://riiby56w7xo0"]
 
 [ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://menu_theme.tres" id="1_hy3ew"]
 [ext_resource type="Script" path="res://scenes/start_menu.gd" id="1_ir7u2"]
 [ext_resource type="Texture2D" uid="uid://1grhsng24wdx" path="res://assets/images/background.png" id="3_pqs1v"]
-[ext_resource type="PackedScene" uid="uid://bgfolw02g0rtq" path="res://scenes/settings_menu.tscn" id="4_t71m2"]
+[ext_resource type="Shader" path="res://main.gdshader" id="4_ofiyr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jefy3"]
+size = Vector3(400, 1, 400)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_mu8hq"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_aud2g"]
+width = 200
+height = 200
+generate_mipmaps = false
+seamless = true
+noise = SubResource("FastNoiseLite_mu8hq")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_npb06"]
+metadata/_preview_in_3d_space_ = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jeph3"]
+width = 200
+height = 200
+generate_mipmaps = false
+seamless = true
+noise = SubResource("FastNoiseLite_npb06")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7dayi"]
+render_priority = 0
+shader = ExtResource("4_ofiyr")
+shader_parameter/noise1 = SubResource("NoiseTexture2D_aud2g")
+shader_parameter/noise2 = SubResource("NoiseTexture2D_jeph3")
+
+[sub_resource type="BoxMesh" id="BoxMesh_3yeuv"]
+size = Vector3(400, 1, 400)
+subdivide_width = 128
+subdivide_depth = 128
 
 [node name="Main Menu" type="Control"]
 layout_mode = 3
@@ -16,6 +49,7 @@ theme = ExtResource("1_hy3ew")
 script = ExtResource("1_ir7u2")
 
 [node name="Background" type="TextureRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -132,6 +166,23 @@ text = "world 7"
 [node name="Button8" type="Button" parent="World Select/MarginContainer2/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "world 8"
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.1541, -5.25731, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_jefy3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58211, 0)
+material_override = SubResource("ShaderMaterial_7dayi")
+cast_shadow = 0
+mesh = SubResource("BoxMesh_3yeuv")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.993171, 0.116671, 0, -0.116671, 0.993171, 0, 5.21, 0)
+current = true
+fov = 60.0
 
 [connection signal="pressed" from="Main Select/VBoxContainer/Start" to="." method="start_pressed"]
 [connection signal="pressed" from="Main Select/VBoxContainer/WorldSelect" to="." method="enter_world_select"]

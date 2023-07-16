@@ -26,7 +26,7 @@ func _physics_process(_delta):
 		set_up_direction(Vector3.UP)
 		move_and_slide()
 		synchronizer.position = global_position
-		camera.fov = Settings.video_settings[Settings.VideoSettings.FOV]
+		#camera.fov = Settings.video_settings[Settings.VideoSettings.FOV]
 
 func _unhandled_input(event: InputEvent) -> void:
 	if synchronizer.is_multiplayer_authority():
