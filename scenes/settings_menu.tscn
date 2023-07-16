@@ -90,12 +90,15 @@ layout_mode = 2
 size_flags_horizontal = 0
 text = "key mapping"
 
-[node name="VideoSubMenu" type="ScrollContainer" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("fov_slider")]
+[node name="VideoSubMenu" type="ScrollContainer" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("fov_slider_label", "mouse_sensitivity_label", "fov_slider", "mouse_sensitivity_slider")]
 layout_mode = 2
 size_flags_horizontal = 3
 horizontal_scroll_mode = 0
 script = ExtResource("3_888ed")
+fov_slider_label = NodePath("VBoxContainer/FOV/HBoxVontainer/Value")
+mouse_sensitivity_label = NodePath("VBoxContainer/Mouse Sensitivity/HBoxVontainer/Value")
 fov_slider = NodePath("VBoxContainer/FOV/HBoxVontainer/FOVSlider")
+mouse_sensitivity_slider = NodePath("VBoxContainer/Mouse Sensitivity/HBoxVontainer/DPISlider")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu"]
 layout_mode = 2
@@ -136,9 +139,49 @@ text = "default"
 layout_mode = 2
 text = "reset"
 
+[node name="Mouse Sensitivity" type="VBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxVontainer" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/Mouse Sensitivity"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/Mouse Sensitivity/HBoxVontainer"]
+layout_mode = 2
+text = "sensitivity"
+
+[node name="DPISlider" type="HSlider" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/Mouse Sensitivity/HBoxVontainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = 30.0
+max_value = 95.0
+value = 75.0
+
+[node name="Value" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/Mouse Sensitivity/HBoxVontainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/Mouse Sensitivity"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 3
+
+[node name="default" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/Mouse Sensitivity/HBoxContainer"]
+layout_mode = 2
+text = "default"
+
+[node name="reset" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/Mouse Sensitivity/HBoxContainer"]
+layout_mode = 2
+text = "reset"
+
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/ExitSettings" to="." method="exit_settings_menu"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/Default all" to="." method="default_all_settings"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/Reset all" to="." method="reset_all_settings"]
 [connection signal="value_changed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/FOV/HBoxVontainer/FOVSlider" to="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu" method="fov_slider_change"]
+[connection signal="value_changed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/FOV/HBoxVontainer/FOVSlider" to="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu" method="slider_change" binds= ["FOV"]]
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/FOV/HBoxContainer/default" to="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu" method="set_to_default" binds= ["FOV"]]
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/FOV/HBoxContainer/reset" to="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu" method="reset" binds= ["FOV"]]
+[connection signal="value_changed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/Mouse Sensitivity/HBoxVontainer/DPISlider" to="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu" method="mosue_sensitivity_slider_change"]
+[connection signal="value_changed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/Mouse Sensitivity/HBoxVontainer/DPISlider" to="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu" method="slider_change" binds= ["MOUSE_SENSITIVITY"]]
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/Mouse Sensitivity/HBoxContainer/default" to="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu" method="set_to_default" binds= ["MOUSE_SENSITIVITY"]]
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu/VBoxContainer/Mouse Sensitivity/HBoxContainer/reset" to="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu" method="reset" binds= ["MOUSE_SENSITIVITY"]]
