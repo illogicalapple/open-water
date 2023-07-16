@@ -1,23 +1,26 @@
 extends Control
 
+## Works with the States autoload to manage the current state of the MainMenu.
+
 @onready var world_select_menu := $"World Select"
 @onready var main_select_menu := $"Main Select"
-@onready var settings_menu := $Settings
 
 var main_scene : PackedScene = preload("res://main.tscn")
 
 ## Listens for escape button and exits any sub-menus if pressed.
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("esc") and States.in_main_menu():
+	if event.is_action_pressed("esc"):
 		exit_sub_menu()
 
-
+## If can't call the appropriate exit sub menu function or just too lazy,
+## can simply call this instead, which will exit the current sub menu.
 func exit_sub_menu() -> void:
-	match States.main_menu_state:
-		States.MainMenuStates.CHOOSE_WORLDS:
-			exit_world_select()
-		States.MainMenuStates.SETTINGS:
-			exit_settings_menu()
+	if States.in_main_menu():
+		match States.main_menu_state:
+			States.MainMenuStates.CHOOSE_WORLDS:
+				exit_world_select()
+			States.MainMenuStates.SETTINGS:
+				exit_settings_menu()
 
 ## Begins the game.
 func start_pressed() -> void:
@@ -34,11 +37,6 @@ func enter_world_select() -> void:
 	world_select_menu.visible = true
 	States.main_menu_state = States.MainMenuStates.CHOOSE_WORLDS
 
-func enter_settings_menu() -> void:
-	States.main_menu_state = States.MainMenuStates.SETTINGS
-	main_select_menu.visible = false
-	settings_menu.visible = true
-
 func exit_world_select() -> void:
 	States.main_menu_state = States.MainMenuStates.CURRENT
 	world_select_menu.visible = false
@@ -46,8 +44,15 @@ func exit_world_select() -> void:
 
 func exit_settings_menu() -> void:
 	States.main_menu_state = States.MainMenuStates.CURRENT
-	settings_menu.visible = false
+	Settings.exited()
+	
 	main_select_menu.visible = true
+	States.settings_menu_state = States.SettingsMenuStates.CURRENT
 
-
-
+func enter_settings_menu() -> void:
+	Settings.entered()
+	
+	States.main_menu_state = States.MainMenuStates.SETTINGS
+	main_select_menu.visible = false
+	States.settings_menu_state = States.SettingsMenuStates.NONE
+	
