@@ -76,6 +76,8 @@ func _ready() -> void:
 			settings["video_settings"] [key] = default_setting["video_settings"] [key].duplicate(true) #array so should duplicate.
 			print_rich("[color=green]New Setting registed: [b]" , key , "[/b][/color]")
 	
+	set_all_setting_values()
+	
 # Called when entered from MainMenu and EscapeMenu
 func entered() -> void:
 	visible = true
@@ -309,7 +311,6 @@ func load_settings() -> void:
 
 		settings = parsed_settings_result
 		#print ("parsed settings: ", settings)
-		set_all_setting_values()
 	else:
 		settings = default_setting.duplicate(true)
 		
