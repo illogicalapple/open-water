@@ -5,3 +5,4 @@
 [resource]
 default_font = ExtResource("1_tj0if")
 default_font_size = 50
+LineEdit/font_sizes/font_size = 16
