@@ -6,6 +6,8 @@ extends CanvasLayer
 
 @onready var video_submenu := $MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu
 
+
+
 #enum VideoSettings {FOV}
 
 func get_value(node : NodePath, property_path : NodePath):
@@ -61,7 +63,7 @@ func _ready() -> void:
 	
 	
 	visible = false
-	call_deferred("load_settings")
+	#load_settings()
 	
 #	print ("Default settings: ", default_setting)
 #	print ("Loaded settings: ", settings)
