@@ -7,6 +7,7 @@ var jumpheight=30
 @onready var camera = $Camera3D
 @onready var synchronizer = $MultiplayerSynchronizer
 
+
 func _ready():
 	States.set_to_in_game()
 	synchronizer.set_multiplayer_authority(str(name).to_int())
@@ -49,6 +50,7 @@ func _physics_process(delta):
 		synchronizer.position = global_position
 		
 		camera.fov = Settings.video_submenu.get_fov()
+		$Camera3D/thirdperson.fov = Settings.video_submenu.get_fov()
 		#camera.fov = Settings.video_settings[Settings.VideoSettings.FOV]
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -61,6 +63,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			rotate_y(-deg_to_rad(event.relative.x) * mouse_sensitivity)
 			synchronizer.y_rotation = rotation.y
 			camera.rotate_x(-deg_to_rad(event.relative.y) * mouse_sensitivity)
+	
 	if Input.is_action_just_pressed("perspective_change"):
 		$Camera3D.current=!$Camera3D.current
 		$Camera3D/thirdperson.current=!$Camera3D.current
