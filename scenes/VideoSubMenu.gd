@@ -1,7 +1,8 @@
 extends ScrollContainer
 
 @onready var fov_slider_label : Label = $VBoxContainer/FOV/HBoxVontainer/Value
-@onready var fov_slider : HSlider = $VBoxContainer/FOV/HBoxVontainer/HSlider
+
+@export var fov_slider : HSlider
 
 # Storing save data with 3 values for now.
 # 1. Key for its dictionary (e.g., "FOV")
