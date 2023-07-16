@@ -18,7 +18,6 @@ func _ready() -> void:
 ## Also exits escape menu is not in sub menu.
 ## If not in escape menu, will enter escape menu.
 func _unhandled_input(event: InputEvent) -> void:
-	print ("escape")
 	if event.is_action_pressed("esc"):
 		match States.game_state:
 			States.GameStates.ESCAPE_MENU:
@@ -66,15 +65,16 @@ func exit_pressed() -> void:
 	get_tree().quit()
 
 func enter_settings_menu() -> void:
-	Settings.visible = true
-	#main_select_menu.visible = false
+	Settings.entered()
+	
 	visible = false
 	States.escape_menu_state = States.EscapeMenuStates.SETTINGS
 	States.settings_menu_state = States.SettingsMenuStates.CURRENT
 
 func exit_settings_menu() -> void:
+	Settings.exited()
+	
 	Settings.visible = false
-	#main_select_menu.visible = true
 	visible = true
 	States.escape_menu_state = States.EscapeMenuStates.CURRENT
 	States.settings_menu_state = States.SettingsMenuStates.NONE
