@@ -16,7 +16,9 @@ func _ready():
 func _physics_process(delta):
 	if synchronizer.is_multiplayer_authority():
 		var direction = Vector3.ZERO
-		if not is_on_floor(): direction.y -= 0.4
+		if not is_on_floor():
+			if not (States.character_state == States.CharacterStates.FLY or States.character_state == States.CharacterStates.NOCLIP):
+				direction.y -= 0.4
 		if is_on_floor() and Input.is_key_pressed(KEY_SPACE): direction.y +=jumpheight
 		if Input.is_key_pressed(KEY_W): direction -= global_transform.basis.z
 		elif Input.is_key_pressed(KEY_S): direction += global_transform.basis.z
