@@ -57,4 +57,4 @@ func character_state_changed(state : States.CharacterStates) -> void:
 		"character_state: " +
 		States.CharacterStates.keys()[state]
 	)
-	character_state_label.visible = false if state == States.SettingsMenuStates.NONE else true
+	character_state_label.visible = false if state == States.CharacterStates.NORMAL else true
