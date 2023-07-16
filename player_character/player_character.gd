@@ -2,7 +2,8 @@ extends CharacterBody3D
 
 var speed = 10
 var mouse_sensitivity = 0.5
-
+var veloc=Vector3(0,0,0)
+var jumpheight=30
 @onready var camera = $Camera3D
 @onready var synchronizer = $MultiplayerSynchronizer
 
@@ -12,17 +13,24 @@ func _ready():
 	camera.current = synchronizer.is_multiplayer_authority()
 	if synchronizer.is_multiplayer_authority(): Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	if synchronizer.is_multiplayer_authority():
 		var direction = Vector3.ZERO
 		if not is_on_floor(): direction.y -= 0.4
-		if is_on_floor() and Input.is_key_pressed(KEY_SPACE): direction.y += 10
+		if is_on_floor() and Input.is_key_pressed(KEY_SPACE): direction.y +=jumpheight
 		if Input.is_key_pressed(KEY_W): direction -= global_transform.basis.z
 		elif Input.is_key_pressed(KEY_S): direction += global_transform.basis.z
 		if Input.is_key_pressed(KEY_A): direction -= global_transform.basis.x
 		elif Input.is_key_pressed(KEY_D): direction += global_transform.basis.x
-		direction = (direction*speed)
-		set_velocity(direction)
+		veloc += (direction*speed)*delta*4
+		if direction.x==0 and direction.z==0:
+			var vel=veloc.normalized()
+			vel.y=0
+			veloc-=vel*speed*delta*4
+		veloc.x=clamp(veloc.x,-speed,speed)
+		veloc.z=clamp(veloc.z,-speed,speed)
+		veloc.y=clamp(veloc.y,-speed*jumpheight,speed*jumpheight)
+		set_velocity(veloc)
 		set_up_direction(Vector3.UP)
 		move_and_slide()
 		synchronizer.position = global_position
