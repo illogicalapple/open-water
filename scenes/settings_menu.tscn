@@ -46,6 +46,7 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 
 [node name="GlobalButtons" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(984, 61)
 layout_mode = 2
 
 [node name="ExitSettings" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/GlobalButtons"]

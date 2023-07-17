@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://bh0qaoarf0pas"]
+[gd_scene load_steps=3 format=3 uid="uid://bh0qaoarf0pas"]
 
+[ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://menu_theme.tres" id="1_pul57"]
 [ext_resource type="Script" path="res://scenes/controls_sub_menu.gd" id="1_rb8xs"]
 
 [node name="ControlsSubMenu" type="VBoxContainer" node_paths=PackedStringArray("mouse_sensitivity_slider", "mouse_sensitivity_label", "default_all", "default_mouse_sensitivity", "reset_all", "reset_mouse_sensitivity")]
@@ -9,6 +10,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
+theme = ExtResource("1_pul57")
 script = ExtResource("1_rb8xs")
 mouse_sensitivity_slider = NodePath("ControlsSettings/VBoxContainer/Mouse Sensitivity/HBoxVontainer/DPISlider")
 mouse_sensitivity_label = NodePath("ControlsSettings/VBoxContainer/Mouse Sensitivity/HBoxVontainer/Value")
@@ -18,6 +20,7 @@ reset_all = NodePath("SubMenu Local Buttons/Reset submenu")
 reset_mouse_sensitivity = NodePath("ControlsSettings/VBoxContainer/Mouse Sensitivity/HBoxContainer/reset")
 
 [node name="SubMenu Local Buttons" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(770, 61)
 layout_mode = 2
 size_flags_horizontal = 8
 
