@@ -4,11 +4,82 @@ extends CanvasLayer
 ## Currentlt also saves/loads settings variables. 
 ## May put loading/saving into another class instead in the future.
 
+signal settings_loaded
+
+@export var default_button : Button
+@export var reset_button : Button
+
 @export var submenu_selector : Node
 
 @export var video_submenu : VideoSubMenu
 #@export var keymap_submenu : KeyMapSubMenu
 @export var controls_submenu : ControlsSubMenu
+
+# Holds REFERENCES/POINTERS to dictionaries. Not copies. 
+@onready var submenu_default_property_changes : Array[Dictionary] = [
+	video_submenu.default_property_changes,
+	controls_submenu.default_property_changes,
+]
+# Holds REFERENCES/POINTERS to dictionaries. Not copies. 
+@onready var submenu_reset_property_changes : Array[Dictionary] = [
+	video_submenu.revert_property_changes,
+	controls_submenu.revert_property_changes,
+]
+
+# Later: change function so doesn't need to repeat code for default and reset
+func set_default_and_reset_button_visibility() -> void:
+	var submenu_default_property_changes : Array[Dictionary] = [
+		video_submenu.default_property_changes,
+		controls_submenu.default_property_changes,
+	]
+	# Holds REFERENCES/POINTERS to dictionaries. Not copies. 
+	var submenu_reset_property_changes : Array[Dictionary] = [
+		video_submenu.revert_property_changes,
+		controls_submenu.revert_property_changes,
+	]
+	
+	# Checks for default
+	# If all default_property_changes dictionaries in submenus are empty.
+	# Set to invisible. Else visible.
+	
+	# Check if any dictionary is NOT empty:
+	if (
+		submenu_default_property_changes.any(
+		func (dict : Dictionary):
+			if not dict.is_empty():
+				print ("not empty dict: ", dict) 
+				return true
+			else:
+				print ("all defaults are empty")
+				return false
+	)):
+		# something is not empty. Keep global default button visible.
+		default_button.visible = true
+	else:
+		#print ("all defaults are empty?")
+		default_button.visible = false
+	
+	# Checks for reset
+	# If all revert_property_changes dictionaries in submenus are empty.
+	# Set to invisible. Else visible. 
+	
+	# Check if any dictionary is NOT empty:
+	if (
+		submenu_reset_property_changes.any(
+		func (dict : Dictionary) : 
+			if not dict.is_empty():
+				return true
+			else:
+				return false
+	)):
+		# something is not empty. Keep global reset button visible.
+		reset_button.visible = true
+	else:
+		reset_button.visible = false
+
+
+
+
 
 #enum VideoSettings {FOV}
 
@@ -23,10 +94,14 @@ var default_setting : Dictionary
 
 ## Stores all settings from below.
 ## Is the variant that is serialized into settings.json.
-var settings : Dictionary = {
-	"video_settings" : {},
+@onready var settings : Dictionary = {
+	"video_settings" : {
+		"default_property_changes": video_submenu.default_property_changes
+	},
 	"audio_settings" : {},
-	"controls_settings": {},
+	"controls_settings": {
+		"default_property_changes": controls_submenu.default_property_changes
+	},
 }
 
 ## Set when settings menu is entered. Cleared when settings menu exits
@@ -36,6 +111,7 @@ var reset_setting : Dictionary
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	visible = false
+	reset_button.visible = false
 	
 	load_and_set()
 
@@ -43,14 +119,11 @@ func _ready() -> void:
 func load_and_set(regenerate_default : bool = true) -> void:
 	# Create default_settings: empty dictionaries.
 	if regenerate_default:
-		default_setting = {
-			"video_settings" : {},
-			"audio_settings" : {},
-			"controls_settings": {},
-		}
+		default_setting = settings.duplicate(true)
 	
 	# Load settings.
 	load_settings()
+	
 	
 	# Goes through all settings in sub_menus to set the default.
 	if regenerate_default:
@@ -64,7 +137,7 @@ func load_and_set(regenerate_default : bool = true) -> void:
 	
 	set_all_setting_values()
 	#print ("loaded settings: ", default_setting)
-
+	settings_loaded.emit()
 
 # Check to see if settings does NOT have any values in default.
 # If this is the case a new setting has been added and MUST be duplicated into settings.
@@ -144,13 +217,21 @@ func entered() -> void:
 	reset_setting = settings.duplicate(true)
 	#print ("\nreset settings: ", reset_setting)
 	States.settings_menu_state = submenu_selector.current_state
+	
+	submenu_selector.pick_current_state()
 
 # Called when exited from MainMenu and EscapeMenu
 func exited() -> void:
 	#print ("exited")
 	visible = false
 	save_settings()
-	reset_setting = {}
+	
+	# Clear all reset settings:
+	reset_setting.clear()
+	reset_button.visible = false
+	for dict in submenu_reset_property_changes:
+		dict.clear()
+	
 
 func exit_settings_menu() -> void:
 	# For now, settings menu can can be either from
@@ -177,6 +258,7 @@ func set_all_setting_values() -> void:
 		var specific_settings = settings[setting_key] # iterates over "video_settings" and "controls_settings", etc.
 		
 		for key in specific_settings.keys(): # e.g., all keys in settings["video_settings"]
+			if key == "default_property_changes": continue
 			var array_val = specific_settings[key]
 			var node_path = array_val[0]
 			var property_path = array_val[1]
@@ -201,6 +283,7 @@ func default_specific_setting(setting_key : String) -> void:
 
 	# Sets all values to default.
 	for key in default_specific_settings.keys():
+		if key == "default_property_changes": continue
 		if not default_specific_settings.has(key):
 			printerr("attempt to reset setting [", key, "] failed. default settings of", setting_key , " does not have key.")
 			continue
@@ -231,7 +314,7 @@ func reset_specific_setting(setting_key : String) -> void:
 	
 	# Sets all values to reset values.
 	for key in reset_specific_settings.keys():
-		
+		if key == "default_property_changes": continue
 		if not reset_specific_settings.has(key):
 			printerr("attempt to reset setting [", key, "] failed. reset settings of", setting_key , " does not have key.")
 			continue
@@ -405,6 +488,21 @@ func load_settings() -> void:
 #			print_debug("Settings gotten form JSON data: ", settings)
 
 		settings = parsed_settings_result
+		
+		#settings_loaded.emit()
+		
+		# load all default_property_changes in each submenu
+		for setting_key in settings.keys():
+			var submenu = get_submenu_from_settings_key_or_null(setting_key)
+			
+			if not settings[setting_key].has("default_property_changes"):
+				# temporarily commenting out!
+				#printerr(setting_key , ": does not have default_property_changes! Please regenerate settings.JSON")
+				return
+			
+			submenu.default_property_changes = settings[setting_key]["default_property_changes"]
+		
+		
 		#print ("parsed settings: ", settings)
 	else:
 		settings = default_setting.duplicate(true)

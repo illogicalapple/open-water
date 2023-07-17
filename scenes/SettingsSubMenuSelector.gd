@@ -7,6 +7,10 @@ extends ScrollContainer
 @export var key_map_submenu : ControlsSubMenu
 
 func _ready() -> void:
+	pass
+
+# Called when settings is entered.
+func pick_current_state() -> void:
 	match current_state:
 		States.SettingsMenuStates.CONTROLS:
 			_on_controls_pressed()
