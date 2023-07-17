@@ -34,23 +34,27 @@ var reset_setting : Dictionary
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print (get_setting_key_from_submenu_or_null(video_submenu))
-	
 	visible = false
 	
+	load_and_set()
+
+
+func load_and_set(regenerate_default : bool = true) -> void:
 	# Create default_settings: empty dictionaries.
-	default_setting = {
-		"video_settings" : {},
-		"audio_settings" : {},
-		"key_map_settings": {},
-	}
+	if regenerate_default:
+		default_setting = {
+			"video_settings" : {},
+			"audio_settings" : {},
+			"key_map_settings": {},
+		}
 	
 	# Load settings.
 	load_settings()
 	
 	# Goes through all settings in sub_menus to set the default.
-	for setting_key in default_setting.keys():
-		set_default_settings_from_submenu(setting_key)
+	if regenerate_default:
+		for setting_key in default_setting.keys():
+			set_default_settings_from_submenu(setting_key)
 	
 	#print ("default settings: ", default_setting)
 	
@@ -59,6 +63,7 @@ func _ready() -> void:
 	
 	set_all_setting_values()
 	#print ("loaded settings: ", default_setting)
+
 
 # Check to see if settings does NOT have any values in default.
 # If this is the case a new setting has been added and MUST be duplicated into settings.
@@ -92,9 +97,10 @@ func get_submenu_from_settings_key_or_null(settings_key : String):
 			return video_submenu
 		"key_map_settings":
 			return keymap_submenu
+		"audio_settings":
+			return null
 		_:
 			printerr("attempt to load default settings from unknown submenu: ", settings_key)
-			printerr ("above error is intended behaviour if it is audio_settings.")
 			return null
 
 func get_setting_key_from_submenu_or_null(submenu : Node):
