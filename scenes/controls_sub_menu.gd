@@ -1,5 +1,5 @@
 extends ScrollContainer
-class_name KeyMapSubMenu # Giving class name cus want auto-complete.
+class_name ControlsSubMenu # Giving class name cus want auto-complete.
 
 #@export_group("Labels")
 # Using category instead of group because don't want to expand group every time.
@@ -27,11 +27,11 @@ func _ready() -> void:
 
 #@warning_ignore("native_method_override")
 #func get_class():
-#	return "KeyMapSubMenu"
+#	return "ControlsSubMenu"
 #
 #@warning_ignore("native_method_override")
 #func is_class(value):
-#	return value == "KeyMapSubMenu"
+#	return value == "ControlsSubMenu"
 
 # Saves any settings from any slider:
 func slider_change(value: float, key : String) -> void:
