@@ -6,6 +6,17 @@ extends ScrollContainer
 @export var video_submenu : VideoSubMenu
 @export var key_map_submenu : ControlsSubMenu
 
+func _ready() -> void:
+	match current_state:
+		States.SettingsMenuStates.CONTROLS:
+			_on_controls_pressed()
+		States.SettingsMenuStates.VIDEO:
+			_on_video_pressed()
+		_:
+			# If anything else is selected just go to another menu.
+			current_state = States.SettingsMenuStates.CONTROLS
+			_on_controls_pressed()
+
 func _on_video_pressed() -> void:
 	current_state = States.SettingsMenuStates.VIDEO
 	States.settings_menu_state = current_state
