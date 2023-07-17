@@ -44,15 +44,16 @@ func _ready() -> void:
 	settings_menu_state = SettingsMenuStates.NONE
 	character_state = CharacterStates.NORMAL
 
-## Useful for when debugging and loading straigth into an in-game scene.
+## Useful for when debugging and loading straight into an in-game scene.
 ## Should be called on the ready functions of any non-menu scenes.
 func set_to_in_game() -> void:
 	game_state = GameStates.IN_GAME
 	escape_menu_state = EscapeMenuStates.NONE
 	main_menu_state = MainMenuStates.NONE
 	settings_menu_state = SettingsMenuStates.NONE
+	character_state = CharacterStates.NORMAL
 
-## Sets to previous state or prints errors if not previous state is available.
+## Sets to previous state or prints errors if no previous state is available.
 func set_to_previous_menu() -> void:
 	# Should check First Level State first, then Second Level, then Third-level, etc.
 	
@@ -76,17 +77,6 @@ func set_to_previous_menu() -> void:
 						"set_to_previous_menu(): but there is no previous menu: MainMenuStates: ",
 						state_str(MainMenuStates, MainMenuStates.CURRENT)
 						)
-
-
-## First-level State:
-#enum GameStates {MAIN_MENU, ESCAPE_MENU, IN_GAME, SETTINGS}
-#
-## Second-level States:
-#enum MainMenuStates {NONE, CURRENT, CHOOSE_WORLDS, SETTINGS}
-#enum EscapeMenuStates {NONE, CURRENT, SETTINGS}
-#
-## Third-level States: 
-#enum SettingsMenuStates {NONE, CURRENT, VIDEO, AUDIO, KEY_MAPPING}
 
 
 ## Returns the enum value as String.

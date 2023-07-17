@@ -1,0 +1,30 @@
+extends ScrollContainer
+
+# Hides/Shows the correct sub menus.
+@export var current_state := States.SettingsMenuStates.KEY_MAPPING
+
+@export var video_submenu : VideoSubMenu
+@export var key_map_submenu : KeyMapSubMenu
+
+func _on_video_pressed() -> void:
+	current_state = States.SettingsMenuStates.VIDEO
+	States.settings_menu_state = current_state
+	video_submenu.show()
+	key_map_submenu.hide()
+	
+
+func _on_key_mapping_pressed() -> void:
+	current_state = States.SettingsMenuStates.KEY_MAPPING
+	States.settings_menu_state = current_state
+	key_map_submenu.show()
+	video_submenu.hide()
+	
+
+func _on_sounds_pressed() -> void:
+	print ("no sound submenu yet.")
+
+
+func _on_controls_pressed() -> void:
+	print ("no sound controls yet.")
+
+
