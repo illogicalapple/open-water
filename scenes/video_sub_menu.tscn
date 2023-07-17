@@ -56,5 +56,5 @@ text = "reset"
 
 [connection signal="value_changed" from="VBoxContainer/FOV/HBoxVontainer/FOVSlider" to="." method="fov_slider_change"]
 [connection signal="value_changed" from="VBoxContainer/FOV/HBoxVontainer/FOVSlider" to="." method="slider_change" binds= ["FOV"]]
-[connection signal="pressed" from="VBoxContainer/FOV/HBoxContainer/default" to="." method="set_to_default"]
-[connection signal="pressed" from="VBoxContainer/FOV/HBoxContainer/reset" to="." method="reset"]
+[connection signal="pressed" from="VBoxContainer/FOV/HBoxContainer/default" to="." method="set_to_default" binds= ["FOV"]]
+[connection signal="pressed" from="VBoxContainer/FOV/HBoxContainer/reset" to="." method="reset" binds= ["FOV"]]
