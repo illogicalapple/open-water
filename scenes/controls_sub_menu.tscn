@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://menu_theme.tres" id="1_pul57"]
 [ext_resource type="Script" path="res://scenes/controls_sub_menu.gd" id="1_rb8xs"]
 
-[node name="ControlsSubMenu" type="VBoxContainer" node_paths=PackedStringArray("mouse_sensitivity_slider", "mouse_sensitivity_label", "default_all", "default_mouse_sensitivity", "reset_all", "reset_mouse_sensitivity")]
+[node name="ControlsSubMenu" type="VBoxContainer" node_paths=PackedStringArray("mouse_sensitivity_slider", "mouse_sensitivity_label", "default_mouse_sensitivity", "reset_mouse_sensitivity", "default_submenu_button", "reset_submenu_button")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -14,10 +14,10 @@ theme = ExtResource("1_pul57")
 script = ExtResource("1_rb8xs")
 mouse_sensitivity_slider = NodePath("ControlsSettings/VBoxContainer/Mouse Sensitivity/HBoxVontainer/DPISlider")
 mouse_sensitivity_label = NodePath("ControlsSettings/VBoxContainer/Mouse Sensitivity/HBoxVontainer/Value")
-default_all = NodePath("SubMenu Local Buttons/Default submenu")
 default_mouse_sensitivity = NodePath("ControlsSettings/VBoxContainer/Mouse Sensitivity/HBoxContainer/default")
-reset_all = NodePath("SubMenu Local Buttons/Reset submenu")
 reset_mouse_sensitivity = NodePath("ControlsSettings/VBoxContainer/Mouse Sensitivity/HBoxContainer/reset")
+default_submenu_button = NodePath("SubMenu Local Buttons/Default submenu")
+reset_submenu_button = NodePath("SubMenu Local Buttons/Reset submenu")
 
 [node name="SubMenu Local Buttons" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(770, 61)
