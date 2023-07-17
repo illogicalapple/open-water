@@ -71,6 +71,8 @@ text = "default"
 layout_mode = 2
 text = "reset"
 
+[connection signal="pressed" from="SubMenu Local Buttons/Default submenu" to="." method="_on_default_submenu_pressed"]
+[connection signal="pressed" from="SubMenu Local Buttons/Reset submenu" to="." method="_on_reset_submenu_pressed"]
 [connection signal="value_changed" from="ControlsSettings/VBoxContainer/Mouse Sensitivity/HBoxVontainer/DPISlider" to="." method="mouse_sensitivity_slider_change"]
 [connection signal="value_changed" from="ControlsSettings/VBoxContainer/Mouse Sensitivity/HBoxVontainer/DPISlider" to="." method="slider_change" binds= ["MOUSE_SENSITIVITY"]]
 [connection signal="pressed" from="ControlsSettings/VBoxContainer/Mouse Sensitivity/HBoxContainer/default" to="." method="set_to_default" binds= ["MOUSE_SENSITIVITY"]]
