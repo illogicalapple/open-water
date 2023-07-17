@@ -1,9 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://ce17c81jacq53"]
+[gd_scene load_steps=18 format=3 uid="uid://ce17c81jacq53"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_whca7"]
 [ext_resource type="Shader" path="res://main.gdshader" id="2_6w6rm"]
 [ext_resource type="PackedScene" uid="uid://d2mnnap7exmi7" path="res://scenes/gui.tscn" id="3_lgndg"]
 [ext_resource type="PackedScene" uid="uid://b0ndy6yikdj1u" path="res://assets/3D models/raft.gltf" id="4_bs8uy"]
+[ext_resource type="Script" path="res://infinitewater.gd" id="4_g5v78"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i6wcq"]
 size = Vector3(9, 0.5, 10)
@@ -33,6 +34,7 @@ noise = SubResource("FastNoiseLite_inw88")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wawqv"]
 render_priority = 0
 shader = ExtResource("2_6w6rm")
+shader_parameter/offset = null
 shader_parameter/noise1 = SubResource("NoiseTexture2D_b3lqb")
 shader_parameter/noise2 = SubResource("NoiseTexture2D_1poex")
 
@@ -92,6 +94,7 @@ shape = SubResource("BoxShape3D_i6wcq")
 
 [node name="Water" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.25731, 0)
+script = ExtResource("4_g5v78")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Water"]
 shape = SubResource("BoxShape3D_dvrvf")
