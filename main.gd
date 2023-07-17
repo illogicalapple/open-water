@@ -23,6 +23,7 @@ func _on_host_pressed():
 	multiplayer_peer.peer_connected.connect(func(id): add_player_character(id))
 	menu.visible = false
 	add_player_character()
+	$TimeSet.start()
 
 
 func add_player_character(id=1):

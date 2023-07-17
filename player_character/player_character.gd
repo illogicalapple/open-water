@@ -3,7 +3,7 @@ extends CharacterBody3D
 var speed = 5
 #var mouse_sensitivity = 0.5
 var veloc=Vector3(0,0,0)
-var jumpheight=15
+var jumpheight=20
 @onready var camera = $Camera3D
 @onready var synchronizer = $MultiplayerSynchronizer
 
