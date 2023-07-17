@@ -90,11 +90,11 @@ text = "default"
 layout_mode = 2
 text = "reset"
 
-[connection signal="value_changed" from="VBoxContainer/FOV/HBoxVontainer/FOVSlider" to="." method="slider_change"]
 [connection signal="value_changed" from="VBoxContainer/FOV/HBoxVontainer/FOVSlider" to="." method="fov_slider_change"]
+[connection signal="value_changed" from="VBoxContainer/FOV/HBoxVontainer/FOVSlider" to="." method="slider_change" binds= ["FOV"]]
 [connection signal="pressed" from="VBoxContainer/FOV/HBoxContainer/default" to="." method="set_to_default"]
 [connection signal="pressed" from="VBoxContainer/FOV/HBoxContainer/reset" to="." method="reset"]
-[connection signal="value_changed" from="VBoxContainer/Mouse Sensitivity/HBoxVontainer/DPISlider" to="." method="slider_change"]
 [connection signal="value_changed" from="VBoxContainer/Mouse Sensitivity/HBoxVontainer/DPISlider" to="." method="mosue_sensitivity_slider_change"]
+[connection signal="value_changed" from="VBoxContainer/Mouse Sensitivity/HBoxVontainer/DPISlider" to="." method="slider_change"]
 [connection signal="pressed" from="VBoxContainer/Mouse Sensitivity/HBoxContainer/default" to="." method="set_to_default"]
 [connection signal="pressed" from="VBoxContainer/Mouse Sensitivity/HBoxContainer/reset" to="." method="reset"]

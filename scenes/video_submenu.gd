@@ -26,6 +26,15 @@ class_name VideoSubMenu # Giving class name cus want auto-complete.
 func _ready() -> void:
 	fov_slider_label.text = str(fov_slider.value)
 
+#@warning_ignore("native_method_override")
+#func get_class():
+#	return "VideoSubMenu"
+#
+#@warning_ignore("native_method_override")
+#func is_class(value):
+#	return value == "VideoSubMenu"
+
+
 # Saves any settings from any slider:
 func slider_change(value: float, key : String) -> void:
 	var key_array = key_paths[key]
@@ -33,15 +42,20 @@ func slider_change(value: float, key : String) -> void:
 	var property_path = key_array[1]
 	
 	var save_value = [node_path, property_path, value]
-	Settings.settings["video_settings"] [key] = save_value
+	
+	var settings_key = Settings.get_setting_key_from_submenu_or_null(self) # Will be "video_settings" or "key_map_setting", etc.
+	if settings_key == null:
+		printerr("cannot save setting")
+		return
+	Settings.settings[settings_key] [key] = save_value
 
 # For any setting:
 func set_to_default(key : String) -> void:
-	Settings.default_single_video_setting(key)
+	Settings.default_single_setting(key, self)
 
 # For any setting:
 func reset(key : String) -> void:
-	Settings.reset_single_video_setting(key)
+	Settings.reset_single_setting(key, self)
 
 # For specific settings:
 func fov_slider_change(value: float) -> void:
