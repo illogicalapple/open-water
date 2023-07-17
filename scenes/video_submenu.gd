@@ -11,7 +11,7 @@ func set_buttons_visibility(value: float, key : String) -> void:
 	var default_value = get_default_value_of_property_key(key)
 	
 	if value == default_value:
-		print ("vale is default")
+		#print ("vale is default")
 		# Remove default button's visibility, value is already default.
 		default_property_changes.erase(key) # it's fine to call erase even if it doesn't have key.
 		
@@ -22,10 +22,10 @@ func set_buttons_visibility(value: float, key : String) -> void:
 		if default_property_changes.is_empty():
 			default_all.visible = false
 	else:	
-		print ("value is not default")
+		#print ("value is not default")
 		default_property_changes[key] = null # create a key inside. Needs a value (but it is arbitrary, use smallest),
 		
-		print ("created default key: ", default_property_changes)
+		#print ("created default key: ", default_property_changes)
 		
 		# Show the property default button:
 		default_button.visible = true

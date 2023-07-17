@@ -47,10 +47,10 @@ func set_default_and_reset_button_visibility() -> void:
 		submenu_default_property_changes.any(
 		func (dict : Dictionary):
 			if not dict.is_empty():
-				print ("not empty dict: ", dict) 
+				#print ("not empty dict: ", dict) 
 				return true
 			else:
-				print ("all defaults are empty")
+				#print ("all defaults are empty")
 				return false
 	)):
 		# something is not empty. Keep global default button visible.
