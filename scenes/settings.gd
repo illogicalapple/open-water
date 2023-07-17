@@ -4,22 +4,14 @@ extends CanvasLayer
 ## Currentl also saves/loads settings variables. 
 ## May put loading/saving into another class instead in the future.
 
-@onready var video_submenu := $MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu
-
-
+@export var video_submenu : VideoSubMenu
 
 #enum VideoSettings {FOV}
 
 func get_value(node : NodePath, property_path : NodePath):
-#	if not is_node_ready():
-#		await ready
 	return get_node(node).get_indexed(property_path.get_as_property_path())
 
 func set_value(node : NodePath, property_path : NodePath, value):
-#	print ("setting: ", get_node(node))
-#	print ("property_path: ", property_path.get_as_property_path())
-#	print ("setting , ", get_value(node, property_path), " to: ", value)
-	
 	get_node(node).set_indexed(property_path.get_as_property_path(), value)
 
 # Keys = [node, property path] : value
@@ -63,6 +55,9 @@ func _ready() -> void:
 	# Goes through all settings in video_submenu to set the default.
 	for key in video_submenu.key_paths.keys():
 		var key_array = video_submenu.key_paths[key]
+		
+		print ("key array: ", key_array)
+		
 		var node_path = key_array[0]
 		var property_path = key_array[1]
 		
