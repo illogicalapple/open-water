@@ -1,9 +1,9 @@
 extends CharacterBody3D
 
-var speed = 10
+var speed = 5
 #var mouse_sensitivity = 0.5
 var veloc=Vector3(0,0,0)
-var jumpheight=30
+var jumpheight=15
 @onready var camera = $Camera3D
 @onready var synchronizer = $MultiplayerSynchronizer
 
@@ -29,7 +29,8 @@ func _physics_process(delta):
 			velocity.y = 0
 			if Input.is_action_pressed("jump"): position.y += 15 * delta
 		else:
-			if is_on_floor() and Input.is_key_pressed(KEY_SPACE): direction.y +=jumpheight
+			if is_on_floor() and Input.is_key_pressed(KEY_SPACE):
+				direction.y += jumpheight
 		if Input.is_key_pressed(KEY_W): direction -= global_transform.basis.z
 		elif Input.is_key_pressed(KEY_S): direction += global_transform.basis.z
 		if Input.is_key_pressed(KEY_A): direction -= global_transform.basis.x

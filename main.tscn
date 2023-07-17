@@ -1,18 +1,12 @@
-[gd_scene load_steps=19 format=3 uid="uid://ce17c81jacq53"]
+[gd_scene load_steps=17 format=3 uid="uid://ce17c81jacq53"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_whca7"]
 [ext_resource type="Shader" path="res://main.gdshader" id="2_6w6rm"]
 [ext_resource type="PackedScene" uid="uid://d2mnnap7exmi7" path="res://scenes/gui.tscn" id="3_lgndg"]
 [ext_resource type="PackedScene" uid="uid://b0ndy6yikdj1u" path="res://assets/3D models/raft.gltf" id="4_bs8uy"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ntqk"]
-albedo_color = Color(0.411765, 0.313726, 0.188235, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_qy1k6"]
-size = Vector3(32, 0.5, 32)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_i6wcq"]
-size = Vector3(32, 0.5, 32)
+size = Vector3(9, 0.5, 10)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dvrvf"]
 size = Vector3(400, 1, 400)
@@ -56,7 +50,8 @@ albedo_color = Color(0.541176, 0.372549, 0, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_brgo6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_r3y4a"]
-size = Vector3(32, 30, 0.1)
+resource_local_to_scene = true
+size = Vector3(10, 10, 0.1)
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_whca7")
@@ -89,15 +84,10 @@ text = "Host"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.310413, -0.0586481, 0.210363)
 
 [node name="raft" parent="Floor" instance=ExtResource("4_bs8uy")]
-transform = Transform3D(18, 0, 0, 0, 18, 0, 0, 0, 18, -14.3, -1.04201, -0.210363)
-
-[node name="Floor" type="MeshInstance3D" parent="Floor"]
-visible = false
-material_override = SubResource("StandardMaterial3D_0ntqk")
-mesh = SubResource("BoxMesh_qy1k6")
-skeleton = NodePath("../..")
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -3.58169, -0.827904, 0.909655)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.366741, -0.594168, 1.0516)
 shape = SubResource("BoxShape3D_i6wcq")
 
 [node name="Water" type="Area3D" parent="."]
@@ -129,28 +119,28 @@ mesh = SubResource("BoxMesh_brgo6")
 [node name="StaticBody3D" type="StaticBody3D" parent="fencing"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="fencing/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 16)
-shape = SubResource("BoxShape3D_r3y4a")
-
-[node name="StaticBody3D2" type="StaticBody3D" parent="fencing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -32)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="fencing/StaticBody3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 16)
-shape = SubResource("BoxShape3D_r3y4a")
-
-[node name="StaticBody3D3" type="StaticBody3D" parent="fencing"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -5)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="fencing/StaticBody3D3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 16)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0466152, 2.75031, 6.22161)
 shape = SubResource("BoxShape3D_r3y4a")
 
 [node name="StaticBody3D4" type="StaticBody3D" parent="fencing"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -32, 0, 9.53674e-07)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.96179)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="fencing/StaticBody3D4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 16)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0466152, 2.75031, 5.59634)
+shape = SubResource("BoxShape3D_r3y4a")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="fencing"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.47071, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="fencing/StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19062, 2.75031, 1.27352)
+shape = SubResource("BoxShape3D_r3y4a")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="fencing"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -6.07238, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="fencing/StaticBody3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19062, 2.75031, 1.70295)
 shape = SubResource("BoxShape3D_r3y4a")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
