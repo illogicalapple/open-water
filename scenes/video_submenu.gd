@@ -66,5 +66,12 @@ func get_fov() -> float:
 	return fov_slider.value
 
 
-
+#func _on_visibility_changed() -> void:
+#	if States != null: # Will be null when game starts up. Node is not ready()
+#		if States.settings_menu_state != States.SettingsMenuStates.VIDEO:
+#			# Entering
+#			States.settings_menu_state = States.SettingsMenuStates.VIDEO
+#		else:
+#			# Exiting.
+#			States.settings_menu_state = States.SettingsMenuStates.CURRENT
 

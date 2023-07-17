@@ -46,11 +46,12 @@ func escape_menu_state_changed(state : States.EscapeMenuStates) -> void:
 
 
 func settings_menu_state_changed(state : States.SettingsMenuStates) -> void:
-	settings_menu_state_label.text = str(
-		"settings_menu_state: " +
-		States.SettingsMenuStates.keys()[state]
-	)
-	settings_menu_state_label.visible = false if state == States.SettingsMenuStates.NONE else true
+	if is_node_ready(): # Ensures that everything is loaded. 
+		settings_menu_state_label.text = str(
+			"settings_menu_state: " +
+			States.SettingsMenuStates.keys()[state]
+		)
+		settings_menu_state_label.visible = false if state == States.SettingsMenuStates.NONE else true
 
 func character_state_changed(state : States.CharacterStates) -> void:
 	character_state_label.text = str(

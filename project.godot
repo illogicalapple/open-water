@@ -17,8 +17,8 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Settings="*res://scenes/settings_menu.tscn"
 Debug="*res://scenes/debug.tscn"
+Settings="*res://scenes/settings_menu.tscn"
 States="*res://states.gd"
 EscapeMenu="*res://scenes/escape_menu.tscn"
 
