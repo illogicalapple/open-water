@@ -9,32 +9,35 @@ var jumpheight=20
 
 
 func _ready():
-	States.set_to_in_game()
-	synchronizer.set_multiplayer_authority(str(name).to_int())
-	camera.current = synchronizer.is_multiplayer_authority()
-	if synchronizer.is_multiplayer_authority(): Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	States.set_to_in_game() # starts the game (change game states)
+	synchronizer.set_multiplayer_authority(str(name).to_int()) # connects to host
+	camera.current = synchronizer.is_multiplayer_authority() # if it didn't work, the camera doesn't exist ig
+	if synchronizer.is_multiplayer_authority(): Input.mouse_mode = Input.MOUSE_MODE_CAPTURED # it captures the mouse
 
 func _physics_process(delta):
-	if synchronizer.is_multiplayer_authority():
-		if States.character_state == States.CharacterStates.NOCLIP: $CollisionShape3D.disabled = true
-		else: $CollisionShape3D.disabled = false
-		var can_fly = (States.character_state == States.CharacterStates.FLY or States.character_state == States.CharacterStates.NOCLIP)
-		var direction = Vector3.ZERO
-		if not is_on_floor():
+	# this runs every tick
+	if synchronizer.is_multiplayer_authority(): # always gotta check if you're connected
+		if States.character_state == States.CharacterStates.NOCLIP: $CollisionShape3D.disabled = true # disables collisions in noclip mode (see states.gd)
+		else: $CollisionShape3D.disabled = false # otherwise, it resets
+		var can_fly = (States.character_state == States.CharacterStates.FLY or States.character_state == States.CharacterStates.NOCLIP) # can fly?
+		var direction = Vector3.ZERO # resets direction, which is basically velocity
+		if not is_on_floor(): # if it's not on the floor
 			if not can_fly:
-				direction.y -= 0.4
+				direction.y -= 0.4 # gravity but only if you can't fly
 			if Input.is_action_pressed("crouch") and can_fly:
-				position.y -= 15 * delta
+				position.y -= 15 * delta # crouch to move down when you can fly
 		if can_fly:
-			velocity.y = 0
+			velocity.y = 0 # no gravity
 			if Input.is_action_pressed("jump"): position.y += 15 * delta
 		else:
-			if is_on_floor() and Input.is_key_pressed(KEY_SPACE):
+			if is_on_floor() and Input.is_action_pressed("jump"):
 				direction.y += jumpheight
+		# movement:
 		if Input.is_key_pressed(KEY_W): direction -= global_transform.basis.z
 		elif Input.is_key_pressed(KEY_S): direction += global_transform.basis.z
 		if Input.is_key_pressed(KEY_A): direction -= global_transform.basis.x
 		elif Input.is_key_pressed(KEY_D): direction += global_transform.basis.x
+		# velocity stuff:
 		veloc += (direction*speed)*delta*4
 		if direction.x==0 and direction.z==0:
 			var vel=veloc.normalized()
@@ -48,18 +51,21 @@ func _physics_process(delta):
 		set_velocity(veloc)
 		set_up_direction(Vector3.UP)
 		move_and_slide()
+		# important: syncs the position for multiplayer
 		synchronizer.position = global_position
 		
+		# sets fov
 		camera.fov = Settings.video_submenu.get_fov()
 		$Camera3D/thirdperson.fov = Settings.video_submenu.get_fov()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if synchronizer.is_multiplayer_authority():
 		if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			# looking around!
 			var mouse_sensitivity = Settings.controls_submenu.get_mouse_sensitivity()
 			
 			rotate_y(-deg_to_rad(event.relative.x) * mouse_sensitivity)
-			synchronizer.y_rotation = rotation.y
+			synchronizer.y_rotation = rotation.y # gotta sync the rotation
 			camera.rotate_x(-deg_to_rad(event.relative.y) * mouse_sensitivity)
 	
 		if Input.is_action_just_pressed("perspective_change"):
