@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://i3mqugs01pil"]
+[gd_scene load_steps=2 format=3 uid="uid://dkqk6po4nmbqi"]
 
-[ext_resource type="Script" path="res://scenes/keymap_submenu.gd" id="1_nttjs"]
+[ext_resource type="Script" path="res://scenes/controls_sub_menu.gd" id="1_ydbt2"]
 
-[node name="KeyMapSubMenu" type="ScrollContainer" node_paths=PackedStringArray("mouse_sensitivity_label", "mouse_sensitivity_slider")]
+[node name="ControlsSubMenu" type="ScrollContainer" node_paths=PackedStringArray("mouse_sensitivity_label", "mouse_sensitivity_slider")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -11,7 +11,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
-script = ExtResource("1_nttjs")
+script = ExtResource("1_ydbt2")
 mouse_sensitivity_label = NodePath("VBoxContainer/Mouse Sensitivity/HBoxVontainer/Value")
 mouse_sensitivity_slider = NodePath("VBoxContainer/Mouse Sensitivity/HBoxVontainer/DPISlider")
 

@@ -7,7 +7,8 @@ extends CanvasLayer
 @export var submenu_selector : Node
 
 @export var video_submenu : VideoSubMenu
-@export var keymap_submenu : KeyMapSubMenu
+#@export var keymap_submenu : KeyMapSubMenu
+@export var controls_submenu : ControlsSubMenu
 
 #enum VideoSettings {FOV}
 
@@ -25,7 +26,7 @@ var default_setting : Dictionary
 var settings : Dictionary = {
 	"video_settings" : {},
 	"audio_settings" : {},
-	"key_map_settings": {},
+	"controls_settings": {},
 }
 
 ## Set when settings menu is entered. Cleared when settings menu exits
@@ -45,7 +46,7 @@ func load_and_set(regenerate_default : bool = true) -> void:
 		default_setting = {
 			"video_settings" : {},
 			"audio_settings" : {},
-			"key_map_settings": {},
+			"controls_settings": {},
 		}
 	
 	# Load settings.
@@ -69,6 +70,14 @@ func load_and_set(regenerate_default : bool = true) -> void:
 # If this is the case a new setting has been added and MUST be duplicated into settings.
 # If we dont do this, will get an error when reseting that value...
 func check_for_new_default_values(settings_key : String) -> void:
+	if not default_setting.has(settings_key):
+		printerr("default value does not have new setting: ", settings_key, "consider deleting settings.JSON and regenerating.")
+		return
+	
+	if not settings.has(settings_key):
+		print_rich("[color=green]New Settings key: [b]" , settings_key , "[/b][/color]")
+		settings[settings_key] = default_setting[settings_key].duplicate(true)
+	
 	for key in default_setting[settings_key]:
 		if not settings[settings_key].has(key):
 			settings[settings_key] [key] = default_setting[settings_key] [key].duplicate(true) #array so should duplicate.
@@ -95,8 +104,8 @@ func get_submenu_from_settings_key_or_null(settings_key : String):
 	match settings_key:
 		"video_settings":
 			return video_submenu
-		"key_map_settings":
-			return keymap_submenu
+		"controls_settings":
+			return controls_submenu
 		"audio_settings":
 			return null
 		_:
@@ -111,16 +120,16 @@ func get_setting_key_from_submenu_or_null(submenu : Node):
 #	match submenu.get_class():
 #		"VideoSubMenu":
 #			return "video_settings"
-#		"KeyMapSubMenu":
-#			return "key_map_settings"
+#		"ControlsSubMenu":
+#			return "controls_settings"
 #		_:
 #			printerr("attempt to get settings_key from unknown submenu type: ", submenu, "'s type is: " , submenu.get_class())
 #			return null
 	
 	if submenu is VideoSubMenu:
 		return "video_settings"
-	elif submenu is KeyMapSubMenu:
-		return "key_map_settings"
+	elif submenu is ControlsSubMenu:
+		return "controls_settings"
 	else:
 		printerr("attempt to get settings_key from unknown submenu type: ", submenu, "'s type is: " , submenu.get_class())
 		return null
@@ -164,7 +173,7 @@ func exit_settings_menu() -> void:
 
 func set_all_setting_values() -> void:
 	for setting_key in settings.keys():
-		var specific_settings = settings[setting_key] # iterates over "video_settings" and "key_map_settings", etc.
+		var specific_settings = settings[setting_key] # iterates over "video_settings" and "controls_settings", etc.
 		
 		for key in specific_settings.keys(): # e.g., all keys in settings["video_settings"]
 			var array_val = specific_settings[key]
@@ -191,7 +200,12 @@ func set_all_setting_values() -> void:
 
 ## Only does video_settings for now.
 func default_all_settings() -> void:
-	for setting_key in settings.keys(): # iterates over "video_settings" and "key_map_settings", etc.
+	for setting_key in settings.keys(): # iterates over "video_settings" and "controls_settings", etc.
+		
+		if not default_setting.has(setting_key):
+			printerr("default_setting does not have key: ", setting_key ,". Please regenerate settings.JSON")
+			return
+		
 		settings[setting_key] = default_setting[setting_key].duplicate(true)
 		var default_specific_settings = settings[setting_key] # e.g., default version of "video_settings"
 	
@@ -213,7 +227,7 @@ func default_all_settings() -> void:
 	#default_all_video_settings()
 
 func reset_all_settings() -> void:
-	for setting_key in settings.keys(): # iterates over "video_settings" and "key_map_settings", etc.
+	for setting_key in settings.keys(): # iterates over "video_settings" and "controls_settings", etc.
 		settings[setting_key] = reset_setting[setting_key].duplicate(true)
 		var reset_specific_settings = settings[setting_key] # e.g., default version of "video_settings"
 		
