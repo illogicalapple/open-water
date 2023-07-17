@@ -54,10 +54,10 @@ func set_default_and_reset_button_visibility() -> void:
 				return false
 	)):
 		# something is not empty. Keep global default button visible.
-		default_button.visible = true
+		default_button.disabled = false
 	else:
 		#print ("all defaults are empty?")
-		default_button.visible = false
+		default_button.disabled = true
 	
 	# Checks for reset
 	# If all revert_property_changes dictionaries in submenus are empty.
@@ -73,9 +73,9 @@ func set_default_and_reset_button_visibility() -> void:
 				return false
 	)):
 		# something is not empty. Keep global reset button visible.
-		reset_button.visible = true
+		reset_button.disabled = false
 	else:
-		reset_button.visible = false
+		reset_button.disabled = true
 
 
 
@@ -111,7 +111,7 @@ var reset_setting : Dictionary
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	visible = false
-	reset_button.visible = false
+	reset_button.disabled = true
 	
 	load_and_set()
 
@@ -228,7 +228,7 @@ func exited() -> void:
 	
 	# Clear all reset settings:
 	reset_setting.clear()
-	reset_button.visible = false
+	reset_button.disabled = true
 	for dict in submenu_reset_property_changes:
 		dict.clear()
 	
