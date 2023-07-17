@@ -153,7 +153,6 @@ spawn_path = NodePath("..")
 [node name="TimeSet" type="Timer" parent="."]
 process_mode = 3
 wait_time = 2.0
-autostart = true
 
 [connection signal="pressed" from="Menu/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="Menu/Host" to="." method="_on_host_pressed"]
