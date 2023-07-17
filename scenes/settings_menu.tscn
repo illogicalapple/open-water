@@ -1,13 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://bgfolw02g0rtq"]
+[gd_scene load_steps=6 format=3 uid="uid://bgfolw02g0rtq"]
 
 [ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://menu_theme.tres" id="1_chgt2"]
 [ext_resource type="Script" path="res://scenes/settings.gd" id="1_oid88"]
 [ext_resource type="PackedScene" uid="uid://hp56o03rucyl" path="res://scenes/video_sub_menu.tscn" id="3_j6o8u"]
+[ext_resource type="Script" path="res://scenes/SettingsSubMenuSelector.gd" id="3_njpbm"]
 [ext_resource type="PackedScene" uid="uid://i3mqugs01pil" path="res://scenes/kep_map_sub_menu.tscn" id="4_o10bl"]
 
-[node name="Settings" type="CanvasLayer" node_paths=PackedStringArray("video_submenu", "keymap_submenu")]
+[node name="Settings" type="CanvasLayer" node_paths=PackedStringArray("submenu_selector", "video_submenu", "keymap_submenu")]
 process_mode = 3
 script = ExtResource("1_oid88")
+submenu_selector = NodePath("MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/SubMenuSelector")
 video_submenu = NodePath("MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VideoSubMenu")
 keymap_submenu = NodePath("MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/KeyMapSubMenu")
 
@@ -67,10 +69,13 @@ text = "reset all"
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="SubMenuSelector" type="ScrollContainer" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="SubMenuSelector" type="ScrollContainer" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("video_submenu", "key_map_submenu")]
 custom_minimum_size = Vector2(300, 264)
 layout_mode = 2
 vertical_scroll_mode = 0
+script = ExtResource("3_njpbm")
+video_submenu = NodePath("../VideoSubMenu")
+key_map_submenu = NodePath("../KeyMapSubMenu")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/SubMenuSelector"]
 layout_mode = 2
@@ -103,3 +108,7 @@ layout_mode = 2
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/ExitSettings" to="." method="exit_settings_menu"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/Default all" to="." method="default_all_settings"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/Reset all" to="." method="reset_all_settings"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/SubMenuSelector/VBoxContainer/Video" to="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/SubMenuSelector" method="_on_video_pressed"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/SubMenuSelector/VBoxContainer/Sounds" to="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/SubMenuSelector" method="_on_sounds_pressed"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/SubMenuSelector/VBoxContainer/Controls" to="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/SubMenuSelector" method="_on_controls_pressed"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/SubMenuSelector/VBoxContainer/KeyMapping" to="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/SubMenuSelector" method="_on_key_mapping_pressed"]

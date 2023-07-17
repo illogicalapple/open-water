@@ -23,7 +23,7 @@ class_name KeyMapSubMenu # Giving class name cus want auto-complete.
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	mouse_sensitivity_label.text = str(mouse_sensitivity_slider.value)
+	mouse_sensitivity_label.text = str("%0.2f" % mouse_sensitivity_slider.value)
 
 #@warning_ignore("native_method_override")
 #func get_class():
@@ -57,7 +57,7 @@ func reset(key : String) -> void:
 
 # For specific settings:
 func mouse_sensitivity_slider_change(value: float) -> void:
-	mouse_sensitivity_label.text = str(value)
+	mouse_sensitivity_label.text = str("%.2f" % value) #Formats so always has 2 decimals.
 
 # Getters:
 func get_mouse_sensitivity() -> float:
@@ -65,5 +65,16 @@ func get_mouse_sensitivity() -> float:
 
 
 
-
-
+#func _on_visibility_changed() -> void:
+#	# May be entering or exiting... [may be hidden or visible]
+#	# Entering if not currently set to the corresponding state
+#	if States != null: # Will be null when game starts up. Node is not ready()
+#		if States.settings_menu_state != States.SettingsMenuStates.KEY_MAPPING:
+#			# Entering
+#			#print ("entering")
+#			States.settings_menu_state = States.SettingsMenuStates.KEY_MAPPING
+#		else:
+#			# Exiting.
+#			#print ("exiting")
+#			States.settings_menu_state = States.SettingsMenuStates.CURRENT
+#

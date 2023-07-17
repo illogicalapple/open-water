@@ -4,6 +4,8 @@ extends CanvasLayer
 ## Currentlt also saves/loads settings variables. 
 ## May put loading/saving into another class instead in the future.
 
+@export var submenu_selector : Node
+
 @export var video_submenu : VideoSubMenu
 @export var keymap_submenu : KeyMapSubMenu
 
@@ -77,7 +79,7 @@ func set_default_settings_from_submenu(settings_key : String) -> void:
 	for key in submenu.key_paths.keys():
 		var key_array = submenu.key_paths[key]
 		
-		print ("key array: ", key_array)
+		#print ("key array: ", key_array)
 		
 		var node_path = key_array[0]
 		var property_path = key_array[1]
@@ -92,7 +94,7 @@ func get_submenu_from_settings_key_or_null(settings_key : String):
 			return keymap_submenu
 		_:
 			printerr("attempt to load default settings from unknown submenu: ", settings_key)
-			print ("audio settings not created yet so above is fine its trying to load that.")
+			printerr ("above error is intended behaviour if it is audio_settings.")
 			return null
 
 func get_setting_key_from_submenu_or_null(submenu : Node):
@@ -125,6 +127,7 @@ func entered() -> void:
 	#print ("settings: ", settings)
 	reset_setting = settings.duplicate(true)
 	#print ("\nreset settings: ", reset_setting)
+	States.settings_menu_state = submenu_selector.current_state
 
 # Called when exited from MainMenu and EscapeMenu
 func exited() -> void:
@@ -423,7 +426,7 @@ func load_settings() -> void:
 		# Opens existing file
 		var settings_file := FileAccess.open(settings_file_path, FileAccess.READ)
 		
-		print ("loading settings from: ", settings_file.get_path_absolute())
+		print_rich ("[color=green]loading settings from: ", settings_file.get_path_absolute(),"[/color]")
 		
 		# Check if there are any errors for opening the file.
 		if FileAccess.get_open_error() != Error.OK:
