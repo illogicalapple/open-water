@@ -1,5 +1,13 @@
 extends Node
 
+# this is an autoload, reference using States.game_state, etc.
+# for example:
+
+func example_function():
+	if States.game_state == States.GameStates.IN_GAME:
+		# do some stuff if we're in-game
+		pass
+
 # First-level State:
 enum GameStates {MAIN_MENU, ESCAPE_MENU, IN_GAME, SETTINGS}
 enum CharacterStates {NOCLIP, FLY, SWIM, RUN, NORMAL}
@@ -11,6 +19,7 @@ enum EscapeMenuStates {NONE, CURRENT, SETTINGS}
 # Third-level States: 
 enum SettingsMenuStates {NONE, CURRENT, VIDEO, AUDIO, CONTROLS} #KEY_MAPPING
 
+# state setters to make things do stuff
 var game_state := GameStates.MAIN_MENU:
 	set(state):
 		game_state = state

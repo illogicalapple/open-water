@@ -55,6 +55,14 @@ jump={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="Player"
+3d_physics/layer_2="Raft"
+3d_physics/layer_3="Ground"
+3d_physics/layer_4="Fencing"
+3d_physics/layer_5="Water"
+
 [rendering]
 
 environment/defaults/default_clear_color=Color(0.639216, 0.72549, 1, 1)
