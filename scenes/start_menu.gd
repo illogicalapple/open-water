@@ -47,12 +47,12 @@ func exit_settings_menu() -> void:
 	Settings.exited()
 	
 	main_select_menu.visible = true
-	States.settings_menu_state = States.SettingsMenuStates.CURRENT
+	States.settings_menu_state = States.SettingsMenuStates.NONE
 
 func enter_settings_menu() -> void:
 	Settings.entered()
 	
 	States.main_menu_state = States.MainMenuStates.SETTINGS
 	main_select_menu.visible = false
-	States.settings_menu_state = States.SettingsMenuStates.NONE
+	#States.settings_menu_state = States.SettingsMenuStates.CURRENT
 	

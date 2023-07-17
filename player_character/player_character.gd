@@ -52,14 +52,11 @@ func _physics_process(delta):
 		
 		camera.fov = Settings.video_submenu.get_fov()
 		$Camera3D/thirdperson.fov = Settings.video_submenu.get_fov()
-		#camera.fov = Settings.video_settings[Settings.VideoSettings.FOV]
 
 func _unhandled_input(event: InputEvent) -> void:
 	if synchronizer.is_multiplayer_authority():
-#		if event is InputEventKey and event.is_pressed() and event.keycode == KEY_ESCAPE:
-#			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE else Input.MOUSE_MODE_VISIBLE
 		if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-			var mouse_sensitivity = Settings.video_submenu.get_mouse_sensitivity()
+			var mouse_sensitivity = Settings.keymap_submenu.get_mouse_sensitivity()
 			
 			rotate_y(-deg_to_rad(event.relative.x) * mouse_sensitivity)
 			synchronizer.y_rotation = rotation.y

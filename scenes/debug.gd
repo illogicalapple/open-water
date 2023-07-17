@@ -46,11 +46,12 @@ func escape_menu_state_changed(state : States.EscapeMenuStates) -> void:
 
 
 func settings_menu_state_changed(state : States.SettingsMenuStates) -> void:
-	settings_menu_state_label.text = str(
-		"settings_menu_state: " +
-		States.SettingsMenuStates.keys()[state]
-	)
-	settings_menu_state_label.visible = false if state == States.SettingsMenuStates.NONE else true
+	if is_node_ready(): # Ensures that everything is loaded. 
+		settings_menu_state_label.text = str(
+			"settings_menu_state: " +
+			States.SettingsMenuStates.keys()[state]
+		)
+		settings_menu_state_label.visible = false if state == States.SettingsMenuStates.NONE else true
 
 func character_state_changed(state : States.CharacterStates) -> void:
 	character_state_label.text = str(
@@ -58,3 +59,26 @@ func character_state_changed(state : States.CharacterStates) -> void:
 		States.CharacterStates.keys()[state]
 	)
 	character_state_label.visible = false if state == States.CharacterStates.NORMAL else true
+
+
+func remake_settings_json() -> void:
+	# Delete file if exists: 
+	if FileAccess.file_exists(Settings.settings_file_path):
+		var file_access = FileAccess.open(Settings.settings_file_path, FileAccess.READ)
+		var absolute_path : String = file_access.get_path_absolute()
+		file_access.close()
+		
+		var delete_result : Error = DirAccess.remove_absolute(absolute_path)
+		if delete_result != Error.OK:
+			printerr("Could not remove file form path: ", absolute_path)
+			return
+		
+		if not FileAccess.file_exists(Settings.settings_file_path):
+			print_rich("[color=green]Successfully deleted file at: ", absolute_path, "[/color]")
+			#print_rich("[color=green]please restart[/color]")
+		else:
+			printerr("could not delete file!")
+	
+	# Dont need to generate defaults again. 
+	Settings.load_and_set(false) 
+	Settings.save_settings()

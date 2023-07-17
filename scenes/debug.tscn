@@ -49,15 +49,24 @@ text = "settings_menu_state: "
 layout_mode = 2
 text = "character_state:"
 
-[node name="DebugInfo" type="Label" parent="Control"]
-process_mode = 3
+[node name="DebugInfo" type="VBoxContainer" parent="Control"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -80.0
-offset_bottom = 26.0
+offset_left = -111.0
+offset_bottom = 40.0
 grow_horizontal = 0
+
+[node name="DebugInfo" type="Label" parent="Control/DebugInfo"]
+process_mode = 3
+layout_mode = 2
 text = "Toggle Debug: f3
 Toggle Third Person: f5"
 horizontal_alignment = 2
+
+[node name="Button" type="Button" parent="Control/DebugInfo"]
+layout_mode = 2
+text = "Delete + Regenerate settings.JSON"
+
+[connection signal="pressed" from="Control/DebugInfo/Button" to="." method="remake_settings_json"]

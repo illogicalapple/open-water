@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=3 uid="uid://hp56o03rucyl"]
+
+[ext_resource type="Script" path="res://scenes/video_submenu.gd" id="1_1udyx"]
+
+[node name="VideoSubMenu" type="ScrollContainer" node_paths=PackedStringArray("fov_slider_label", "fov_slider")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+script = ExtResource("1_1udyx")
+fov_slider_label = NodePath("VBoxContainer/FOV/HBoxVontainer/Value")
+fov_slider = NodePath("VBoxContainer/FOV/HBoxVontainer/FOVSlider")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FOV" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxVontainer" type="HBoxContainer" parent="VBoxContainer/FOV"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBoxContainer/FOV/HBoxVontainer"]
+layout_mode = 2
+text = "fov"
+
+[node name="FOVSlider" type="HSlider" parent="VBoxContainer/FOV/HBoxVontainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = 30.0
+max_value = 95.0
+value = 75.0
+
+[node name="Value" type="Label" parent="VBoxContainer/FOV/HBoxVontainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/FOV"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 3
+
+[node name="default" type="Button" parent="VBoxContainer/FOV/HBoxContainer"]
+layout_mode = 2
+text = "default"
+
+[node name="reset" type="Button" parent="VBoxContainer/FOV/HBoxContainer"]
+layout_mode = 2
+text = "reset"
+
+[connection signal="value_changed" from="VBoxContainer/FOV/HBoxVontainer/FOVSlider" to="." method="fov_slider_change"]
+[connection signal="value_changed" from="VBoxContainer/FOV/HBoxVontainer/FOVSlider" to="." method="slider_change" binds= ["FOV"]]
+[connection signal="pressed" from="VBoxContainer/FOV/HBoxContainer/default" to="." method="set_to_default" binds= ["FOV"]]
+[connection signal="pressed" from="VBoxContainer/FOV/HBoxContainer/reset" to="." method="reset" binds= ["FOV"]]
