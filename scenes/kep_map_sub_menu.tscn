@@ -50,7 +50,7 @@ text = "default"
 layout_mode = 2
 text = "reset"
 
-[connection signal="value_changed" from="VBoxContainer/Mouse Sensitivity/HBoxVontainer/DPISlider" to="." method="slider_change" flags=18]
-[connection signal="value_changed" from="VBoxContainer/Mouse Sensitivity/HBoxVontainer/DPISlider" to="." method="mosue_sensitivity_slider_change" flags=18]
-[connection signal="pressed" from="VBoxContainer/Mouse Sensitivity/HBoxContainer/default" to="." method="set_to_default" flags=18]
-[connection signal="pressed" from="VBoxContainer/Mouse Sensitivity/HBoxContainer/reset" to="." method="reset" flags=18]
+[connection signal="value_changed" from="VBoxContainer/Mouse Sensitivity/HBoxVontainer/DPISlider" to="." method="mouse_sensitivity_slider_change"]
+[connection signal="value_changed" from="VBoxContainer/Mouse Sensitivity/HBoxVontainer/DPISlider" to="." method="slider_change" binds= ["MOUSE_SENSITIVITY"]]
+[connection signal="pressed" from="VBoxContainer/Mouse Sensitivity/HBoxContainer/default" to="." method="set_to_default" binds= ["MOUSE_SENSITIVITY"]]
+[connection signal="pressed" from="VBoxContainer/Mouse Sensitivity/HBoxContainer/reset" to="." method="reset" binds= ["MOUSE_SENSITIVITY"]]
