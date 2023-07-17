@@ -1,4 +1,4 @@
-extends ScrollContainer
+extends Control
 class_name VideoSubMenu # Giving class name cus want auto-complete.
 
 #@export_group("Labels")
