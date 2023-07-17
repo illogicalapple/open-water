@@ -16,17 +16,17 @@ func set_buttons_visibility(value: float, key : String) -> void:
 		default_property_changes.erase(key) # it's fine to call erase even if it doesn't have key.
 		
 		# Hide the property default button:
-		default_button.visible = false
+		default_button.disabled = true
 		
 		# Check if submenu's default button needs to be set to invisible too:
 		if default_property_changes.is_empty():
-			default_all.visible = false
+			default_all.disabled = true
 	else:
 		default_property_changes[key] = null # create a key inside. Needs a value (but it is arbitrary, use smallest),
 		# Show the property default button:
-		default_button.visible = true
+		default_button.disabled = false
 		# Show the submenu default button:
-		default_all.visible = true
+		default_all.disabled = false
 	
 	###
 	
@@ -41,17 +41,17 @@ func set_buttons_visibility(value: float, key : String) -> void:
 		revert_property_changes.erase(key) # it's fine to call erase even if it doesn't have key.
 		
 		# Hide the property default button:
-		reset_button.visible = false
+		reset_button.disabled = true
 		
 		# Check if submenu's default button needs to be set to invisible too:
 		if revert_property_changes.is_empty():
-			reset_all.visible = false
+			reset_all.disabled = true
 	else:
 		revert_property_changes[key] = null # create a key inside. Needs a value (but it is arbitrary, use smallest),
 		# Show the property default button:
-		reset_button.visible = true
+		reset_button.disabled = false
 		# Show the submenu default button:
-		reset_all.visible = true
+		reset_all.disabled = false
 	
 	# Check for global default and reset's visibility
 	Settings.set_default_and_reset_button_visibility()
@@ -142,8 +142,8 @@ func set_all_buttons_visibility() -> void:
 
 func hide_all_reset_buttons() -> void:
 	if Settings.visible == false:
-		reset_all.visible = false
-		reset_mouse_sensitivity.visible = false
+		reset_all.disabled = true
+		reset_mouse_sensitivity.disabled = true
 
 
 #@warning_ignore("native_method_override")
