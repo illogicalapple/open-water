@@ -9,7 +9,7 @@ enum MainMenuStates {NONE, CURRENT, CHOOSE_WORLDS, SETTINGS}
 enum EscapeMenuStates {NONE, CURRENT, SETTINGS}
 
 # Third-level States: 
-enum SettingsMenuStates {NONE, CURRENT, VIDEO, AUDIO, KEY_MAPPING}
+enum SettingsMenuStates {NONE, CURRENT, VIDEO, AUDIO, CONTROLS} #KEY_MAPPING
 
 var game_state := GameStates.MAIN_MENU:
 	set(state):
@@ -29,6 +29,7 @@ var escape_menu_state := EscapeMenuStates.NONE:
 var settings_menu_state := SettingsMenuStates.NONE:
 	set(state):
 		settings_menu_state = state
+		#print ("settings state: ", state)
 		Debug.settings_menu_state_changed(state)
 
 var character_state := CharacterStates.NORMAL:

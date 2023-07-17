@@ -56,7 +56,7 @@ func _physics_process(delta):
 func _unhandled_input(event: InputEvent) -> void:
 	if synchronizer.is_multiplayer_authority():
 		if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-			var mouse_sensitivity = Settings.keymap_submenu.get_mouse_sensitivity()
+			var mouse_sensitivity = Settings.controls_submenu.get_mouse_sensitivity()
 			
 			rotate_y(-deg_to_rad(event.relative.x) * mouse_sensitivity)
 			synchronizer.y_rotation = rotation.y

@@ -4,10 +4,82 @@ extends CanvasLayer
 ## Currentlt also saves/loads settings variables. 
 ## May put loading/saving into another class instead in the future.
 
+signal settings_loaded
+
+@export var default_button : Button
+@export var reset_button : Button
+
 @export var submenu_selector : Node
 
 @export var video_submenu : VideoSubMenu
-@export var keymap_submenu : KeyMapSubMenu
+#@export var keymap_submenu : KeyMapSubMenu
+@export var controls_submenu : ControlsSubMenu
+
+# Holds REFERENCES/POINTERS to dictionaries. Not copies. 
+@onready var submenu_default_property_changes : Array[Dictionary] = [
+	video_submenu.default_property_changes,
+	controls_submenu.default_property_changes,
+]
+# Holds REFERENCES/POINTERS to dictionaries. Not copies. 
+@onready var submenu_reset_property_changes : Array[Dictionary] = [
+	video_submenu.revert_property_changes,
+	controls_submenu.revert_property_changes,
+]
+
+# Later: change function so doesn't need to repeat code for default and reset
+func set_default_and_reset_button_visibility() -> void:
+	var submenu_default_property_changes : Array[Dictionary] = [
+		video_submenu.default_property_changes,
+		controls_submenu.default_property_changes,
+	]
+	# Holds REFERENCES/POINTERS to dictionaries. Not copies. 
+	var submenu_reset_property_changes : Array[Dictionary] = [
+		video_submenu.revert_property_changes,
+		controls_submenu.revert_property_changes,
+	]
+	
+	# Checks for default
+	# If all default_property_changes dictionaries in submenus are empty.
+	# Set to invisible. Else visible.
+	
+	# Check if any dictionary is NOT empty:
+	if (
+		submenu_default_property_changes.any(
+		func (dict : Dictionary):
+			if not dict.is_empty():
+				#print ("not empty dict: ", dict) 
+				return true
+			else:
+				#print ("all defaults are empty")
+				return false
+	)):
+		# something is not empty. Keep global default button visible.
+		default_button.disabled = false
+	else:
+		#print ("all defaults are empty?")
+		default_button.disabled = true
+	
+	# Checks for reset
+	# If all revert_property_changes dictionaries in submenus are empty.
+	# Set to invisible. Else visible. 
+	
+	# Check if any dictionary is NOT empty:
+	if (
+		submenu_reset_property_changes.any(
+		func (dict : Dictionary) : 
+			if not dict.is_empty():
+				return true
+			else:
+				return false
+	)):
+		# something is not empty. Keep global reset button visible.
+		reset_button.disabled = false
+	else:
+		reset_button.disabled = true
+
+
+
+
 
 #enum VideoSettings {FOV}
 
@@ -22,10 +94,14 @@ var default_setting : Dictionary
 
 ## Stores all settings from below.
 ## Is the variant that is serialized into settings.json.
-var settings : Dictionary = {
-	"video_settings" : {},
+@onready var settings : Dictionary = {
+	"video_settings" : {
+		"default_property_changes": video_submenu.default_property_changes
+	},
 	"audio_settings" : {},
-	"key_map_settings": {},
+	"controls_settings": {
+		"default_property_changes": controls_submenu.default_property_changes
+	},
 }
 
 ## Set when settings menu is entered. Cleared when settings menu exits
@@ -35,6 +111,7 @@ var reset_setting : Dictionary
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	visible = false
+	reset_button.disabled = true
 	
 	load_and_set()
 
@@ -42,14 +119,11 @@ func _ready() -> void:
 func load_and_set(regenerate_default : bool = true) -> void:
 	# Create default_settings: empty dictionaries.
 	if regenerate_default:
-		default_setting = {
-			"video_settings" : {},
-			"audio_settings" : {},
-			"key_map_settings": {},
-		}
+		default_setting = settings.duplicate(true)
 	
 	# Load settings.
 	load_settings()
+	
 	
 	# Goes through all settings in sub_menus to set the default.
 	if regenerate_default:
@@ -63,16 +137,24 @@ func load_and_set(regenerate_default : bool = true) -> void:
 	
 	set_all_setting_values()
 	#print ("loaded settings: ", default_setting)
-
+	settings_loaded.emit()
 
 # Check to see if settings does NOT have any values in default.
 # If this is the case a new setting has been added and MUST be duplicated into settings.
 # If we dont do this, will get an error when reseting that value...
 func check_for_new_default_values(settings_key : String) -> void:
+	if not default_setting.has(settings_key):
+		printerr("default value does not have new setting: ", settings_key, "consider deleting settings.JSON and regenerating.")
+		return
+	
+	if not settings.has(settings_key):
+		print_rich("[color=green]New Settings key: [b]" , settings_key , "[/b][/color]")
+		settings[settings_key] = default_setting[settings_key].duplicate(true)
+	
 	for key in default_setting[settings_key]:
 		if not settings[settings_key].has(key):
 			settings[settings_key] [key] = default_setting[settings_key] [key].duplicate(true) #array so should duplicate.
-			print_rich("[color=green]New Setting registed: [b]" , key , "[/b][/color]")
+			print_rich("[color=green]New Setting registed: [b]" , key , " in " , settings_key ,"[/b][/color]")
 
 func set_default_settings_from_submenu(settings_key : String) -> void:
 	var submenu = get_submenu_from_settings_key_or_null(settings_key)
@@ -95,8 +177,8 @@ func get_submenu_from_settings_key_or_null(settings_key : String):
 	match settings_key:
 		"video_settings":
 			return video_submenu
-		"key_map_settings":
-			return keymap_submenu
+		"controls_settings":
+			return controls_submenu
 		"audio_settings":
 			return null
 		_:
@@ -107,20 +189,21 @@ func get_setting_key_from_submenu_or_null(submenu : Node):
 	# Ideally should use a match statement for this
 	# but get_class() CAN'T return class_names...
 	# Cannot override get_class() method, just ignores the override.
-	# So using if statements :(
+	# So using if statements instead :(
+	
 #	match submenu.get_class():
 #		"VideoSubMenu":
 #			return "video_settings"
-#		"KeyMapSubMenu":
-#			return "key_map_settings"
+#		"ControlsSubMenu":
+#			return "controls_settings"
 #		_:
 #			printerr("attempt to get settings_key from unknown submenu type: ", submenu, "'s type is: " , submenu.get_class())
 #			return null
 	
 	if submenu is VideoSubMenu:
 		return "video_settings"
-	elif submenu is KeyMapSubMenu:
-		return "key_map_settings"
+	elif submenu is ControlsSubMenu:
+		return "controls_settings"
 	else:
 		printerr("attempt to get settings_key from unknown submenu type: ", submenu, "'s type is: " , submenu.get_class())
 		return null
@@ -134,13 +217,21 @@ func entered() -> void:
 	reset_setting = settings.duplicate(true)
 	#print ("\nreset settings: ", reset_setting)
 	States.settings_menu_state = submenu_selector.current_state
+	
+	submenu_selector.pick_current_state()
 
 # Called when exited from MainMenu and EscapeMenu
 func exited() -> void:
 	#print ("exited")
 	visible = false
 	save_settings()
-	reset_setting = {}
+	
+	# Clear all reset settings:
+	reset_setting.clear()
+	reset_button.disabled = true
+	for dict in submenu_reset_property_changes:
+		dict.clear()
+	
 
 func exit_settings_menu() -> void:
 	# For now, settings menu can can be either from
@@ -164,9 +255,10 @@ func exit_settings_menu() -> void:
 
 func set_all_setting_values() -> void:
 	for setting_key in settings.keys():
-		var specific_settings = settings[setting_key] # iterates over "video_settings" and "key_map_settings", etc.
+		var specific_settings = settings[setting_key] # iterates over "video_settings" and "controls_settings", etc.
 		
 		for key in specific_settings.keys(): # e.g., all keys in settings["video_settings"]
+			if key == "default_property_changes": continue
 			var array_val = specific_settings[key]
 			var node_path = array_val[0]
 			var property_path = array_val[1]
@@ -174,105 +266,67 @@ func set_all_setting_values() -> void:
 			
 			attempt_set_value_or_handle_error(key, node_path, property_path, value)
 	
-	#set_all_video_settings()
-
-#func set_all_video_settings() -> void:
-#	var video_settings = settings["video_settings"]
-#
-#	for key in video_settings.keys():
-#		var array_val = video_settings[key]
-#		var node_path = array_val[0]
-#		var property_path = array_val[1]
-#		var value = array_val[2]
-#
-#		#print ("array val: ", array_val)
-#
-#		attempt_set_value_or_handle_error(key, node_path, property_path, value)
 
 ## Only does video_settings for now.
 func default_all_settings() -> void:
-	for setting_key in settings.keys(): # iterates over "video_settings" and "key_map_settings", etc.
-		settings[setting_key] = default_setting[setting_key].duplicate(true)
-		var default_specific_settings = settings[setting_key] # e.g., default version of "video_settings"
-	
-		# Sets all values to default.
-		for key in default_specific_settings.keys():
-			if not default_specific_settings.has(key):
-				printerr("attempt to reset setting [", key, "] failed. default settings of", setting_key , " does not have key.")
-				continue
-				
-			var array_val = default_specific_settings [key]
-			var node_path = array_val[0]
-			var property_path = array_val[1]
-			var value = array_val[2]
+	for setting_key in settings.keys(): # iterates over "video_settings" and "controls_settings", etc.
+		
+		if not default_setting.has(setting_key):
+			printerr("default_setting does not have key: ", setting_key ,". Please regenerate settings.JSON")
+			continue
 			
-			attempt_set_value_or_handle_error(key, node_path, property_path, value)
-	
-	
-	
-	#default_all_video_settings()
+		default_specific_setting(setting_key)
+
+func default_specific_setting(setting_key : String) -> void:
+	settings[setting_key] = default_setting[setting_key].duplicate(true)
+	var default_specific_settings = settings[setting_key] # e.g., default version of "video_settings"
+
+	# Sets all values to default.
+	for key in default_specific_settings.keys():
+		if key == "default_property_changes": continue
+		if not default_specific_settings.has(key):
+			printerr("attempt to reset setting [", key, "] failed. default settings of", setting_key , " does not have key.")
+			continue
+			
+		var array_val = default_specific_settings [key]
+		var node_path = array_val[0]
+		var property_path = array_val[1]
+		var value = array_val[2]
+		
+		attempt_set_value_or_handle_error(key, node_path, property_path, value)
+
 
 func reset_all_settings() -> void:
-	for setting_key in settings.keys(): # iterates over "video_settings" and "key_map_settings", etc.
-		settings[setting_key] = reset_setting[setting_key].duplicate(true)
-		var reset_specific_settings = settings[setting_key] # e.g., default version of "video_settings"
+	for setting_key in settings.keys(): # iterates over "video_settings" and "controls_settings", etc.
 		
-		#print ("resetting to: ", reset_specific_settings)
+		if not reset_setting.has(setting_key):
+			printerr("reset_setting does not have key: ", setting_key ,". Please regenerate settings.JSON")
+			continue
 		
-		# Sets all values to reset values.
-		for key in reset_specific_settings.keys():
-			
-			if not reset_specific_settings.has(key):
-				printerr("attempt to reset setting [", key, "] failed. reset settings of", setting_key , " does not have key.")
-				continue
-			
-			var array_val = reset_specific_settings [key]
-			var node_path = array_val[0]
-			var property_path = array_val[1]
-			var value = array_val[2]
+		reset_specific_setting(setting_key)
 
-			attempt_set_value_or_handle_error(key, node_path, property_path, value)
+
+func reset_specific_setting(setting_key : String) -> void:
+	settings[setting_key] = reset_setting[setting_key].duplicate(true)
+	var reset_specific_settings = settings[setting_key] # e.g., default version of "video_settings"
 	
-	#reset_all_video_settings()
+	#print ("resetting to: ", reset_specific_settings)
+	
+	# Sets all values to reset values.
+	for key in reset_specific_settings.keys():
+		if key == "default_property_changes": continue
+		if not reset_specific_settings.has(key):
+			printerr("attempt to reset setting [", key, "] failed. reset settings of", setting_key , " does not have key.")
+			continue
+		
+		var array_val = reset_specific_settings [key]
+		var node_path = array_val[0]
+		var property_path = array_val[1]
+		var value = array_val[2]
+
+		attempt_set_value_or_handle_error(key, node_path, property_path, value)
 
 
-
-
-#func default_all_video_settings() -> void:
-#	settings["video_settings"] = default_setting["video_settings"].duplicate(true)
-#	var default_video_settings = settings["video_settings"]
-#
-#	# Sets all video_setting values to default.
-#	for key in default_video_settings.keys():
-#		if not default_video_settings.has(key):
-#			printerr("attempt to reset setting [", key, "] failed. default_video_settings does not have key.")
-#			continue
-#
-#		var array_val = default_video_settings [key]
-#		var node_path = array_val[0]
-#		var property_path = array_val[1]
-#		var value = array_val[2]
-#
-#		attempt_set_value_or_handle_error(key, node_path, property_path, value)
-
-#func reset_all_video_settings() -> void:
-#	#Duplicates the reset setting's video_settings.
-#	settings["video_settings"] = reset_setting["video_settings"].duplicate(true)
-#	var reset_video_settings = settings["video_settings"]
-#
-#	# Sets all video_setting values to reset values.
-#	for key in reset_video_settings.keys():
-#
-#		if not reset_video_settings.has(key):
-#			printerr("attempt to reset setting [", key, "] failed. reset_video_settings does not have key.")
-#			continue
-#
-#		var array_val = reset_video_settings [key]
-#		var node_path = array_val[0]
-#		var property_path = array_val[1]
-#		var value = array_val[2]
-#
-#		attempt_set_value_or_handle_error(key, node_path, property_path, value)
 
 func default_single_setting(key : String, submenu: Node) -> void:
 	var setting_key = get_setting_key_from_submenu_or_null(submenu) 
@@ -332,44 +386,6 @@ func reset_single_setting(key : String, submenu: Node) -> void:
 	var value = reset_array_value[2]
 	
 	attempt_set_value_or_handle_error(key, node_path, property_path, value)
-
-#func default_single_video_setting(key : String) -> void:
-#	var video_settings = settings["video_settings"]
-#
-#	if not reset_setting["video_settings"].has(key):
-#		printerr("attempt to reset setting to default [", key, "] failed. default_setting does not have key.")
-#		return
-#	if not video_settings.has(key):
-#		printerr("attempt to reset setting to default [", key, "] failed. video_settings does not have key.")
-#		return
-#
-#	var default_array_val = default_setting["video_settings"] [key]
-#	video_settings[key] = default_array_val.duplicate(true) # Is array so should duplicate.
-#
-#	var node_path = default_array_val[0]
-#	var property_path = default_array_val[1]
-#	var value = default_array_val[2]
-#
-#	attempt_set_value_or_handle_error(key, node_path, property_path, value)
-
-#func reset_single_video_setting(key : String) -> void:
-#	var video_settings = settings["video_settings"]
-#
-#	if not reset_setting["video_settings"].has(key):
-#		printerr("attempt to reset setting [", key, "] failed. reset_setting does not have key.")
-#		return
-#	if not video_settings.has(key):
-#		printerr("attempt to reset setting [", key, "] failed. video_settings does not have key.")
-#		return
-#
-#	var reset_array_value = reset_setting["video_settings"] [key]
-#	video_settings[key] = reset_array_value.duplicate(true)  # Is array so should duplicate.
-#
-#	var node_path = reset_array_value[0]
-#	var property_path = reset_array_value[1]
-#	var value = reset_array_value[2]
-#
-#	attempt_set_value_or_handle_error(key, node_path, property_path, value)
 
 func attempt_set_value_or_handle_error(key : String, node_path : String, property_path : String, value) -> void:
 	var node_attempt = get_node_or_null(node_path)
@@ -472,6 +488,21 @@ func load_settings() -> void:
 #			print_debug("Settings gotten form JSON data: ", settings)
 
 		settings = parsed_settings_result
+		
+		#settings_loaded.emit()
+		
+		# load all default_property_changes in each submenu
+		for setting_key in settings.keys():
+			var submenu = get_submenu_from_settings_key_or_null(setting_key)
+			
+			if not settings[setting_key].has("default_property_changes"):
+				# temporarily commenting out!
+				#printerr(setting_key , ": does not have default_property_changes! Please regenerate settings.JSON")
+				return
+			
+			submenu.default_property_changes = settings[setting_key]["default_property_changes"]
+		
+		
 		#print ("parsed settings: ", settings)
 	else:
 		settings = default_setting.duplicate(true)
