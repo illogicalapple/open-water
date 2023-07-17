@@ -154,7 +154,7 @@ func check_for_new_default_values(settings_key : String) -> void:
 	for key in default_setting[settings_key]:
 		if not settings[settings_key].has(key):
 			settings[settings_key] [key] = default_setting[settings_key] [key].duplicate(true) #array so should duplicate.
-			print_rich("[color=green]New Setting registed: [b]" , key , "[/b][/color]")
+			print_rich("[color=green]New Setting registed: [b]" , key , " in " , settings_key ,"[/b][/color]")
 
 func set_default_settings_from_submenu(settings_key : String) -> void:
 	var submenu = get_submenu_from_settings_key_or_null(settings_key)

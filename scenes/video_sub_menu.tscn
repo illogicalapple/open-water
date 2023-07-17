@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/video_submenu.gd" id="1_1udyx"]
 [ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://menu_theme.tres" id="1_37miv"]
 
-[node name="VideoSubMenu" type="VBoxContainer" node_paths=PackedStringArray("fov_slider", "fov_slider_label", "default_all", "default_FOV", "reset_all", "reset_FOV")]
+[node name="VideoSubMenu" type="VBoxContainer" node_paths=PackedStringArray("fov_slider", "fov_slider_label", "default_FOV", "reset_FOV", "default_submenu_button", "reset_submenu_button")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -14,10 +14,10 @@ theme = ExtResource("1_37miv")
 script = ExtResource("1_1udyx")
 fov_slider = NodePath("VideoSettings/VBoxContainer/FOV/HBoxVontainer/FOVSlider")
 fov_slider_label = NodePath("VideoSettings/VBoxContainer/FOV/HBoxVontainer/Value")
-default_all = NodePath("SubMenu Local Buttons/Default submenu")
 default_FOV = NodePath("VideoSettings/VBoxContainer/FOV/HBoxContainer/default")
-reset_all = NodePath("SubMenu Local Buttons/Reset submenu")
 reset_FOV = NodePath("VideoSettings/VBoxContainer/FOV/HBoxContainer/reset")
+default_submenu_button = NodePath("SubMenu Local Buttons/Default submenu")
+reset_submenu_button = NodePath("SubMenu Local Buttons/Reset submenu")
 
 [node name="SubMenu Local Buttons" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(620, 61)
