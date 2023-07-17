@@ -70,6 +70,8 @@ text = "default"
 layout_mode = 2
 text = "reset"
 
+[connection signal="pressed" from="SubMenu Local Buttons/Default submenu" to="." method="_on_default_submenu_pressed"]
+[connection signal="pressed" from="SubMenu Local Buttons/Reset submenu" to="." method="_on_reset_submenu_pressed"]
 [connection signal="value_changed" from="VideoSettings/VBoxContainer/FOV/HBoxVontainer/FOVSlider" to="." method="fov_slider_change"]
 [connection signal="value_changed" from="VideoSettings/VBoxContainer/FOV/HBoxVontainer/FOVSlider" to="." method="slider_change" binds= ["FOV"]]
 [connection signal="pressed" from="VideoSettings/VBoxContainer/FOV/HBoxContainer/default" to="." method="set_to_default" binds= ["FOV"]]

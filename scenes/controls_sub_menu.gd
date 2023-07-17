@@ -55,6 +55,19 @@ func set_to_default(key : String) -> void:
 func reset(key : String) -> void:
 	Settings.reset_single_setting(key, self)
 
+func _on_default_submenu_pressed() -> void:
+	var settings_key = Settings.get_setting_key_from_submenu_or_null(self)
+	if settings_key == null:
+		return
+	Settings.default_specific_setting(settings_key)
+
+func _on_reset_submenu_pressed() -> void:
+	var settings_key = Settings.get_setting_key_from_submenu_or_null(self)
+	if settings_key == null:
+		return
+	Settings.reset_specific_setting(settings_key)
+
+
 # For specific settings:
 func mouse_sensitivity_slider_change(value: float) -> void:
 	mouse_sensitivity_label.text = str("%.2f" % value) #Formats so always has 2 decimals.
