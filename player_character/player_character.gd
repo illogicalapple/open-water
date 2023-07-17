@@ -65,9 +65,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			synchronizer.y_rotation = rotation.y
 			camera.rotate_x(-deg_to_rad(event.relative.y) * mouse_sensitivity)
 	
-	if Input.is_action_just_pressed("perspective_change"):
-		$Camera3D.current=!$Camera3D.current
-		$Camera3D/thirdperson.current=!$Camera3D.current
+		if Input.is_action_just_pressed("perspective_change"):
+			$Camera3D.current=!$Camera3D.current
+			$Camera3D/thirdperson.current=!$Camera3D.current
 
 
 
