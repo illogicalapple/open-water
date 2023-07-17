@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/video_submenu.gd" id="1_1udyx"]
 
-[node name="VideoSubMenu" type="VBoxContainer" node_paths=PackedStringArray("fov_slider_label", "fov_slider")]
+[node name="VideoSubMenu" type="VBoxContainer" node_paths=PackedStringArray("fov_slider", "fov_slider_label", "default_all", "default_FOV", "reset_all", "reset_FOV")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -10,8 +10,12 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 script = ExtResource("1_1udyx")
-fov_slider_label = NodePath("VideoSettings/VBoxContainer/FOV/HBoxVontainer/Value")
 fov_slider = NodePath("VideoSettings/VBoxContainer/FOV/HBoxVontainer/FOVSlider")
+fov_slider_label = NodePath("VideoSettings/VBoxContainer/FOV/HBoxVontainer/Value")
+default_all = NodePath("SubMenu Local Buttons/Default submenu")
+default_FOV = NodePath("VideoSettings/VBoxContainer/FOV/HBoxContainer/default")
+reset_all = NodePath("SubMenu Local Buttons/Reset submenu")
+reset_FOV = NodePath("VideoSettings/VBoxContainer/FOV/HBoxContainer/reset")
 
 [node name="SubMenu Local Buttons" type="HBoxContainer" parent="."]
 layout_mode = 2

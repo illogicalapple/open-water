@@ -29,6 +29,7 @@ var escape_menu_state := EscapeMenuStates.NONE:
 var settings_menu_state := SettingsMenuStates.NONE:
 	set(state):
 		settings_menu_state = state
+		#print ("settings state: ", state)
 		Debug.settings_menu_state_changed(state)
 
 var character_state := CharacterStates.NORMAL:

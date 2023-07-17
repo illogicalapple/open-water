@@ -6,23 +6,26 @@
 [ext_resource type="PackedScene" uid="uid://bh0qaoarf0pas" path="res://scenes/controls_sub_menu.tscn" id="4_ogpwa"]
 [ext_resource type="PackedScene" uid="uid://b4wwldpq1vint" path="res://scenes/video_sub_menu.tscn" id="5_llo0m"]
 
-[node name="Settings" type="CanvasLayer" node_paths=PackedStringArray("submenu_selector", "video_submenu", "controls_submenu")]
+[node name="Settings" type="CanvasLayer" node_paths=PackedStringArray("default_button", "reset_button", "submenu_selector", "video_submenu", "controls_submenu")]
 process_mode = 3
 script = ExtResource("1_oid88")
+default_button = NodePath("MarginContainer/MarginContainer/VBoxContainer/GlobalButtons/HBoxContainer/Default all")
+reset_button = NodePath("MarginContainer/MarginContainer/VBoxContainer/GlobalButtons/HBoxContainer/Reset all")
 submenu_selector = NodePath("MarginContainer/MarginContainer/VBoxContainer/SubMenus/SubMenuSelector")
 video_submenu = NodePath("MarginContainer/MarginContainer/VBoxContainer/SubMenus/VideoSubMenu")
 controls_submenu = NodePath("MarginContainer/MarginContainer/VBoxContainer/SubMenus/ControlsSubMenu")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(1004, 345)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -382.0
+offset_left = -502.0
 offset_top = -172.5
-offset_right = 382.0
-offset_bottom = 172.5
+offset_right = 502.0
+offset_bottom = 111.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_chgt2")
@@ -101,10 +104,10 @@ size_flags_horizontal = 0
 text = "key mapping"
 
 [node name="VideoSubMenu" parent="MarginContainer/MarginContainer/VBoxContainer/SubMenus" instance=ExtResource("5_llo0m")]
+visible = false
 layout_mode = 2
 
 [node name="ControlsSubMenu" parent="MarginContainer/MarginContainer/VBoxContainer/SubMenus" instance=ExtResource("4_ogpwa")]
-visible = false
 layout_mode = 2
 
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/GlobalButtons/ExitSettings" to="." method="exit_settings_menu"]
