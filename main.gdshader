@@ -13,9 +13,9 @@ void vertex(){
 	height /=2.0;
 	VERTEX.y+=clamp(height*5.0,2,5);
 	height=clamp(height,0.1,0.6);
-	COLOR.rgb=vec3(0,height*0.5,height*0.5);
+	COLOR.rgb=vec3(0,height*0.25,height*0.5);
 	COLOR.gb+=vec2(0.1,0.2);
-	COLOR.a=0.8;
+	COLOR.a=0.6;
 	
 }
 void fragment() {

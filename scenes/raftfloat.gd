@@ -2,6 +2,7 @@ extends StaticBody3D
 var veloc=Vector2(0,0)
 var noise1=FastNoiseLite.new()
 var noise2=FastNoiseLite.new()
+var player_pos: Vector3 = Vector3(0, 0, 0)
 @onready var water=get_parent().get_node("Water/Texture").material_override
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,15 +23,18 @@ func _process(delta):
 		if noise1.get_noise_2d(pos.x,pos.z)>pos.y-global_position.y:
 			var difference=noise1.get_noise_2d(pos.x,pos.z)*5-pos.y-global_position.y
 			if "x+" in e.name:
-				dir.x+=difference*3
+				dir.x+=difference
 			else:
-				dir.x-=difference*3
+				dir.x-=difference
 			if "z+"in e.name:
-				dir.y+=difference*3
+				dir.y+=difference
 			else:
-				dir.y-=difference*3
+				dir.y-=difference
 		
-			
+	if (noise1.get_noise_2d(player_pos.x, player_pos.y) + noise2.get_noise_2d(player_pos.x, player_pos.y)) / 2 > player_pos.y:
+		get_parent().is_underwater = true
+	else:
+		get_parent().is_underwater = false
 		
 	veloc+=dir*delta
 	veloc-=veloc.normalized()*delta

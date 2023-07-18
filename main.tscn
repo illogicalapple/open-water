@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ce17c81jacq53"]
+[gd_scene load_steps=12 format=3 uid="uid://ce17c81jacq53"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_whca7"]
 [ext_resource type="PackedScene" uid="uid://cr2xw7d138i6s" path="res://scenes/raft.tscn" id="3_ac4oe"]
@@ -6,9 +6,6 @@
 [ext_resource type="Script" path="res://infinitewater.gd" id="4_g5v78"]
 [ext_resource type="PackedScene" uid="uid://bd3f7wi00wvap" path="res://scenes/components/ocean_texture.tscn" id="5_hbkas"]
 [ext_resource type="Environment" uid="uid://4e77lfajjddk" path="res://environment.tres" id="6_7mpl1"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_dvrvf"]
-size = Vector3(400, 1, 400)
 
 [sub_resource type="BoxMesh" id="BoxMesh_672vs"]
 size = Vector3(1400, 1, 1400)
@@ -32,6 +29,16 @@ script = ExtResource("1_whca7")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 7.073, 0)
+
+[node name="Underwater" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.321569, 0.611765, 1, 0.619608)
 
 [node name="GUI" parent="." instance=ExtResource("3_lgndg")]
 
@@ -80,20 +87,23 @@ text = "Join"
 layout_mode = 2
 text = "Host"
 
-[node name="Floor" parent="." instance=ExtResource("3_ac4oe")]
+[node name="Raft" parent="." instance=ExtResource("3_ac4oe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.310413, 0.375806, 0.210363)
 
-[node name="Water" type="Area3D" parent="."]
+[node name="Water" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.25731, 0)
-collision_layer = 16
-collision_mask = 0
 script = ExtResource("4_g5v78")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Water"]
-shape = SubResource("BoxShape3D_dvrvf")
 
 [node name="Texture" parent="Water" instance=ExtResource("5_hbkas")]
 mesh = SubResource("BoxMesh_672vs")
 script = null
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://player_character/player_character.tscn")
+spawn_path = NodePath("..")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("6_7mpl1")
 
 [node name="Land" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15.2367, 0)
@@ -145,13 +155,6 @@ collision_mask = 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="fencing/StaticBody3D3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19062, 2.75031, 1.70295)
 shape = SubResource("BoxShape3D_r3y4a")
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://player_character/player_character.tscn")
-spawn_path = NodePath("..")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource("6_7mpl1")
 
 [connection signal="pressed" from="MenuControl/Menu/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="MenuControl/Menu/Host" to="." method="_on_host_pressed"]
