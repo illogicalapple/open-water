@@ -1,15 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://d2mnnap7exmi7"]
+[gd_scene load_steps=4 format=3 uid="uid://d2mnnap7exmi7"]
 
 [ext_resource type="Script" path="res://scenes/gui.gd" id="1_askin"]
 [ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://menu_theme.tres" id="1_r28kn"]
+[ext_resource type="PackedScene" uid="uid://dg3ginoetdnt0" path="res://scenes/components/inventory_item.tscn" id="3_8obf8"]
 
 [node name="GUI" type="Control"]
+process_mode = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme = ExtResource("1_r28kn")
 script = ExtResource("1_askin")
 
@@ -24,6 +27,119 @@ offset_top = -26.0
 grow_horizontal = 2
 grow_vertical = 0
 placeholder_text = "insert command here"
+
+[node name="Inventory" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -195.5
+offset_top = -147.0
+offset_right = 195.5
+offset_bottom = -72.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/separation = 32
+alignment = 2
+
+[node name="Inventory" type="GridContainer" parent="Inventory"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/h_separation = 32
+theme_override_constants/v_separation = 32
+columns = 5
+
+[node name="InventoryItem" parent="Inventory/Inventory" instance=ExtResource("3_8obf8")]
+layout_mode = 2
+index = 5
+
+[node name="InventoryItem2" parent="Inventory/Inventory" instance=ExtResource("3_8obf8")]
+layout_mode = 2
+index = 6
+
+[node name="InventoryItem3" parent="Inventory/Inventory" instance=ExtResource("3_8obf8")]
+layout_mode = 2
+index = 7
+
+[node name="InventoryItem4" parent="Inventory/Inventory" instance=ExtResource("3_8obf8")]
+layout_mode = 2
+index = 8
+
+[node name="InventoryItem5" parent="Inventory/Inventory" instance=ExtResource("3_8obf8")]
+layout_mode = 2
+index = 9
+
+[node name="InventoryItem6" parent="Inventory/Inventory" instance=ExtResource("3_8obf8")]
+layout_mode = 2
+index = 10
+
+[node name="InventoryItem7" parent="Inventory/Inventory" instance=ExtResource("3_8obf8")]
+layout_mode = 2
+index = 11
+
+[node name="InventoryItem8" parent="Inventory/Inventory" instance=ExtResource("3_8obf8")]
+layout_mode = 2
+index = 12
+
+[node name="InventoryItem9" parent="Inventory/Inventory" instance=ExtResource("3_8obf8")]
+layout_mode = 2
+index = 13
+
+[node name="InventoryItem10" parent="Inventory/Inventory" instance=ExtResource("3_8obf8")]
+layout_mode = 2
+index = 14
+
+[node name="InventoryItem11" parent="Inventory/Inventory" instance=ExtResource("3_8obf8")]
+layout_mode = 2
+index = 15
+
+[node name="InventoryItem12" parent="Inventory/Inventory" instance=ExtResource("3_8obf8")]
+layout_mode = 2
+index = 16
+
+[node name="InventoryItem13" parent="Inventory/Inventory" instance=ExtResource("3_8obf8")]
+layout_mode = 2
+index = 17
+
+[node name="InventoryItem14" parent="Inventory/Inventory" instance=ExtResource("3_8obf8")]
+layout_mode = 2
+index = 18
+
+[node name="InventoryItem15" parent="Inventory/Inventory" instance=ExtResource("3_8obf8")]
+layout_mode = 2
+index = 19
+
+[node name="Hotbar" type="HBoxContainer" parent="Inventory"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 32
+
+[node name="InventoryItem" parent="Inventory/Hotbar" instance=ExtResource("3_8obf8")]
+layout_mode = 2
+is_hotbar = true
+
+[node name="InventoryItem2" parent="Inventory/Hotbar" instance=ExtResource("3_8obf8")]
+layout_mode = 2
+is_hotbar = true
+index = 1
+
+[node name="InventoryItem3" parent="Inventory/Hotbar" instance=ExtResource("3_8obf8")]
+layout_mode = 2
+is_hotbar = true
+index = 2
+
+[node name="InventoryItem4" parent="Inventory/Hotbar" instance=ExtResource("3_8obf8")]
+layout_mode = 2
+is_hotbar = true
+index = 3
+
+[node name="InventoryItem5" parent="Inventory/Hotbar" instance=ExtResource("3_8obf8")]
+layout_mode = 2
+is_hotbar = true
+index = 4
 
 [connection signal="focus_exited" from="Commands" to="." method="_on_commands_focus_exited"]
 [connection signal="text_submitted" from="Commands" to="." method="_on_commands_text_submitted"]
