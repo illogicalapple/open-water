@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dg3ginoetdnt0"]
+
+[ext_resource type="Texture2D" uid="uid://s4uyffq77bmq" path="res://assets/images/inventory/square.png" id="1_t5wlf"]
+[ext_resource type="Script" path="res://scenes/components/inventory_item.gd" id="1_yn3yu"]
+
+[node name="TextureButton" type="TextureButton"]
+process_mode = 3
+texture_normal = ExtResource("1_t5wlf")
+script = ExtResource("1_yn3yu")
