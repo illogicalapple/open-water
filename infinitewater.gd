@@ -1,4 +1,4 @@
-extends Area3D
+extends Node3D
 var ourplayer=null
 var time=0
 # Called when the node enters the scene tree for the first time.

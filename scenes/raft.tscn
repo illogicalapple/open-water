@@ -6,7 +6,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_i6wcq"]
 size = Vector3(9, 0.5, 10)
 
-[node name="Floor" type="StaticBody3D"]
+[node name="Raft" type="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.310413, -0.0586481, 0.210363)
 collision_layer = 2
 collision_mask = 0

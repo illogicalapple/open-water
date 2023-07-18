@@ -1,5 +1,14 @@
 extends Node3D
 
+var is_underwater: bool = false:
+	set(underwater):
+		is_underwater = underwater
+		if underwater:
+			$Underwater.show()
+			($WorldEnvironment.environment as Environment).fog_density = 0.03
+		else:
+			$Underwater.hide()
+			($WorldEnvironment.environment as Environment).fog_density = 0.004
 var time: Dictionary = {
 	"hour": 7,
 	"minute": 0,
