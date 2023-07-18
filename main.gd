@@ -9,6 +9,7 @@ var is_underwater: bool = false:
 		else:
 			$Underwater.hide()
 			($WorldEnvironment.environment as Environment).fog_density = 0.004
+			
 var time: Dictionary = {
 	"hour": 7,
 	"minute": 0,
