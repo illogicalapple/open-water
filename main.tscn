@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://ce17c81jacq53"]
+[gd_scene load_steps=14 format=3 uid="uid://ce17c81jacq53"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_whca7"]
-[ext_resource type="Shader" path="res://main.gdshader" id="2_6w6rm"]
 [ext_resource type="PackedScene" uid="uid://d2mnnap7exmi7" path="res://scenes/gui.tscn" id="3_lgndg"]
 [ext_resource type="PackedScene" uid="uid://b0ndy6yikdj1u" path="res://assets/3D models/raft.gltf" id="4_bs8uy"]
 [ext_resource type="Script" path="res://infinitewater.gd" id="4_g5v78"]
+[ext_resource type="PackedScene" uid="uid://bd3f7wi00wvap" path="res://scenes/components/ocean_texture.tscn" id="5_hbkas"]
+[ext_resource type="Environment" uid="uid://4e77lfajjddk" path="res://environment.tres" id="6_7mpl1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i6wcq"]
 size = Vector3(9, 0.5, 10)
@@ -12,34 +13,8 @@ size = Vector3(9, 0.5, 10)
 [sub_resource type="BoxShape3D" id="BoxShape3D_dvrvf"]
 size = Vector3(400, 1, 400)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_xqpcs"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b3lqb"]
-width = 200
-height = 200
-generate_mipmaps = false
-seamless = true
-noise = SubResource("FastNoiseLite_xqpcs")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_inw88"]
-metadata/_preview_in_3d_space_ = true
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1poex"]
-width = 200
-height = 200
-generate_mipmaps = false
-seamless = true
-noise = SubResource("FastNoiseLite_inw88")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wawqv"]
-render_priority = 0
-shader = ExtResource("2_6w6rm")
-shader_parameter/offset = Vector3(0, -5.25731, 0)
-shader_parameter/noise1 = SubResource("NoiseTexture2D_b3lqb")
-shader_parameter/noise2 = SubResource("NoiseTexture2D_1poex")
-
-[sub_resource type="BoxMesh" id="BoxMesh_2snvr"]
-size = Vector3(400, 1, 400)
+[sub_resource type="BoxMesh" id="BoxMesh_672vs"]
+size = Vector3(1400, 1, 1400)
 subdivide_width = 128
 subdivide_depth = 128
 
@@ -103,11 +78,8 @@ script = ExtResource("4_g5v78")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Water"]
 shape = SubResource("BoxShape3D_dvrvf")
 
-[node name="ff" type="MeshInstance3D" parent="Water"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58211, 0)
-material_override = SubResource("ShaderMaterial_wawqv")
-cast_shadow = 0
-mesh = SubResource("BoxMesh_2snvr")
+[node name="Texture" parent="Water" instance=ExtResource("5_hbkas")]
+mesh = SubResource("BoxMesh_672vs")
 
 [node name="Land" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15.2367, 0)
@@ -164,10 +136,8 @@ shape = SubResource("BoxShape3D_r3y4a")
 _spawnable_scenes = PackedStringArray("res://player_character/player_character.tscn")
 spawn_path = NodePath("..")
 
-[node name="TimeSet" type="Timer" parent="."]
-process_mode = 3
-wait_time = 2.0
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("6_7mpl1")
 
 [connection signal="pressed" from="Menu/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="Menu/Host" to="." method="_on_host_pressed"]
-[connection signal="timeout" from="TimeSet" to="." method="_on_time_set_timeout"]
