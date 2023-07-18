@@ -53,6 +53,15 @@ func settings_menu_state_changed(state : States.SettingsMenuStates) -> void:
 		)
 		settings_menu_state_label.visible = false if state == States.SettingsMenuStates.NONE else true
 
+
+func inventory_state_changed(state : States.InventoryStates) -> void:
+	if is_node_ready(): # Ensures that everything is loaded. 
+		settings_menu_state_label.text = str(
+			"inventory_state: " +
+			States.InventoryStates.keys()[state]
+		)
+		settings_menu_state_label.visible = false if state == States.SettingsMenuStates.NONE else true
+
 func character_state_changed(state : States.CharacterStates) -> void:
 	character_state_label.text = str(
 		"character_state: " +
