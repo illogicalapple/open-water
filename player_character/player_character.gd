@@ -16,6 +16,14 @@ func _ready():
 
 func _physics_process(delta):
 	# this runs every tick
+	
+	if is_on_floor():
+		veloc.y=0
+	
+	#uuuuum sorry i forgot to reset gravity on floor C:
+	# ~M125
+	
+	
 	if synchronizer.is_multiplayer_authority(): # always gotta check if you're connected
 		if States.character_state == States.CharacterStates.NOCLIP: $CollisionShape3D.disabled = true # disables collisions in noclip mode (see states.gd)
 		else: $CollisionShape3D.disabled = false # otherwise, it resets
