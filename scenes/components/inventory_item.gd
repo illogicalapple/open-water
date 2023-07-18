@@ -15,3 +15,7 @@ func _process(_delta):
 		mouse_filter = Control.MOUSE_FILTER_IGNORE
 	else:
 		mouse_filter = Control.MOUSE_FILTER_STOP
+
+func _on_pressed():
+	States.inventory_item = index
+	print(States.inventory_item)
