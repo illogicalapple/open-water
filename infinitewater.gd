@@ -1,6 +1,6 @@
 extends Area3D
 var ourplayer=null
-
+var time=0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -8,6 +8,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	time+=delta
+	$Texture.material_override.set_shader_parameter("time",time)
 	#finding player of game instance
 	if ourplayer==null:
 		for e in get_parent().get_children():
