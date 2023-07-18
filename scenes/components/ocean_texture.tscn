@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://bd3f7wi00wvap"]
+
+[ext_resource type="Shader" path="res://main.gdshader" id="1_j14s3"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xqpcs"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b3lqb"]
+width = 200
+height = 200
+generate_mipmaps = false
+seamless = true
+noise = SubResource("FastNoiseLite_xqpcs")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_inw88"]
+metadata/_preview_in_3d_space_ = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1poex"]
+width = 200
+height = 200
+generate_mipmaps = false
+seamless = true
+noise = SubResource("FastNoiseLite_inw88")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wawqv"]
+render_priority = 0
+shader = ExtResource("1_j14s3")
+shader_parameter/offset = Vector3(0, -5.25731, 0)
+shader_parameter/noise1 = SubResource("NoiseTexture2D_b3lqb")
+shader_parameter/noise2 = SubResource("NoiseTexture2D_1poex")
+
+[sub_resource type="BoxMesh" id="BoxMesh_2snvr"]
+size = Vector3(800, 1, 800)
+subdivide_width = 128
+subdivide_depth = 128
+
+[node name="Texture" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58211, 0)
+material_override = SubResource("ShaderMaterial_wawqv")
+cast_shadow = 0
+mesh = SubResource("BoxMesh_2snvr")

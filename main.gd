@@ -24,7 +24,6 @@ func _on_host_pressed():
 	multiplayer_peer.peer_connected.connect(func(id): add_player_character(id))
 	menu.visible = false
 	add_player_character()
-	$TimeSet.start()
 
 # adds a character
 func add_player_character(id=1):
@@ -32,20 +31,3 @@ func add_player_character(id=1):
 	character.name = str(id)
 	add_child(character)
 	
-
-# change the time
-func _on_time_set_timeout():
-	time.minute += 1
-	if time.minute > 59:
-		time.minute = 0
-		time.hour += 1
-		if time.hour > 11:
-			time.hour = 0
-			time.am = not time.am
-	$GUI.change_time(time)
-	rpc("change_time", time) # not the best way of doing this, i couldn't figure out rset until recently
-
-@rpc
-func change_time(new_time):
-	$GUI.change_time(new_time) # changes the time!
-	time = new_time

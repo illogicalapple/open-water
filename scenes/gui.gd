@@ -1,12 +1,5 @@
 extends Control
 
-# changes the time on the label
-func change_time(new_time):
-	var minute: String = str(new_time.minute)
-	if len(minute) < 2:
-		minute = "0" + minute
-	$Time.text = str(new_time.hour) + ":" + minute + "am" if new_time.am else "pm"
-
 func _unhandled_input(event):
 	# commands
 	if event.is_action_pressed("commands"):

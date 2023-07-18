@@ -1,9 +1,5 @@
-@tool
 extends Area3D
 var ourplayer=null
-
-# kinda sketchy code, especially as it's a @tool
-# not so sure about this code lol
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,6 +14,6 @@ func _process(delta):
 				ourplayer=e
 	else:
 		position=Vector3(ourplayer.position.x,position.y,ourplayer.position.z)
-	$ff.material_override.set_shader_parameter("offset",position)
+	$Texture.material_override.set_shader_parameter("offset",position)
 	
 	pass
