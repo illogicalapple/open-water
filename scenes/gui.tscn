@@ -121,6 +121,7 @@ theme_override_constants/separation = 32
 [node name="InventoryItem" parent="Inventory/Hotbar" instance=ExtResource("3_8obf8")]
 layout_mode = 2
 is_hotbar = true
+is_active = true
 
 [node name="InventoryItem2" parent="Inventory/Hotbar" instance=ExtResource("3_8obf8")]
 layout_mode = 2

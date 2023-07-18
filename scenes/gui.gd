@@ -1,17 +1,25 @@
 extends Control
 
+var active_child = 1
+
 func _unhandled_input(event):
 	# commands
 	if event.is_action_pressed("commands"):
 		$Commands.text = ""
 		($Commands as LineEdit).show()
 		($Commands as LineEdit).grab_focus()
-	if event.is_action_pressed("inventory"):
+	if event.is_action_pressed("inventory") and States.inventory_state == States.InventoryStates.NONE:
 		States.inventory_state = States.InventoryStates.CURRENT
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	if event.is_action_pressed("esc"):
+	elif event.is_action_pressed("esc") or Input.is_action_pressed("inventory"):
 		States.inventory_state = States.InventoryStates.NONE
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	if event.is_action_pressed("inv_1"):
+		for child in $Inventory/Hotbar.get_children():
+			# EXPLOIT THE CHILD
+			# CHILD LABOR FTW
+			child.is_active = false
+		$Inventory/Hotbar/InventoryItem.is_active = true
 
 func _on_commands_text_submitted(command):
 	# when the text is submitted

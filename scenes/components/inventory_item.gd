@@ -1,6 +1,13 @@
 extends TextureButton
 
 @export var is_hotbar: bool = false
+@export var is_active = false:
+	set(active):
+		is_active = active
+		if active:
+			texture_normal = hotbar_active_texture
+		else:
+			texture_normal = hotbar_texture
 @export var index: int = 0
 
 var hotbar_texture: CompressedTexture2D = preload("res://assets/images/inventory/hotbar_square.png")
