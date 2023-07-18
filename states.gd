@@ -54,6 +54,12 @@ var character_state := CharacterStates.NORMAL:
 		character_state = state
 		Debug.character_state_changed(state)
 
+var inventory_item := 0:
+	set(state):
+		inventory_item = state
+		#print ("settings state: ", state)
+		Debug.inventory_item_changed(state)
+
 
 func _ready() -> void:
 	game_state = GameStates.MAIN_MENU

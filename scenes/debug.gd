@@ -56,9 +56,17 @@ func settings_menu_state_changed(state : States.SettingsMenuStates) -> void:
 
 func inventory_state_changed(state : States.InventoryStates) -> void:
 	if is_node_ready(): # Ensures that everything is loaded. 
-		settings_menu_state_label.text = str(
+		$Control/CurrentStates/InventoryState.text = str(
 			"inventory_state: " +
 			States.InventoryStates.keys()[state]
+		)
+		settings_menu_state_label.visible = false if state == States.SettingsMenuStates.NONE else true
+
+func inventory_item_changed(state : int) -> void:
+	if is_node_ready(): # Ensures that everything is loaded. 
+		$Control/CurrentStates/InventoryItem.text = str(
+			"inventory_item: " +
+			str(States.inventory_item)
 		)
 		settings_menu_state_label.visible = false if state == States.SettingsMenuStates.NONE else true
 
