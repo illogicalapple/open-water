@@ -49,6 +49,10 @@ text = "settings_menu_state: "
 layout_mode = 2
 text = "character_state:"
 
+[node name="InventoryState" type="Label" parent="Control/CurrentStates"]
+layout_mode = 2
+text = "inventory_state:"
+
 [node name="DebugInfo" type="VBoxContainer" parent="Control"]
 layout_mode = 1
 anchors_preset = 1

@@ -34,7 +34,6 @@ script = ExtResource("1_whca7")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 7.073, 0)
 
 [node name="GUI" parent="." instance=ExtResource("3_lgndg")]
-mouse_filter = 2
 
 [node name="Menu" type="VBoxContainer" parent="."]
 offset_right = 40.0
