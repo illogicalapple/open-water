@@ -1,14 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://ce17c81jacq53"]
+[gd_scene load_steps=13 format=3 uid="uid://ce17c81jacq53"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_whca7"]
+[ext_resource type="PackedScene" uid="uid://cr2xw7d138i6s" path="res://scenes/raft.tscn" id="3_ac4oe"]
 [ext_resource type="PackedScene" uid="uid://d2mnnap7exmi7" path="res://scenes/gui.tscn" id="3_lgndg"]
-[ext_resource type="PackedScene" uid="uid://b0ndy6yikdj1u" path="res://assets/3D models/raft.gltf" id="4_bs8uy"]
 [ext_resource type="Script" path="res://infinitewater.gd" id="4_g5v78"]
 [ext_resource type="PackedScene" uid="uid://bd3f7wi00wvap" path="res://scenes/components/ocean_texture.tscn" id="5_hbkas"]
 [ext_resource type="Environment" uid="uid://4e77lfajjddk" path="res://environment.tres" id="6_7mpl1"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_i6wcq"]
-size = Vector3(9, 0.5, 10)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dvrvf"]
 size = Vector3(400, 1, 400)
@@ -57,17 +54,7 @@ text = "Join"
 layout_mode = 2
 text = "Host"
 
-[node name="Floor" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.310413, -0.0586481, 0.210363)
-collision_layer = 2
-collision_mask = 0
-
-[node name="raft" parent="Floor" instance=ExtResource("4_bs8uy")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -3.58169, -0.827904, 0.909655)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.366741, -0.594168, 1.0516)
-shape = SubResource("BoxShape3D_i6wcq")
+[node name="Floor" parent="." instance=ExtResource("3_ac4oe")]
 
 [node name="Water" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.25731, 0)
@@ -80,6 +67,7 @@ shape = SubResource("BoxShape3D_dvrvf")
 
 [node name="Texture" parent="Water" instance=ExtResource("5_hbkas")]
 mesh = SubResource("BoxMesh_672vs")
+script = null
 
 [node name="Land" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15.2367, 0)
