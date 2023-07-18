@@ -46,6 +46,7 @@ theme_override_constants/separation = 32
 alignment = 2
 
 [node name="Inventory" type="GridContainer" parent="Inventory"]
+visible = false
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/h_separation = 32

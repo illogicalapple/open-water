@@ -19,6 +19,9 @@ enum EscapeMenuStates {NONE, CURRENT, SETTINGS}
 # Third-level States: 
 enum SettingsMenuStates {NONE, CURRENT, VIDEO, AUDIO, CONTROLS} #KEY_MAPPING
 
+#Inventory states
+enum InventoryStates {NONE, CURRENT}
+
 # state setters to make things do stuff
 var game_state := GameStates.MAIN_MENU:
 	set(state):
@@ -34,6 +37,11 @@ var escape_menu_state := EscapeMenuStates.NONE:
 	set(state):
 		escape_menu_state = state
 		Debug.escape_menu_state_changed(state)
+
+var inventory_state := InventoryStates.NONE:
+	set(state):
+		inventory_state = state
+		Debug.inventory_state_changed(state)
 
 var settings_menu_state := SettingsMenuStates.NONE:
 	set(state):
@@ -62,6 +70,7 @@ func set_to_in_game() -> void:
 	main_menu_state = MainMenuStates.NONE
 	settings_menu_state = SettingsMenuStates.NONE
 	character_state = CharacterStates.NORMAL
+	inventory_state = InventoryStates.NONE
 
 ## Sets to previous state or prints errors if no previous state is available.
 func set_to_previous_menu() -> void:
@@ -122,6 +131,11 @@ func in_settings_menu() -> bool:
 	else:
 		return false
 
+func in_inventory() -> bool:
+	if inventory_state == InventoryStates.CURRENT:
+		return true
+	else:
+		return false
 
 func in_settings_sub_menu() -> bool:
 	if (settings_menu_state == SettingsMenuStates.NONE 
