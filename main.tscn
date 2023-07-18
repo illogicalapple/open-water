@@ -35,21 +35,48 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 7.0
 
 [node name="GUI" parent="." instance=ExtResource("3_lgndg")]
 
-[node name="Menu" type="VBoxContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="MenuControl" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Port" type="LineEdit" parent="Menu"]
+[node name="Menu" type="VBoxContainer" parent="MenuControl"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -68.0
+offset_right = 43.5
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.2, 1.2)
+
+[node name="IP" type="LineEdit" parent="MenuControl/Menu"]
+layout_mode = 2
+mouse_filter = 1
+text = "127.0.0.1"
+placeholder_text = "IP Adress"
+
+[node name="Port" type="LineEdit" parent="MenuControl/Menu"]
 layout_mode = 2
 mouse_filter = 1
 text = "9999"
 placeholder_text = "Port"
 
-[node name="Join" type="Button" parent="Menu"]
+[node name="Join" type="Button" parent="MenuControl/Menu"]
 layout_mode = 2
 text = "Join"
 
-[node name="Host" type="Button" parent="Menu"]
+[node name="Host" type="Button" parent="MenuControl/Menu"]
 layout_mode = 2
 text = "Host"
 
@@ -126,5 +153,5 @@ spawn_path = NodePath("..")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("6_7mpl1")
 
-[connection signal="pressed" from="Menu/Join" to="." method="_on_join_pressed"]
-[connection signal="pressed" from="Menu/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="MenuControl/Menu/Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="MenuControl/Menu/Host" to="." method="_on_host_pressed"]
