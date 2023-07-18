@@ -8,12 +8,16 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	#finding player of game instance
 	if ourplayer==null:
 		for e in get_parent().get_children():
 			if e.get_node_or_null("MultiplayerSynchronizer")!=null:
-				ourplayer=e
+				if e.get_node_or_null("MultiplayerSynchronizer").is_multiplayer_authority():
+					#multiplayer authority c:
+					ourplayer=e
 	else:
 		position=Vector3(ourplayer.position.x,position.y,ourplayer.position.z)
+		#follow player on x and z coordinates
 	$Texture.material_override.set_shader_parameter("offset",position)
-	
+	#make it look like it's just infinite(offseting)
 	pass
