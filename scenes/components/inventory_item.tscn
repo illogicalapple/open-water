@@ -7,3 +7,5 @@
 process_mode = 3
 texture_normal = ExtResource("1_t5wlf")
 script = ExtResource("1_yn3yu")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

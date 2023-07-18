@@ -8,8 +8,10 @@ func _unhandled_input(event):
 		($Commands as LineEdit).grab_focus()
 	if event.is_action_pressed("inventory"):
 		States.inventory_state = States.InventoryStates.CURRENT
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	if event.is_action_pressed("esc"):
 		States.inventory_state = States.InventoryStates.NONE
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _on_commands_text_submitted(command):
 	# when the text is submitted
@@ -29,7 +31,7 @@ func _on_commands_text_submitted(command):
 					States.character_state = States.CharacterStates.NORMAL
 
 func _process(_delta):
-	print(States.in_inventory())
+	#print(States.in_inventory())
 	if States.in_inventory():
 		$Inventory/Inventory.visible = true
 	else:
