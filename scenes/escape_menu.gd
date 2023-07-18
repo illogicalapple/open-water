@@ -17,13 +17,14 @@ func _ready() -> void:
 ## Listens for escape button and exits any sub-menus if pressed.
 ## Also exits escape menu is not in sub menu.
 ## If not in escape menu, will enter escape menu.
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("esc"):
-		match States.game_state:
-			States.GameStates.ESCAPE_MENU:
-				exit_sub_menu()
-			States.GameStates.IN_GAME:
-				enter_escape_menu()
+		if States.inventory_state == States.InventoryStates.NONE:
+			match States.game_state:
+				States.GameStates.ESCAPE_MENU:
+					exit_sub_menu()
+				States.GameStates.IN_GAME:
+					enter_escape_menu()
 	return
 
 func exit_sub_menu() -> void:
