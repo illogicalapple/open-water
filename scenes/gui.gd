@@ -20,6 +20,30 @@ func _unhandled_input(event):
 			# CHILD LABOR FTW
 			child.is_active = false
 		$Inventory/Hotbar/InventoryItem.is_active = true
+	if event.is_action_pressed("inv_2"):
+		for child in $Inventory/Hotbar.get_children():
+			# EXPLOIT THE CHILD
+			# CHILD LABOR FTW
+			child.is_active = false
+		$Inventory/Hotbar/InventoryItem2.is_active = true
+	if event.is_action_pressed("inv_3"):
+		for child in $Inventory/Hotbar.get_children():
+			# EXPLOIT THE CHILD
+			# CHILD LABOR FTW
+			child.is_active = false
+		$Inventory/Hotbar/InventoryItem3.is_active = true
+	if event.is_action_pressed("inv_4"):
+		for child in $Inventory/Hotbar.get_children():
+			# EXPLOIT THE CHILD
+			# CHILD LABOR FTW
+			child.is_active = false
+		$Inventory/Hotbar/InventoryItem4.is_active = true
+	if event.is_action_pressed("inv_5"):
+		for child in $Inventory/Hotbar.get_children():
+			# EXPLOIT THE CHILD
+			# CHILD LABOR FTW
+			child.is_active = false
+		$Inventory/Hotbar/InventoryItem5.is_active = true
 
 func _on_commands_text_submitted(command):
 	# when the text is submitted
