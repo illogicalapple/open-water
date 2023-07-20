@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bh0qaoarf0pas"]
 
-[ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://menu_theme.tres" id="1_pul57"]
+[ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://resources/menu_theme.tres" id="1_pul57"]
 [ext_resource type="Script" path="res://scenes/settings/controls_sub_menu.gd" id="1_rb8xs"]
 
 [node name="ControlsSubMenu" type="VBoxContainer" node_paths=PackedStringArray("mouse_sensitivity_slider", "mouse_sensitivity_label", "default_mouse_sensitivity", "reset_mouse_sensitivity", "default_submenu_button", "reset_submenu_button")]
