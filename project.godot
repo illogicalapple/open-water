@@ -19,9 +19,9 @@ config/icon="res://icon.png"
 
 Debug="*res://autoload/debug.tscn"
 Settings="*res://scenes/settings/settings_menu.tscn"
-States="*res://states.gd"
+States="*res://autoload/states.gd"
 EscapeMenu="*res://autoload/escape_menu.tscn"
-Character="*res://character_data.gd"
+Character="*res://autoload/character_data.gd"
 
 [display]
 

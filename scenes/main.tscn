@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_vaiso"]
 [ext_resource type="PackedScene" uid="uid://cr2xw7d138i6s" path="res://scenes/components/raft/raft.tscn" id="3_ac4oe"]
 [ext_resource type="PackedScene" uid="uid://d2mnnap7exmi7" path="res://scenes/gui.tscn" id="3_lgndg"]
-[ext_resource type="Script" path="res://infinitewater.gd" id="4_g5v78"]
+[ext_resource type="Script" path="res://scenes/components/infinitewater.gd" id="4_g5v78"]
 [ext_resource type="PackedScene" uid="uid://bd3f7wi00wvap" path="res://scenes/components/ocean_texture.tscn" id="5_hbkas"]
-[ext_resource type="Environment" uid="uid://4e77lfajjddk" path="res://environment.tres" id="6_7mpl1"]
+[ext_resource type="Environment" uid="uid://4e77lfajjddk" path="res://resources/environment.tres" id="6_7mpl1"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_672vs"]
 size = Vector3(1400, 1, 1400)
