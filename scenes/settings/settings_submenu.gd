@@ -1,5 +1,5 @@
 extends Control
-class_name SettingsSubMenu 
+class_name SettingsSubMenu
 
 ## Should be a class that SubMenu classes EXTEND.
 
