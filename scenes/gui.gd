@@ -61,6 +61,11 @@ func _on_commands_text_submitted(command):
 					States.character_state = States.CharacterStates.FLY
 				"normal":
 					States.character_state = States.CharacterStates.NORMAL
+		"give":
+			var item = InventoryItem.new()
+			item.type = parsed[1]
+			item.amount = parsed[2]
+			Character.pick_up(item)
 
 func _process(_delta):
 	#print(States.in_inventory())
