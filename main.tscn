@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ce17c81jacq53"]
+[gd_scene load_steps=11 format=3 uid="uid://ce17c81jacq53"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_whca7"]
 [ext_resource type="PackedScene" uid="uid://cr2xw7d138i6s" path="res://scenes/raft.tscn" id="3_ac4oe"]
@@ -19,10 +19,6 @@ size = Vector3(38592.5, 0.563, 880.673)
 albedo_color = Color(0.541176, 0.372549, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_brgo6"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_r3y4a"]
-resource_local_to_scene = true
-size = Vector3(10, 10, 0.1)
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_whca7")
@@ -118,43 +114,6 @@ transform = Transform3D(38592.5, 0, 0, 0, 0.563395, 0, 0, 0, 880.673, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_j1bh7")
 cast_shadow = 0
 mesh = SubResource("BoxMesh_brgo6")
-
-[node name="fencing" type="Node3D" parent="."]
-
-[node name="StaticBody3D" type="StaticBody3D" parent="fencing"]
-collision_layer = 8
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="fencing/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0466152, 2.75031, 6.22161)
-shape = SubResource("BoxShape3D_r3y4a")
-
-[node name="StaticBody3D4" type="StaticBody3D" parent="fencing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.96179)
-collision_layer = 8
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="fencing/StaticBody3D4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0466152, 2.75031, 5.59634)
-shape = SubResource("BoxShape3D_r3y4a")
-
-[node name="StaticBody3D2" type="StaticBody3D" parent="fencing"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.47071, 0, 0)
-collision_layer = 8
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="fencing/StaticBody3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19062, 2.75031, 1.27352)
-shape = SubResource("BoxShape3D_r3y4a")
-
-[node name="StaticBody3D3" type="StaticBody3D" parent="fencing"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -6.07238, 0, 0)
-collision_layer = 8
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="fencing/StaticBody3D3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19062, 2.75031, 1.70295)
-shape = SubResource("BoxShape3D_r3y4a")
 
 [connection signal="pressed" from="MenuControl/Menu/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="MenuControl/Menu/Host" to="." method="_on_host_pressed"]
