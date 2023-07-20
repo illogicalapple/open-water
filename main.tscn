@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://ce17c81jacq53"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_whca7"]
-[ext_resource type="PackedScene" uid="uid://cr2xw7d138i6s" path="res://scenes/raft.tscn" id="3_ac4oe"]
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_vaiso"]
+[ext_resource type="PackedScene" uid="uid://cr2xw7d138i6s" path="res://scenes/components/raft/raft.tscn" id="3_ac4oe"]
 [ext_resource type="PackedScene" uid="uid://d2mnnap7exmi7" path="res://scenes/gui.tscn" id="3_lgndg"]
 [ext_resource type="Script" path="res://infinitewater.gd" id="4_g5v78"]
 [ext_resource type="PackedScene" uid="uid://bd3f7wi00wvap" path="res://scenes/components/ocean_texture.tscn" id="5_hbkas"]
@@ -21,7 +21,7 @@ albedo_color = Color(0.541176, 0.372549, 0, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_brgo6"]
 
 [node name="Main" type="Node3D"]
-script = ExtResource("1_whca7")
+script = ExtResource("1_vaiso")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 7.073, 0)

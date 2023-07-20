@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bi6xpr1kh2mwl"]
 
-[ext_resource type="Script" path="res://scenes/debug.gd" id="1_6ifps"]
+[ext_resource type="Script" path="res://autoload/debug.gd" id="1_6ifps"]
 
 [sub_resource type="Theme" id="Theme_0nen4"]
 default_font_size = 10
