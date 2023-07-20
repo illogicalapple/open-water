@@ -1,5 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://d2mnnap7exmi7"]
 
+[ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://resources/menu_theme.tres" id="1_02sxj"]
 [ext_resource type="Script" path="res://scenes/gui.gd" id="1_askin"]
 [ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://resources/menu_theme.tres" id="1_li30w"]
 [ext_resource type="Texture2D" uid="uid://ds0lcs0jss4vp" path="res://assets/images/thingy.svg" id="3_5m87o"]
