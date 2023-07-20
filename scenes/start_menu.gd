@@ -5,7 +5,7 @@ extends Control
 @onready var world_select_menu := $"World Select"
 @onready var main_select_menu := $"Main Select"
 
-var main_scene : PackedScene = preload("res://main.tscn")
+var main_scene : PackedScene = preload("res://scenes/main.tscn")
 
 ## Listens for escape button and exits any sub-menus if pressed.
 func _unhandled_input(event: InputEvent) -> void:

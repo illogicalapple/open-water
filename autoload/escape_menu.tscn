@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cfabx8qqthunj"]
 
-[ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://menu_theme.tres" id="1_ixyid"]
+[ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://resources/menu_theme.tres" id="1_ixyid"]
 [ext_resource type="Script" path="res://scenes/settings/escape_menu.gd" id="2_3qnp6"]
 
 [node name="escape_menu" type="Control"]

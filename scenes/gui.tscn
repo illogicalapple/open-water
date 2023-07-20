@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://d2mnnap7exmi7"]
 
+[ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://resources/menu_theme.tres" id="1_02sxj"]
 [ext_resource type="Script" path="res://scenes/gui.gd" id="1_askin"]
-[ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://menu_theme.tres" id="1_r28kn"]
 [ext_resource type="Texture2D" uid="uid://ds0lcs0jss4vp" path="res://assets/images/thingy.svg" id="3_5m87o"]
 [ext_resource type="PackedScene" uid="uid://dg3ginoetdnt0" path="res://scenes/components/inventory_item.tscn" id="3_8obf8"]
 
@@ -14,7 +14,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme = ExtResource("1_r28kn")
+theme = ExtResource("1_02sxj")
 script = ExtResource("1_askin")
 
 [node name="Thingamabob" type="TextureRect" parent="."]
