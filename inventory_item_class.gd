@@ -2,7 +2,5 @@ extends Object
 
 class_name InventoryItem
 
-enum Items { AIR, WOOD }
-
-var type: Items = Items.AIR
+var type: String = "air"
 var amount: int = 0

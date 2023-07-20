@@ -12,16 +12,25 @@ extends TextureButton
 
 var hotbar_texture: CompressedTexture2D = preload("res://assets/images/inventory/hotbar_square.png")
 var hotbar_active_texture: CompressedTexture2D = preload("res://assets/images/inventory/selected.png")
+var item: InventoryItem = InventoryItem.new()
 
 func _ready():
 	if is_hotbar:
 		texture_normal = hotbar_texture
 
 func _process(_delta):
-	if get_tree().paused:
-		mouse_filter = Control.MOUSE_FILTER_IGNORE
+	if not Character.inventory[index].type == item.type:
+		item.type = Character.inventory[index].type
+		$TextureRect.texture = load("assets/images/items/" + item.type + ".png")
+	item.amount = Character.inventory[index].amount
+	$Amount.text = str(item.amount)
+	if item.type == "air":
+		$TextureRect.hide()
+		$Amount.hide()
 	else:
-		mouse_filter = Control.MOUSE_FILTER_STOP
+		$TextureRect.show()
+		$Amount.show()
+
 
 func _on_pressed():
 	States.inventory_item = index

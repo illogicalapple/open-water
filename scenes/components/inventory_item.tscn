@@ -1,11 +1,44 @@
-[gd_scene load_steps=3 format=3 uid="uid://dg3ginoetdnt0"]
+[gd_scene load_steps=4 format=3 uid="uid://dg3ginoetdnt0"]
 
+[ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://menu_theme.tres" id="1_55wfv"]
 [ext_resource type="Texture2D" uid="uid://s4uyffq77bmq" path="res://assets/images/inventory/square.png" id="1_t5wlf"]
 [ext_resource type="Script" path="res://scenes/components/inventory_item.gd" id="1_yn3yu"]
 
-[node name="TextureButton" type="TextureButton"]
+[node name="InventoryItem" type="TextureButton"]
 process_mode = 3
+theme = ExtResource("1_55wfv")
 texture_normal = ExtResource("1_t5wlf")
 script = ExtResource("1_yn3yu")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Amount" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -26.0
+offset_top = -33.0
+offset_right = -16.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "hi"
+horizontal_alignment = 2
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]
