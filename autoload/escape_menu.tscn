@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cfabx8qqthunj"]
 
-[ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://menu_theme.tres" id="1_li3g8"]
-[ext_resource type="Script" path="res://scenes/escape_menu.gd" id="2_ni2dt"]
+[ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://menu_theme.tres" id="1_ixyid"]
+[ext_resource type="Script" path="res://scenes/settings/escape_menu.gd" id="2_3qnp6"]
 
 [node name="escape_menu" type="Control"]
 process_mode = 3
@@ -13,8 +13,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme = ExtResource("1_li3g8")
-script = ExtResource("2_ni2dt")
+theme = ExtResource("1_ixyid")
+script = ExtResource("2_3qnp6")
 
 [node name="Main Select" type="MarginContainer" parent="."]
 layout_mode = 1
