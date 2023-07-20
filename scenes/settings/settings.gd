@@ -162,7 +162,9 @@ func set_default_settings_from_submenu(settings_key : String) -> void:
 	# get_submenu_from_key_or_null already prints out errors, so can just return.
 	if submenu == null:
 		return
-
+	else:
+		print ("sub menu is NOT null: ", submenu)
+	
 	for key in submenu.key_paths.keys():
 		var key_array = submenu.key_paths[key]
 		
