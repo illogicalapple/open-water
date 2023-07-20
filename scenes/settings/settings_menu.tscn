@@ -1,10 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://bgfolw02g0rtq"]
+[gd_scene load_steps=7 format=3 uid="uid://bgfolw02g0rtq"]
 
-[ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://menu_theme.tres" id="1_chgt2"]
 [ext_resource type="Script" path="res://scenes/settings/settings.gd" id="1_oid88"]
-[ext_resource type="Script" path="res://scenes/SettingsSubMenuSelector.gd" id="3_njpbm"]
+[ext_resource type="FontFile" uid="uid://dx8lolqoauhjo" path="res://assets/fonts/Inconsolata/Inconsolata-Regular.ttf" id="2_4o1jh"]
+[ext_resource type="Script" path="res://scenes/settings/SettingsSubMenuSelector.gd" id="3_qs5bm"]
 [ext_resource type="PackedScene" uid="uid://bh0qaoarf0pas" path="res://scenes/settings/controls_sub_menu.tscn" id="4_ogpwa"]
 [ext_resource type="PackedScene" uid="uid://b4wwldpq1vint" path="res://scenes/settings/video_sub_menu.tscn" id="5_llo0m"]
+
+[sub_resource type="Theme" id="Theme_gebpi"]
+default_font = ExtResource("2_4o1jh")
+default_font_size = 50
+LineEdit/font_sizes/font_size = 16
 
 [node name="Settings" type="CanvasLayer" node_paths=PackedStringArray("default_button", "reset_button", "submenu_selector", "video_submenu", "controls_submenu")]
 process_mode = 3
@@ -28,7 +33,7 @@ offset_right = 502.0
 offset_bottom = 111.5
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_chgt2")
+theme = SubResource("Theme_gebpi")
 
 [node name="ColorRect" type="ColorRect" parent="MarginContainer"]
 layout_mode = 2
@@ -73,12 +78,14 @@ text = "reset all"
 [node name="SubMenus" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="SubMenuSelector" type="ScrollContainer" parent="MarginContainer/MarginContainer/VBoxContainer/SubMenus"]
+[node name="SubMenuSelector" type="ScrollContainer" parent="MarginContainer/MarginContainer/VBoxContainer/SubMenus" node_paths=PackedStringArray("video_submenu", "key_map_submenu")]
 custom_minimum_size = Vector2(210.305, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 vertical_scroll_mode = 0
-script = ExtResource("3_njpbm")
+script = ExtResource("3_qs5bm")
+video_submenu = NodePath("../VideoSubMenu")
+key_map_submenu = NodePath("../ControlsSubMenu")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer/SubMenus/SubMenuSelector"]
 layout_mode = 2
@@ -103,11 +110,9 @@ size_flags_horizontal = 0
 text = "key mapping"
 
 [node name="VideoSubMenu" parent="MarginContainer/MarginContainer/VBoxContainer/SubMenus" instance=ExtResource("5_llo0m")]
-visible = false
 layout_mode = 2
 
 [node name="ControlsSubMenu" parent="MarginContainer/MarginContainer/VBoxContainer/SubMenus" instance=ExtResource("4_ogpwa")]
-visible = false
 layout_mode = 2
 
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/GlobalButtons/ExitSettings" to="." method="exit_settings_menu"]

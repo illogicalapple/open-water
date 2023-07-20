@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://b4wwldpq1vint"]
+[gd_scene load_steps=4 format=3 uid="uid://b4wwldpq1vint"]
 
 [ext_resource type="Script" path="res://scenes/settings/video_submenu.gd" id="1_1udyx"]
-[ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://menu_theme.tres" id="1_37miv"]
+[ext_resource type="FontFile" uid="uid://dx8lolqoauhjo" path="res://assets/fonts/Inconsolata/Inconsolata-Regular.ttf" id="1_y3xel"]
+
+[sub_resource type="Theme" id="Theme_gebpi"]
+default_font = ExtResource("1_y3xel")
+default_font_size = 50
+LineEdit/font_sizes/font_size = 16
 
 [node name="VideoSubMenu" type="VBoxContainer" node_paths=PackedStringArray("fov_slider", "fov_slider_label", "default_FOV", "reset_FOV", "default_submenu_button", "reset_submenu_button")]
 anchors_preset = 15
@@ -10,7 +15,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
-theme = ExtResource("1_37miv")
+theme = SubResource("Theme_gebpi")
 script = ExtResource("1_1udyx")
 fov_slider = NodePath("VideoSettings/VBoxContainer/FOV/HBoxVontainer/FOVSlider")
 fov_slider_label = NodePath("VideoSettings/VBoxContainer/FOV/HBoxVontainer/Value")

@@ -1,12 +1,12 @@
 [gd_scene load_steps=4 format=3 uid="uid://dg3ginoetdnt0"]
 
-[ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://menu_theme.tres" id="1_55wfv"]
+[ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://resources/menu_theme.tres" id="1_cn16e"]
 [ext_resource type="Texture2D" uid="uid://s4uyffq77bmq" path="res://assets/images/inventory/square.png" id="1_t5wlf"]
 [ext_resource type="Script" path="res://scenes/components/inventory_item.gd" id="1_yn3yu"]
 
 [node name="InventoryItem" type="TextureButton"]
 process_mode = 3
-theme = ExtResource("1_55wfv")
+theme = ExtResource("1_cn16e")
 texture_normal = ExtResource("1_t5wlf")
 script = ExtResource("1_yn3yu")
 
