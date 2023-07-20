@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b4wwldpq1vint"]
 
-[ext_resource type="Script" path="res://scenes/video_submenu.gd" id="1_1udyx"]
+[ext_resource type="Script" path="res://scenes/settings/video_submenu.gd" id="1_1udyx"]
 [ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://menu_theme.tres" id="1_37miv"]
 
 [node name="VideoSubMenu" type="VBoxContainer" node_paths=PackedStringArray("fov_slider", "fov_slider_label", "default_FOV", "reset_FOV", "default_submenu_button", "reset_submenu_button")]

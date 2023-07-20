@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cr2xw7d138i6s"]
 
-[ext_resource type="Script" path="res://scenes/raftfloat.gd" id="1_826i2"]
+[ext_resource type="Script" path="res://scenes/components/raft/raftfloat.gd" id="1_o6vt3"]
 [ext_resource type="PackedScene" uid="uid://b0ndy6yikdj1u" path="res://assets/3D models/raft.gltf" id="1_w2h1l"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i6wcq"]
@@ -14,7 +14,7 @@ size = Vector3(10, 10, 0.1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.310413, -0.0586481, 0.210363)
 collision_layer = 2
 collision_mask = 0
-script = ExtResource("1_826i2")
+script = ExtResource("1_o6vt3")
 
 [node name="raft" parent="." instance=ExtResource("1_w2h1l")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -3.58169, -0.827904, 0.909655)

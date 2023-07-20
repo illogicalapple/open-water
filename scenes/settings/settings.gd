@@ -13,7 +13,7 @@ signal settings_loaded
 
 @export var video_submenu : VideoSubMenu
 #@export var keymap_submenu : KeyMapSubMenu
-@export var controls_submenu : ControlsSubMenu
+@export var controls_submenu : ControlsSubMenu 
 
 # Holds REFERENCES/POINTERS to dictionaries. Not copies. 
 @onready var submenu_default_property_changes : Array[Dictionary] = [
@@ -162,7 +162,9 @@ func set_default_settings_from_submenu(settings_key : String) -> void:
 	# get_submenu_from_key_or_null already prints out errors, so can just return.
 	if submenu == null:
 		return
-
+	else:
+		print ("sub menu is NOT null: ", submenu)
+	
 	for key in submenu.key_paths.keys():
 		var key_array = submenu.key_paths[key]
 		
