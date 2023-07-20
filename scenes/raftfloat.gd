@@ -17,8 +17,9 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var dir=Vector2(0,0)
+	var time=get_parent().get_node("Water").time
 	for e in $colliders.get_children():
-		var pos=e.global_position+water.get_shader_parameter("offset")
+		var pos=e.global_position+Vector3(time/0.05,0,time/2)
 		var debug=e.global_position
 		if noise1.get_noise_2d(pos.x,pos.z)>pos.y-global_position.y:
 			var difference=noise1.get_noise_2d(pos.x,pos.z)*5-pos.y-global_position.y
@@ -36,8 +37,9 @@ func _process(delta):
 	else:
 		get_parent().is_underwater = false
 		
-	veloc+=dir*delta
+	veloc+=dir*delta/2
 	veloc-=veloc.normalized()*delta
 	rotation.x+=veloc.x*delta
 	rotation.z+=veloc.y*delta
-
+	rotation_degrees.x=clamp(rotation_degrees.x,-15,15)
+	rotation_degrees.z=clamp(rotation_degrees.z,-15,15)
