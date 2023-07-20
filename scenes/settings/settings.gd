@@ -13,7 +13,7 @@ signal settings_loaded
 
 @export var video_submenu : VideoSubMenu
 #@export var keymap_submenu : KeyMapSubMenu
-@export var controls_submenu : ControlsSubMenu
+@export var controls_submenu : ControlsSubMenu 
 
 # Holds REFERENCES/POINTERS to dictionaries. Not copies. 
 @onready var submenu_default_property_changes : Array[Dictionary] = [
