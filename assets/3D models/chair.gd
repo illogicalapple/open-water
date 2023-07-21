@@ -15,7 +15,7 @@ func _process(delta):
 		$Cube.material_override.set_shader_parameter("whiten",0)
 	if States.character_state==States.CharacterStates.DRIVING:
 		if usedseat:
-			Character.player.global_position=global_position
+			Character.player.global_position=$sitpoint.global_position
 	pass
 
 func _unhandled_input(event):

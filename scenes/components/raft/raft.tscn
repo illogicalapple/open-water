@@ -39,6 +39,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 6)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -4)
 
 [node name="fencing" type="Node3D" parent="."]
+visible = false
 
 [node name="StaticBody3D" type="StaticBody3D" parent="fencing"]
 collision_layer = 8
