@@ -1,5 +1,5 @@
 extends Node
-
+var player=null
 ###################################################
 # INVENTORY:
 func air() -> InventoryItem:
