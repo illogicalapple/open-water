@@ -6,13 +6,15 @@ var veloc=Vector3(0,0,0)
 var jumpheight=20
 @onready var camera = $Camera3D
 @onready var synchronizer = $MultiplayerSynchronizer
-
+var selected=null
 
 func _ready():
 	States.set_to_in_game() # starts the game (change game states)
 	synchronizer.set_multiplayer_authority(str(name).to_int()) # connects to host
 	camera.current = synchronizer.is_multiplayer_authority() # if it didn't work, the camera doesn't exist ig
-	if synchronizer.is_multiplayer_authority(): Input.mouse_mode = Input.MOUSE_MODE_CAPTURED # it captures the mouse
+	if synchronizer.is_multiplayer_authority(): 
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED # it captures the mouse
+		Character.player=self
 
 func _physics_process(delta):
 	# this runs every tick
@@ -40,6 +42,10 @@ func _physics_process(delta):
 		else:
 			if is_on_floor() and Input.is_action_pressed("jump"):
 				direction.y += jumpheight
+		if (States.character_state==States.CharacterStates.DRIVING
+		 and Input.is_action_pressed("jump")
+		):States.character_state=States.CharacterStates.NORMAL
+		
 		# movement:
 		if Input.is_key_pressed(KEY_W): direction -= global_transform.basis.z
 		elif Input.is_key_pressed(KEY_S): direction += global_transform.basis.z
@@ -56,9 +62,25 @@ func _physics_process(delta):
 		veloc.y=clamp(veloc.y,-speed*jumpheight,speed*jumpheight)
 		if can_fly:
 			veloc.y = 0
-		set_velocity(veloc)
-		set_up_direction(Vector3.UP)
-		move_and_slide()
+		
+		if not States.character_state==States.CharacterStates.DRIVING:
+			set_velocity(veloc)
+			set_up_direction(Vector3.UP)
+			
+			move_and_slide()
+		else:
+			var raft=get_parent().get_node("Raft")
+			var raftveloc=Vector2()
+			
+			
+			if Input.is_key_pressed(KEY_W):raftveloc.x=10
+			if Input.is_key_pressed(KEY_S):raftveloc.x=-10
+			if Input.is_key_pressed(KEY_D):raftveloc.y=-1
+			if Input.is_key_pressed(KEY_A):raftveloc.y=1
+			
+			
+			raft.global_position+=Vector3(raftveloc.x,0,0).rotated(Vector3.UP,raft.global_rotation.y)*delta
+			raft.rotation.y+=raftveloc.y*delta
 		# important: syncs the position for multiplayer
 		synchronizer.position = global_position
 		
@@ -86,6 +108,19 @@ func _unhandled_input(event: InputEvent) -> void:
 			$Camera3D/thirdperson.current=!$Camera3D.current
 
 
-
+func _process(delta):
+	if $Camera3D/RayCast3D.is_colliding():
+		var collider=$Camera3D/RayCast3D.get_collider()
+		if collider.is_in_group("interact"):
+			collider.selected=true
+			if selected !=null and selected!=collider:
+				selected.selected=false
+			
+			selected=collider
+	else:
+		if selected !=null:
+			selected.selected=false
+		selected=null
+			
 
 
