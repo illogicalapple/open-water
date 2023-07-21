@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cr2xw7d138i6s"]
+[gd_scene load_steps=6 format=3 uid="uid://cr2xw7d138i6s"]
 
 [ext_resource type="Script" path="res://scenes/components/raft/raftfloat.gd" id="1_o6vt3"]
 [ext_resource type="PackedScene" uid="uid://b0ndy6yikdj1u" path="res://assets/3D models/raft.gltf" id="1_w2h1l"]
+[ext_resource type="PackedScene" uid="uid://cln0uca0ofxn" path="res://assets/3D models/chair.tscn" id="3_adxhj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i6wcq"]
 size = Vector3(9, 0.5, 10)
@@ -38,6 +39,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 6)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -4)
 
 [node name="fencing" type="Node3D" parent="."]
+visible = false
 
 [node name="StaticBody3D" type="StaticBody3D" parent="fencing"]
 collision_layer = 8
@@ -73,3 +75,6 @@ collision_mask = 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="fencing/StaticBody3D3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19062, 2.75031, 1.70295)
 shape = SubResource("BoxShape3D_2odw0")
+
+[node name="chair" parent="." instance=ExtResource("3_adxhj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.68959, 0.0586481, 0.789637)
