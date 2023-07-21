@@ -62,9 +62,25 @@ func _physics_process(delta):
 		veloc.y=clamp(veloc.y,-speed*jumpheight,speed*jumpheight)
 		if can_fly:
 			veloc.y = 0
-		set_velocity(veloc)
-		set_up_direction(Vector3.UP)
-		move_and_slide()
+		
+		if not States.character_state==States.CharacterStates.DRIVING:
+			set_velocity(veloc)
+			set_up_direction(Vector3.UP)
+			
+			move_and_slide()
+		else:
+			var raft=get_parent().get_node("Raft")
+			var raftveloc=Vector2()
+			
+			
+			if Input.is_key_pressed(KEY_W):raftveloc.x=10
+			if Input.is_key_pressed(KEY_S):raftveloc.x=-10
+			if Input.is_key_pressed(KEY_D):raftveloc.y=-1
+			if Input.is_key_pressed(KEY_A):raftveloc.y=1
+			
+			
+			raft.global_position+=Vector3(raftveloc.x,0,0).rotated(Vector3.UP,raft.global_rotation.y)*delta
+			raft.rotation.y+=raftveloc.y*delta
 		# important: syncs the position for multiplayer
 		synchronizer.position = global_position
 		
