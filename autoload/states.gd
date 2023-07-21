@@ -10,7 +10,7 @@ func example_function():
 
 # First-level State:
 enum GameStates {MAIN_MENU, ESCAPE_MENU, IN_GAME, SETTINGS}
-enum CharacterStates {NOCLIP, FLY, SWIM, RUN, NORMAL}
+enum CharacterStates {NOCLIP, FLY, SWIM, RUN, NORMAL, DRIVING}
 
 # Second-level States:
 enum MainMenuStates {NONE, CURRENT, CHOOSE_WORLDS, SETTINGS}
