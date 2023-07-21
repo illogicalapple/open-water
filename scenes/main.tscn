@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ce17c81jacq53"]
+[gd_scene load_steps=12 format=3 uid="uid://dy11i6trmi8rt"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_vaiso"]
 [ext_resource type="PackedScene" uid="uid://cr2xw7d138i6s" path="res://scenes/components/raft/raft.tscn" id="3_ac4oe"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scenes/components/infinitewater.gd" id="4_g5v78"]
 [ext_resource type="PackedScene" uid="uid://bd3f7wi00wvap" path="res://scenes/components/ocean_texture.tscn" id="5_hbkas"]
 [ext_resource type="Environment" uid="uid://4e77lfajjddk" path="res://resources/environment.tres" id="6_7mpl1"]
+[ext_resource type="PackedScene" uid="uid://b180ygyhwkwxe" path="res://assets/3D models/redfish.gltf" id="7_83dfp"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_672vs"]
 size = Vector3(1400, 1, 1400)
@@ -114,6 +115,9 @@ transform = Transform3D(38592.5, 0, 0, 0, 0.563395, 0, 0, 0, 880.673, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_j1bh7")
 cast_shadow = 0
 mesh = SubResource("BoxMesh_brgo6")
+
+[node name="redfish" parent="." instance=ExtResource("7_83dfp")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 10)
 
 [connection signal="pressed" from="MenuControl/Menu/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="MenuControl/Menu/Host" to="." method="_on_host_pressed"]
