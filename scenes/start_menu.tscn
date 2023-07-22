@@ -1,10 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://riiby56w7xo0"]
+[gd_scene load_steps=11 format=3 uid="uid://riiby56w7xo0"]
 
 [ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://resources/menu_theme.tres" id="1_hy3ew"]
 [ext_resource type="Script" path="res://scenes/start_menu.gd" id="1_ir7u2"]
 [ext_resource type="Texture2D" uid="uid://1grhsng24wdx" path="res://assets/images/background.png" id="3_pqs1v"]
+[ext_resource type="Theme" uid="uid://bwi6khexsicp8" path="res://resources/settings_theme.tres" id="4_jpll4"]
 [ext_resource type="PackedScene" uid="uid://bd3f7wi00wvap" path="res://scenes/components/ocean_texture.tscn" id="4_phe31"]
 [ext_resource type="Environment" uid="uid://4e77lfajjddk" path="res://resources/environment.tres" id="5_rkoax"]
+[ext_resource type="FontFile" uid="uid://dx8lolqoauhjo" path="res://assets/fonts/Inconsolata/Inconsolata-Regular.ttf" id="5_x80t6"]
+
+[sub_resource type="FontVariation" id="FontVariation_cqaty"]
+base_font = ExtResource("5_x80t6")
+variation_embolden = 0.5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uq0v1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jefy3"]
 size = Vector3(400, 1, 400)
@@ -32,37 +40,41 @@ expand_mode = 1
 
 [node name="Main Select" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = 160.0
+offset_top = 160.0
+offset_right = 510.0
+offset_bottom = 383.0
+theme = ExtResource("4_jpll4")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Main Select"]
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
+size_flags_horizontal = 0
 theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="Main Select/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_cqaty")
+theme_override_font_sizes/font_size = 72
+text = "open water"
+
+[node name="HSeparator" type="HSeparator" parent="Main Select/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_uq0v1")
 
 [node name="Start" type="Button" parent="Main Select/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
 text = "start game"
-
-[node name="WorldSelect" type="Button" parent="Main Select/VBoxContainer"]
-layout_mode = 2
-text = "choose worlds"
 
 [node name="Settings" type="Button" parent="Main Select/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
 text = "settings"
 
 [node name="exit_game" type="Button" parent="Main Select/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
 text = "exit"
 
 [node name="World Select" type="MarginContainer" parent="."]
@@ -155,7 +167,6 @@ fov = 60.0
 environment = ExtResource("5_rkoax")
 
 [connection signal="pressed" from="Main Select/VBoxContainer/Start" to="." method="start_pressed"]
-[connection signal="pressed" from="Main Select/VBoxContainer/WorldSelect" to="." method="enter_world_select"]
 [connection signal="pressed" from="Main Select/VBoxContainer/Settings" to="." method="enter_settings_menu"]
 [connection signal="pressed" from="Main Select/VBoxContainer/exit_game" to="." method="exit_pressed"]
 [connection signal="pressed" from="World Select/MarginContainer2/VBoxContainer/ExitWorldSelect" to="." method="exit_world_select"]
