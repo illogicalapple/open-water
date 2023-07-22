@@ -110,18 +110,19 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _process(delta):
-	if $Camera3D/RayCast3D.is_colliding():
-		var collider=$Camera3D/RayCast3D.get_collider()
-		if collider.is_in_group("interact"):
-			collider.selected=true
-			if selected !=null and selected!=collider:
+	if synchronizer.is_multiplayer_authority():
+		if $Camera3D/RayCast3D.is_colliding():
+			var collider=$Camera3D/RayCast3D.get_collider()
+			if collider.is_in_group("interact"):
+				collider.selected=true
+				if selected !=null and selected!=collider:
+					selected.selected=false
+				
+				selected=collider
+		else:
+			if selected !=null:
 				selected.selected=false
-			
-			selected=collider
-	else:
-		if selected !=null:
-			selected.selected=false
-		selected=null
-			
+			selected=null
+				
 
 
