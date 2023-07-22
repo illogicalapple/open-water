@@ -83,7 +83,8 @@ func _physics_process(delta):
 			raft.rotation.y+=raftveloc.y*delta
 		# important: syncs the position for multiplayer
 		synchronizer.position = global_position
-		
+		if abs(veloc.x)<0.1:veloc.x=0
+		if abs(veloc.z)<0.1:veloc.z=0
 		# sets fov
 		camera.fov = Settings.video_submenu.get_fov()
 		$Camera3D/thirdperson.fov = Settings.video_submenu.get_fov()
@@ -109,18 +110,19 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _process(delta):
-	if $Camera3D/RayCast3D.is_colliding():
-		var collider=$Camera3D/RayCast3D.get_collider()
-		if collider.is_in_group("interact"):
-			collider.selected=true
-			if selected !=null and selected!=collider:
+	if synchronizer.is_multiplayer_authority():
+		if $Camera3D/RayCast3D.is_colliding():
+			var collider=$Camera3D/RayCast3D.get_collider()
+			if collider.is_in_group("interact"):
+				collider.selected=true
+				if selected !=null and selected!=collider:
+					selected.selected=false
+				
+				selected=collider
+		else:
+			if selected !=null:
 				selected.selected=false
-			
-			selected=collider
-	else:
-		if selected !=null:
-			selected.selected=false
-		selected=null
-			
+			selected=null
+				
 
 
