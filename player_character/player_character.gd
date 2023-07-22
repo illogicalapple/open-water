@@ -83,7 +83,8 @@ func _physics_process(delta):
 			raft.rotation.y+=raftveloc.y*delta
 		# important: syncs the position for multiplayer
 		synchronizer.position = global_position
-		
+		if abs(veloc.x)<0.1:veloc.x=0
+		if abs(veloc.z)<0.1:veloc.z=0
 		# sets fov
 		camera.fov = Settings.video_submenu.get_fov()
 		$Camera3D/thirdperson.fov = Settings.video_submenu.get_fov()
