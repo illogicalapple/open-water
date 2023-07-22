@@ -17,8 +17,8 @@ func _unhandled_input(event: InputEvent) -> void:
 func exit_sub_menu() -> void:
 	if States.in_main_menu():
 		match States.main_menu_state:
-			States.MainMenuStates.CHOOSE_WORLDS:
-				exit_world_select()
+#			States.MainMenuStates.CHOOSE_WORLDS:
+#				exit_world_select()
 			States.MainMenuStates.SETTINGS:
 				exit_settings_menu()
 
@@ -32,15 +32,15 @@ func start_pressed() -> void:
 func exit_pressed() -> void:
 	get_tree().quit()
 
-func enter_world_select() -> void:
-	main_select_menu.visible = false
-	world_select_menu.visible = true
-	States.main_menu_state = States.MainMenuStates.CHOOSE_WORLDS
-
-func exit_world_select() -> void:
-	States.main_menu_state = States.MainMenuStates.CURRENT
-	world_select_menu.visible = false
-	main_select_menu.visible = true
+#func enter_world_select() -> void:
+#	main_select_menu.visible = false
+#	world_select_menu.visible = true
+#	States.main_menu_state = States.MainMenuStates.CHOOSE_WORLDS
+#
+#func exit_world_select() -> void:
+#	States.main_menu_state = States.MainMenuStates.CURRENT
+#	world_select_menu.visible = false
+#	main_select_menu.visible = true
 
 func exit_settings_menu() -> void:
 	States.main_menu_state = States.MainMenuStates.CURRENT

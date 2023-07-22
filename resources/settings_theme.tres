@@ -1,0 +1,15 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://bwi6khexsicp8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dl0v0"]
+bg_color = Color(0, 0.231661, 0.489522, 1)
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gksav"]
+
+[resource]
+Button/colors/font_color = Color(0, 0.231661, 0.489522, 1)
+Button/styles/hover = SubResource("StyleBoxFlat_dl0v0")
+Button/styles/normal = SubResource("StyleBoxEmpty_gksav")
