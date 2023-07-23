@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://dy11i6trmi8rt"]
+[gd_scene load_steps=13 format=3 uid="uid://dy11i6trmi8rt"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_vaiso"]
 [ext_resource type="PackedScene" uid="uid://cr2xw7d138i6s" path="res://scenes/components/raft/raft.tscn" id="3_ac4oe"]
+[ext_resource type="Theme" uid="uid://bwi6khexsicp8" path="res://resources/settings_theme.tres" id="3_g6csr"]
 [ext_resource type="PackedScene" uid="uid://d2mnnap7exmi7" path="res://scenes/gui.tscn" id="3_lgndg"]
 [ext_resource type="Script" path="res://scenes/components/infinitewater.gd" id="4_g5v78"]
 [ext_resource type="PackedScene" uid="uid://bd3f7wi00wvap" path="res://scenes/components/ocean_texture.tscn" id="5_hbkas"]
@@ -38,16 +39,16 @@ mouse_filter = 2
 color = Color(0.321569, 0.611765, 1, 0.619608)
 
 [node name="GUI" parent="." instance=ExtResource("3_lgndg")]
+visible = false
 
 [node name="MenuControl" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_g6csr")
 
 [node name="Menu" type="VBoxContainer" parent="MenuControl"]
 layout_mode = 1
@@ -56,32 +57,45 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -43.5
-offset_top = -68.0
-offset_right = 43.5
-offset_bottom = 68.0
+offset_left = -180.0
+offset_top = -72.0
+offset_right = 180.0
+offset_bottom = 72.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.2, 1.2)
+theme_override_constants/separation = 32
 
-[node name="IP" type="LineEdit" parent="MenuControl/Menu"]
+[node name="IP" type="HSplitContainer" parent="MenuControl/Menu"]
+layout_mode = 2
+
+[node name="IP" type="LineEdit" parent="MenuControl/Menu/IP"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 mouse_filter = 1
+theme_override_font_sizes/font_size = 40
 text = "127.0.0.1"
 placeholder_text = "IP Adress"
 
-[node name="Port" type="LineEdit" parent="MenuControl/Menu"]
+[node name="Port" type="LineEdit" parent="MenuControl/Menu/IP"]
 layout_mode = 2
 mouse_filter = 1
+theme_override_font_sizes/font_size = 40
 text = "9999"
 placeholder_text = "Port"
 
-[node name="Join" type="Button" parent="MenuControl/Menu"]
+[node name="Actions" type="HBoxContainer" parent="MenuControl/Menu"]
 layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Join" type="Button" parent="MenuControl/Menu/Actions"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
 text = "Join"
 
-[node name="Host" type="Button" parent="MenuControl/Menu"]
+[node name="Host" type="Button" parent="MenuControl/Menu/Actions"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 40
 text = "Host"
 
 [node name="Raft" parent="." instance=ExtResource("3_ac4oe")]
@@ -119,5 +133,5 @@ mesh = SubResource("BoxMesh_brgo6")
 [node name="redfish" parent="." instance=ExtResource("7_83dfp")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 10)
 
-[connection signal="pressed" from="MenuControl/Menu/Join" to="." method="_on_join_pressed"]
-[connection signal="pressed" from="MenuControl/Menu/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="MenuControl/Menu/Actions/Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="MenuControl/Menu/Actions/Host" to="." method="_on_host_pressed"]

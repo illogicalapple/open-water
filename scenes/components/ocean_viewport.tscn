@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dovpvwg125weo"]
+
+[ext_resource type="PackedScene" uid="uid://bd3f7wi00wvap" path="res://scenes/components/ocean_texture.tscn" id="1_w80uq"]
+[ext_resource type="Environment" uid="uid://4e77lfajjddk" path="res://resources/environment.tres" id="3_g127w"]
+
+[node name="OceanViewport" type="SubViewport"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.46894, 6.34064, 10.0107)
+environment = ExtResource("3_g127w")
+current = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("3_g127w")
+
+[node name="Texture" parent="." instance=ExtResource("1_w80uq")]
+skeleton = NodePath("")
