@@ -116,10 +116,11 @@ func set_property_button_enable(value: float, key : String, default_button : boo
 	# Since reset settings only exists when in settings menu... No need to check otherwise.
 	if not default_button: 
 		if States.settings_menu_state == States.SettingsMenuStates.NONE:
-			print ("reset is null...")
+			#print ("reset is null...")
 			# Check for global default and reset's visibility
 			set_submenu_button_enable()
-			Settings.set_default_and_reset_button_visibility()
+			Settings.set_global_setting_buttons_enable(true) # for global default
+			#Settings.set_global_setting_buttons_enable(false) # for global reset
 			return
 	
 	# Gets default/reset value and button.
@@ -149,9 +150,9 @@ func set_property_button_enable(value: float, key : String, default_button : boo
 		default_submenu_button.disabled = false
 	
 	set_submenu_button_enable() # Check if submenu's default and reset key should be disabled too.
-	
 	# Check for global default and reset's visibility
-	Settings.set_default_and_reset_button_visibility()
+	Settings.set_global_setting_buttons_enable(true) # for global default
+	Settings.set_global_setting_buttons_enable(false) # for global reset
 	
 
 ## Sets default/reset buttons to be enabled/disabled depending on if any property's
@@ -163,7 +164,6 @@ func set_submenu_button_enable() -> void:
 		default_submenu_button.disabled = false
 	
 	if revert_property_changes.is_empty():
-		#print ("reset is empty...")
 		reset_submenu_button.disabled = true
 	else:
 		reset_submenu_button.disabled = false
