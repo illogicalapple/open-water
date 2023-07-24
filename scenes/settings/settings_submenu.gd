@@ -46,7 +46,8 @@ func set_all_buttons_visibility() -> void:
 		var node_path = key_paths[key][0]
 		var property_path = key_paths[key][1]
 		var value = get_node(node_path).get_indexed(property_path)
-		set_buttons_visibility(value, key)
+		set_property_button_enable(value, key, true) # For default buttons
+		set_property_button_enable(value, key, false) # For reset buttons
 
 
 func hide_all_reset_buttons() -> void:
@@ -79,7 +80,8 @@ func slider_change(value: float, key : String) -> void:
 		return
 	Settings.settings[settings_key] [key] = save_value
 	
-	set_buttons_visibility(value, key)
+	set_property_button_enable(value, key, true) # For default buttons
+	set_property_button_enable(value, key, false) # For reset buttons
 
 # For any setting:
 func set_to_default(key : String) -> void:
@@ -103,72 +105,69 @@ func _on_reset_submenu_pressed() -> void:
 	Settings.reset_specific_setting(settings_key)
 
 
-
-## For specific settings:
-#func fov_slider_change(value: float) -> void:
-#	fov_slider_label.text = str(value)
-#
-## Getters:
-#func get_fov() -> float:
-#	return fov_slider.value
-
-
 ############################ Button disabled/visibility:
 # Later: change function so doesn't need to repeat code for default and reset
-func set_buttons_visibility(value: float, key : String) -> void:
-	# Check for default button:
-	var default_button : Button = get_button_from_key(key ,false)
-	var default_value = get_default_value_of_property_key(key)
+
+## Checks to disable/enable the default and reset buttons for a specific property.
+## To do so: checks if the property is deviated from its default/reset value.
+func set_property_button_enable(value: float, key : String, default_button : bool) -> void:
 	
-	if value == default_value:
-		#print ("vale is default")
-		# Remove default button's visibility, value is already default.
-		default_property_changes.erase(key) # it's fine to call erase even if it doesn't have key.
-		
-		# Hide the property default button:
-		default_button.disabled = true
-		
-		# Check if submenu's default button needs to be set to invisible too:
-		if default_property_changes.is_empty():
-			default_submenu_button.disabled = true
-	else:	
-		#print ("value is not default")
-		default_property_changes[key] = null # create a key inside. Needs a value (but it is arbitrary, use smallest),
-		
-		#print ("created default key: ", default_property_changes)
-		
-		# Show the property default button:
-		default_button.disabled = false
+	# If checking reset button, must ensure we are in settings menu.
+	# Since reset settings only exists when in settings menu... No need to check otherwise.
+	if not default_button: 
+		if States.settings_menu_state == States.SettingsMenuStates.NONE:
+			#print ("reset is null...")
+			# Check for global default and reset's visibility
+			set_submenu_button_enable()
+			Settings.set_global_setting_buttons_enable(true) # for global default
+			#Settings.set_global_setting_buttons_enable(false) # for global reset
+			return
+	
+	# Gets default/reset value and button.
+	var button : Button 
+	var property_value
+	
+	# Get the dictionary where all change from the default/reset values are stored.
+	var property_change_dict : Dictionary = default_property_changes if default_button else revert_property_changes
+	
+	if default_button: 
+		button = get_button_from_key(key ,false)
+		property_value = get_default_value_of_property_key(key)
+	else:
+		button = get_button_from_key(key ,true)
+		property_value = get_reset_value_of_property_key(key)
+	
+	# Check to see if the current value matches the default/reset value.
+	# If is the same, no need to enable the button.
+	if value == property_value:
+		button.disabled = true
+		property_change_dict.erase(key) # No longer deviated from the default/reset value so must erase key. 
+	else:
+		button.disabled = false
+		# If different, then add to the changed_dictionary since it is changed from the default/reset value.
+		property_change_dict[key] = null # create a key inside. Needs a value (but it is arbitrary, use smallest),
 		# Show the submenu default button:
 		default_submenu_button.disabled = false
 	
-	# Check for reset button: unless NOT in settings in the first place.
-	if States.settings_menu_state == States.SettingsMenuStates.NONE:
-		# Check for global default and reset's visibility
-		Settings.set_default_and_reset_button_visibility()
-		return
-	
-	var reset_button : Button = get_button_from_key(key ,true)
-	var reset_value = get_reset_value_of_property_key(key)
-	if value == reset_value:
-		# Remove default button's visibility, value is already default.
-		revert_property_changes.erase(key) # it's fine to call erase even if it doesn't have key.
-		
-		# Hide the property default button:
-		reset_button.disabled = true
-		
-		# Check if submenu's default button needs to be set to invisible too:
-		if revert_property_changes.is_empty():
-			reset_submenu_button.disabled = true
-	else:
-		revert_property_changes[key] = null # create a key inside. Needs a value (but it is arbitrary, use smallest),
-		# Show the property default button:
-		reset_button.disabled = false
-		# Show the submenu default button:
-		reset_submenu_button.disabled = false
-	
+	set_submenu_button_enable() # Check if submenu's default and reset key should be disabled too.
 	# Check for global default and reset's visibility
-	Settings.set_default_and_reset_button_visibility()
+	Settings.set_global_setting_buttons_enable(true) # for global default
+	Settings.set_global_setting_buttons_enable(false) # for global reset
+	
+
+## Sets default/reset buttons to be enabled/disabled depending on if any property's
+## are different from their default/reset value. If different, enabled, else disable.
+func set_submenu_button_enable() -> void:
+	if default_property_changes.is_empty():
+		default_submenu_button.disabled = true
+	else:
+		default_submenu_button.disabled = false
+	
+	if revert_property_changes.is_empty():
+		reset_submenu_button.disabled = true
+	else:
+		reset_submenu_button.disabled = false
+
 
 func get_default_value_of_property_key(key : String):
 	var settings_key = Settings.get_setting_key_from_submenu_or_null(self)
@@ -193,6 +192,11 @@ func get_reset_value_of_property_key(key : String):
 	if settings_key == null:
 		printerr("cant check reset value!")
 		return
+	
+	if not Settings.reset_setting.has(settings_key):
+		printerr("reset settings does not exist yet... only exists when in settings menu.")
+		return
+		
 	var submenu_default_settings = Settings.reset_setting[settings_key]
 	
 	var default_save_value = submenu_default_settings[key]  #[node_path, property_path, value]

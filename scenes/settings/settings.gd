@@ -6,8 +6,8 @@ extends CanvasLayer
 
 signal settings_loaded
 
-@export var default_button : Button
-@export var reset_button : Button
+@export var default_global_button : Button
+@export var reset_global_button : Button
 
 @export var submenu_selector : Node
 
@@ -26,60 +26,44 @@ signal settings_loaded
 	controls_submenu.revert_property_changes,
 ]
 
-# Later: change function so doesn't need to repeat code for default and reset
-func set_default_and_reset_button_visibility() -> void:
-	var submenu_default_property_changes : Array[Dictionary] = [
-		video_submenu.default_property_changes,
-		controls_submenu.default_property_changes,
-	]
-	# Holds REFERENCES/POINTERS to dictionaries. Not copies. 
-	var submenu_reset_property_changes : Array[Dictionary] = [
+## Checks all submenu default and reset property changes. 
+## If ANY value is not set to its default value: Default All button is enabled.
+## If ANY value is not set to its reset value: Reset All button is enabled.
+func set_global_setting_buttons_enable(default_button : bool) -> void:
+	var button : Button
+	
+	# Get all submenu's changes dictionaries: these hold keys for any property that is different
+	# from its default/reset value.
+	var submenu_property_changes : Array[Dictionary]
+	if default_button: 
+		submenu_property_changes = [
+			video_submenu.default_property_changes,
+			controls_submenu.default_property_changes,
+		]
+		button = default_global_button
+	else:
+		submenu_property_changes = [
 		video_submenu.revert_property_changes,
 		controls_submenu.revert_property_changes,
-	]
+		]
+		button = reset_global_button
 	
-	# Checks for default
-	# If all default_property_changes dictionaries in submenus are empty.
-	# Set to invisible. Else visible.
 	
-	# Check if any dictionary is NOT empty:
+	# Check if any submeny default/reset dictionary is empty.
+	# If empty, then corresponding button need not be enabled: no value to set to default/reset.
 	if (
-		submenu_default_property_changes.any(
+		submenu_property_changes.any(
 		func (dict : Dictionary):
-			if not dict.is_empty():
-				#print ("not empty dict: ", dict) 
+			if not dict.is_empty(): # A value differs from its default/reset value.
 				return true
 			else:
-				#print ("all defaults are empty")
 				return false
 	)):
 		# something is not empty. Keep global default button visible.
-		default_button.disabled = false
+		button.disabled = false
 	else:
 		#print ("all defaults are empty?")
-		default_button.disabled = true
-	
-	# Checks for reset
-	# If all revert_property_changes dictionaries in submenus are empty.
-	# Set to invisible. Else visible. 
-	
-	# Check if any dictionary is NOT empty:
-	if (
-		submenu_reset_property_changes.any(
-		func (dict : Dictionary) : 
-			if not dict.is_empty():
-				return true
-			else:
-				return false
-	)):
-		# something is not empty. Keep global reset button visible.
-		reset_button.disabled = false
-	else:
-		reset_button.disabled = true
-
-
-
-
+		button.disabled = true
 
 #enum VideoSettings {FOV}
 
@@ -111,7 +95,7 @@ var reset_setting : Dictionary
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	visible = false
-	reset_button.disabled = true
+	reset_global_button.disabled = true
 	
 	load_and_set()
 
@@ -230,7 +214,7 @@ func exited() -> void:
 	
 	# Clear all reset settings:
 	reset_setting.clear()
-	reset_button.disabled = true
+	reset_global_button.disabled = true
 	for dict in submenu_reset_property_changes:
 		dict.clear()
 	
