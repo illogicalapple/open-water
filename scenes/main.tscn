@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dy11i6trmi8rt"]
+[gd_scene load_steps=15 format=3 uid="uid://dy11i6trmi8rt"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_vaiso"]
 [ext_resource type="PackedScene" uid="uid://cr2xw7d138i6s" path="res://scenes/components/raft/raft.tscn" id="3_ac4oe"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://bd3f7wi00wvap" path="res://scenes/components/ocean_texture.tscn" id="5_hbkas"]
 [ext_resource type="Environment" uid="uid://4e77lfajjddk" path="res://resources/environment.tres" id="6_7mpl1"]
 [ext_resource type="PackedScene" uid="uid://b180ygyhwkwxe" path="res://assets/3D models/redfish.gltf" id="7_83dfp"]
+[ext_resource type="PackedScene" uid="uid://bn61v6gdv7a1a" path="res://assets/3D models/arshvir_sword.glb" id="9_8xoxg"]
+[ext_resource type="PackedScene" uid="uid://dnruu2jmaved0" path="res://assets/3D models/arshvir_shield.glb" id="10_mkme5"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_672vs"]
 size = Vector3(1400, 1, 1400)
@@ -100,6 +102,12 @@ text = "Host"
 
 [node name="Raft" parent="." instance=ExtResource("3_ac4oe")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.310413, 0.375806, 0.210363)
+
+[node name="arshvir_sword" parent="Raft" instance=ExtResource("9_8xoxg")]
+transform = Transform3D(-0.442352, 0.42379, 0.790397, -0.353295, -0.892391, 0.280752, 0.824323, -0.155052, 0.544473, 3.09657, 1.20274, -2.33975)
+
+[node name="arshvir_shield" parent="Raft" instance=ExtResource("10_mkme5")]
+transform = Transform3D(0.0447053, 0.0134562, 0.99891, -0.624591, 0.780758, 0.0174355, -0.779672, -0.624689, 0.0433086, 3.99854, 0.0835601, 3.52645)
 
 [node name="Water" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.25731, 0)
