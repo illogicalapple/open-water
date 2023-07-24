@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://o001abh0ilfv"]
+
+[ext_resource type="Script" path="res://scenes/objects/weapons/damage_giver.gd" id="1_cta7i"]
+[ext_resource type="PackedScene" uid="uid://bn61v6gdv7a1a" path="res://assets/3D models/arshvir_sword.glb" id="2_t0u6y"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_en0g4"]
+size = Vector3(0.307454, 2.47324, 0.169519)
+
+[node name="arshvir_sword" type="Node3D"]
+script = ExtResource("1_cta7i")
+
+[node name="model" parent="." instance=ExtResource("2_t0u6y")]
+
+[node name="hitbox" type="Area3D" parent="model"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="model/hitbox"]
+transform = Transform3D(1, 0, -2.98023e-08, 4.47035e-08, 1, -6.70552e-08, -5.96046e-08, 7.45058e-08, 1, 0, 1.46032, 0)
+shape = SubResource("BoxShape3D_en0g4")

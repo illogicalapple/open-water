@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dsgpkr3r3oi7o"
+path="res://.godot/imported/ouchmp3-14591 from PIXABAY via pixabay.mp3-0a0452ea824a953aaf88dcd7db3ad3ea.mp3str"
+
+[deps]
+
+source_file="res://assets/sfx/ouchmp3-14591 from PIXABAY via pixabay.mp3"
+dest_files=["res://.godot/imported/ouchmp3-14591 from PIXABAY via pixabay.mp3-0a0452ea824a953aaf88dcd7db3ad3ea.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

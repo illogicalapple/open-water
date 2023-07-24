@@ -1,20 +1,48 @@
 extends CharacterBody3D
 
+@export var health = 100
+@onready var hitbox : Area3D = $HitBox
+@onready var hurt_audio : AudioStreamPlayer3D = $PlayerHurtAudio
+
 var speed = 5
 #var mouse_sensitivity = 0.5
-var veloc=Vector3(0,0,0)
-var jumpheight=20
+var veloc = Vector3(0,0,0)
+var jumpheight = 20
 @onready var camera = $Camera3D
 @onready var synchronizer = $MultiplayerSynchronizer
-var selected=null
+var selected = null
+
+
+
 
 func _ready():
+	var damage_logic = HealthNode.new(health, hitbox, self)
+	damage_logic.damage_taken.connect(damage_taken)
+	damage_logic.died.connect(died)
+	
 	States.set_to_in_game() # starts the game (change game states)
 	synchronizer.set_multiplayer_authority(str(name).to_int()) # connects to host
 	camera.current = synchronizer.is_multiplayer_authority() # if it didn't work, the camera doesn't exist ig
 	if synchronizer.is_multiplayer_authority(): 
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED # it captures the mouse
 		Character.player=self
+
+## Called from damage_logic node's damage_taken signal.
+func damage_taken(damage_taken : float, current_health : float) -> void:
+	health = current_health
+	print ("player took damage: [", damage_taken, "] health = ", health)
+	
+	# Randomize pitch before playing for more variance.
+	hurt_audio.stop()
+	hurt_audio.pitch_scale = randf_range(1 - 0.3, 1 + 0.3) 
+	hurt_audio.play()
+
+## Called from damage_logic node's died signal.
+func died() -> void:
+	print_debug("player died: this currently does nothing.")
+	# Handle player death sounds and death animations from here...
+	
+
 
 func _physics_process(delta):
 	# this runs every tick
@@ -123,6 +151,6 @@ func _process(delta):
 			if selected !=null:
 				selected.selected=false
 			selected=null
-				
+
 
 
