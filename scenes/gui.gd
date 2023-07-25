@@ -11,9 +11,13 @@ func _unhandled_input(event):
 	if event.is_action_pressed("inventory") and States.inventory_state == States.InventoryStates.NONE:
 		States.inventory_state = States.InventoryStates.CURRENT
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	
 	elif event.is_action_pressed("esc") or Input.is_action_pressed("inventory"):
-		States.inventory_state = States.InventoryStates.NONE
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		# If in inventory, exit the inventory:
+		if States.inventory_state == States.InventoryStates.CURRENT:
+			States.inventory_state = States.InventoryStates.NONE
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
 	if event.is_action_pressed("inv_1"):
 		for child in $Inventory/Hotbar.get_children():
 			# EXPLOIT THE CHILD
