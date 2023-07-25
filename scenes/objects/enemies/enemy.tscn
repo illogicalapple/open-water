@@ -1,57 +1,36 @@
-[gd_scene load_steps=8 format=3 uid="uid://bx0myc4jfmfja"]
+[gd_scene load_steps=6 format=3 uid="uid://bx0myc4jfmfja"]
 
-[ext_resource type="Script" path="res://player_character/player_character.gd" id="1_kth7m"]
-[ext_resource type="Script" path="res://player_character/multiplayer_synchronizer.gd" id="2_pvny5"]
+[ext_resource type="Script" path="res://scenes/objects/enemies/enemy.gd" id="1_y5whu"]
 [ext_resource type="AudioStream" uid="uid://dsgpkr3r3oi7o" path="res://assets/sfx/ouchmp3-14591 from PIXABAY via pixabay.mp3" id="3_us21x"]
-[ext_resource type="PackedScene" uid="uid://o001abh0ilfv" path="res://scenes/objects/weapons/arshvir_sword.tscn" id="4_bcmga"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_r3mn4"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qa3sh"]
+albedo_color = Color(0.67451, 0, 0.129412, 1)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hn6cf"]
+[sub_resource type="BoxMesh" id="BoxMesh_aehka"]
+material = SubResource("StandardMaterial3D_qa3sh")
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_pcmc8"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/sync = true
-properties/0/watch = false
-properties/1/path = NodePath(".:y_rotation")
-properties/1/spawn = true
-properties/1/sync = true
-properties/1/watch = false
+[sub_resource type="BoxShape3D" id="BoxShape3D_pg0jn"]
+size = Vector3(1.05066, 2, 1.09826)
 
-[node name="PlayerCharacter" type="CharacterBody3D" node_paths=PackedStringArray("weapon") groups=["player_characters"]]
+[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("hitbox", "hurt_audio")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+collision_layer = 32
 collision_mask = 15
-script = ExtResource("1_kth7m")
-weapon = NodePath("arshvir_sword")
+script = ExtResource("1_y5whu")
+hitbox = NodePath("HitBox")
+hurt_audio = NodePath("HurtAudio")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_r3mn4")
+transform = Transform3D(1.06216, 0, 0, 0, 1.97331, 0, 0, 0, 1.06216, 0, 0, 0)
+mesh = SubResource("BoxMesh_aehka")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("CapsuleShape3D_hn6cf")
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-
-[node name="thirdperson" type="Camera3D" parent="Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
-
-[node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
-target_position = Vector3(0, 0, -3)
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-root_path = NodePath(".")
-replication_config = SubResource("SceneReplicationConfig_pcmc8")
-script = ExtResource("2_pvny5")
+shape = SubResource("BoxShape3D_pg0jn")
 
 [node name="HitBox" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
-shape = SubResource("CapsuleShape3D_hn6cf")
+shape = SubResource("BoxShape3D_pg0jn")
 
-[node name="PlayerHurtAudio" type="AudioStreamPlayer3D" parent="."]
+[node name="HurtAudio" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_us21x")
-
-[node name="arshvir_sword" parent="." instance=ExtResource("4_bcmga")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.5, 0.2, 0)
