@@ -21,6 +21,7 @@ Debug="*res://autoload/debug.tscn"
 Settings="*res://scenes/settings/settings_menu.tscn"
 States="*res://autoload/states.gd"
 EscapeMenu="*res://autoload/escape_menu.tscn"
+DeathMenu="*res://autoload/death_menu.tscn"
 Character="*res://autoload/character_data.gd"
 
 [display]

@@ -25,7 +25,8 @@ func _input(event: InputEvent) -> void:
 					exit_sub_menu()
 				States.GameStates.IN_GAME:
 					enter_escape_menu()
-	return
+				_:
+					print ("cant enter escape menu")
 
 func exit_sub_menu() -> void:
 	if States.in_escape_menu():

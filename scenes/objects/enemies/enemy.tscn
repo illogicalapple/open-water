@@ -1,9 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cr4334u7y26sv"]
+[gd_scene load_steps=8 format=3 uid="uid://bx0myc4jfmfja"]
 
-[ext_resource type="Script" path="res://player_character/player_character.gd" id="1_tml4c"]
-[ext_resource type="Script" path="res://player_character/multiplayer_synchronizer.gd" id="3_ovx13"]
-[ext_resource type="AudioStream" uid="uid://dsgpkr3r3oi7o" path="res://assets/sfx/ouchmp3-14591 from PIXABAY via pixabay.mp3" id="3_yig25"]
-[ext_resource type="PackedScene" uid="uid://o001abh0ilfv" path="res://scenes/objects/weapons/arshvir_sword.tscn" id="4_cftr8"]
+[ext_resource type="Script" path="res://player_character/player_character.gd" id="1_kth7m"]
+[ext_resource type="Script" path="res://player_character/multiplayer_synchronizer.gd" id="2_pvny5"]
+[ext_resource type="AudioStream" uid="uid://dsgpkr3r3oi7o" path="res://assets/sfx/ouchmp3-14591 from PIXABAY via pixabay.mp3" id="3_us21x"]
+[ext_resource type="PackedScene" uid="uid://o001abh0ilfv" path="res://scenes/objects/weapons/arshvir_sword.tscn" id="4_bcmga"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_r3mn4"]
 
@@ -22,8 +22,7 @@ properties/1/watch = false
 [node name="PlayerCharacter" type="CharacterBody3D" node_paths=PackedStringArray("weapon") groups=["player_characters"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 collision_mask = 15
-script = ExtResource("1_tml4c")
-health = 10
+script = ExtResource("1_kth7m")
 weapon = NodePath("arshvir_sword")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -44,7 +43,7 @@ target_position = Vector3(0, 0, -3)
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 root_path = NodePath(".")
 replication_config = SubResource("SceneReplicationConfig_pcmc8")
-script = ExtResource("3_ovx13")
+script = ExtResource("2_pvny5")
 
 [node name="HitBox" type="Area3D" parent="."]
 
@@ -52,7 +51,7 @@ script = ExtResource("3_ovx13")
 shape = SubResource("CapsuleShape3D_hn6cf")
 
 [node name="PlayerHurtAudio" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("3_yig25")
+stream = ExtResource("3_us21x")
 
-[node name="arshvir_sword" parent="." instance=ExtResource("4_cftr8")]
+[node name="arshvir_sword" parent="." instance=ExtResource("4_bcmga")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.5, 0.2, 0)

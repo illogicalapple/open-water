@@ -107,8 +107,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.310413, 0.375806, 0.210363
 transform = Transform3D(0.0447053, 0.0134562, 0.99891, -0.624591, 0.780758, 0.0174355, -0.779672, -0.624689, 0.0433086, 3.99854, 0.0835601, 3.52645)
 
 [node name="arshvir_sword" parent="Raft" instance=ExtResource("6_rd0vj")]
-transform = Transform3D(-0.15374, -0.564278, -0.811144, -0.716213, 0.62918, -0.301946, 0.680737, 0.534531, -0.500873, 3.78079, -0.0459272, -2.46011)
-damage_value = 10.0
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.78079, -0.0459272, -2.46011)
 
 [node name="Water" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.25731, 0)

@@ -15,14 +15,13 @@ var jumpheight = 20
 var selected = null
 
 
-
-
 func _ready():
 	var damage_logic = HealthNode.new(health, hitbox, self)
 	damage_logic.damage_taken.connect(damage_taken)
 	damage_logic.died.connect(died)
 	
 	States.set_to_in_game() # starts the game (change game states)
+	
 	synchronizer.set_multiplayer_authority(str(name).to_int()) # connects to host
 	camera.current = synchronizer.is_multiplayer_authority() # if it didn't work, the camera doesn't exist ig
 	if synchronizer.is_multiplayer_authority(): 
@@ -41,7 +40,10 @@ func damage_taken(damage_taken : float, current_health : float) -> void:
 
 ## Called from damage_logic node's died signal.
 func died() -> void:
-	print_debug("player died: this currently does nothing.")
+	DeathMenu.enter_death_menu()
+	queue_free() # removes player from game.
+	
+	#print_debug("player died: this currently does nothing.")
 	# Handle player death sounds and death animations from here...
 	
 
