@@ -1,6 +1,8 @@
 extends CharacterBody3D
 
 @export var health = 100
+@export var weapon : Weapon
+
 @onready var hitbox : Area3D = $HitBox
 @onready var hurt_audio : AudioStreamPlayer3D = $PlayerHurtAudio
 
@@ -135,7 +137,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		if Input.is_action_just_pressed("perspective_change"):
 			$Camera3D.current=!$Camera3D.current
 			$Camera3D/thirdperson.current=!$Camera3D.current
-
+		
+		if Input.is_action_just_pressed("attack"):
+			weapon.attack()
 
 func _process(delta):
 	if synchronizer.is_multiplayer_authority():

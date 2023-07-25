@@ -21,10 +21,18 @@ func body_entered(body : Node3D) -> void:
 	object_entered(body)
 
 func object_entered(object : Node) -> void:
-	if object.get_owner() == null:
+	if object.get_owner() == null: # This check may need to be changed in the future.
 		return
 	if object.get_owner() is DamageGiver:
 		var damage_giver = object.get_owner() as DamageGiver
+		
+		# Condition for taking damage:
+		# If damage giver is the ancestor of the attached_object, then no damage
+		# So, if a sword is the ancestor to the player, then that sword does not
+		# do damage to the player (since it is their sword).
+		if attached_object.is_ancestor_of(damage_giver):
+			#print (damage_giver.name, " is player's weapon")
+			return
 		
 		take_damage(damage_giver.damage_value, object)
 
