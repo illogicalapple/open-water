@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cr4334u7y26sv"]
+[gd_scene load_steps=8 format=3 uid="uid://cr4334u7y26sv"]
 
 [ext_resource type="Script" path="res://player_character/player_character.gd" id="1_tml4c"]
 [ext_resource type="Script" path="res://player_character/multiplayer_synchronizer.gd" id="3_ovx13"]
 [ext_resource type="AudioStream" uid="uid://dsgpkr3r3oi7o" path="res://assets/sfx/ouchmp3-14591 from PIXABAY via pixabay.mp3" id="3_yig25"]
+[ext_resource type="PackedScene" uid="uid://o001abh0ilfv" path="res://scenes/objects/weapons/arshvir_sword.tscn" id="4_cftr8"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_r3mn4"]
 
@@ -18,10 +19,11 @@ properties/1/spawn = true
 properties/1/sync = true
 properties/1/watch = false
 
-[node name="PlayerCharacter" type="CharacterBody3D" groups=["player_characters"]]
+[node name="PlayerCharacter" type="CharacterBody3D" node_paths=PackedStringArray("weapon") groups=["player_characters"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 collision_mask = 15
 script = ExtResource("1_tml4c")
+weapon = NodePath("arshvir_sword")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_r3mn4")
@@ -50,3 +52,6 @@ shape = SubResource("CapsuleShape3D_hn6cf")
 
 [node name="PlayerHurtAudio" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_yig25")
+
+[node name="arshvir_sword" parent="." instance=ExtResource("4_cftr8")]
+transform = Transform3D(-3.61999e-06, 0, 1, 0, 1, 0, -1, 0, -3.61999e-06, 0.5, 0.2, 0)
