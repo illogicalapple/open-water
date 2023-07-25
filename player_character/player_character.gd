@@ -1,6 +1,12 @@
 extends CharacterBody3D
 
-@export var health = 100
+
+@warning_ignore("onready_with_export")
+@onready @export var health : float = 100:
+	set(x):
+		health = x
+		damage_logic.health = x
+		
 @export var weapon : Weapon
 
 @onready var hitbox : Area3D = $HitBox
@@ -14,9 +20,8 @@ var jumpheight = 20
 @onready var synchronizer = $MultiplayerSynchronizer
 var selected = null
 
-
+@onready var damage_logic = HealthNode.new(health, hitbox, self)
 func _ready():
-	var damage_logic = HealthNode.new(health, hitbox, self)
 	damage_logic.damage_taken.connect(damage_taken)
 	damage_logic.died.connect(died)
 	
@@ -31,7 +36,7 @@ func _ready():
 ## Called from damage_logic node's damage_taken signal.
 func damage_taken(damage_taken : float, current_health : float) -> void:
 	health = current_health
-	print ("player took damage: [", damage_taken, "] health = ", health)
+	print (name, " took damage: [", damage_taken, "] health = ", health)
 	
 	# Randomize pitch before playing for more variance.
 	hurt_audio.stop()
@@ -40,12 +45,14 @@ func damage_taken(damage_taken : float, current_health : float) -> void:
 
 ## Called from damage_logic node's died signal.
 func died() -> void:
+	print ("player ", name, " died: ", health)
 	DeathMenu.enter_death_menu()
-	queue_free() # removes player from game.
+	
+	#queue_free() # removes player from game.
 	
 	#print_debug("player died: this currently does nothing.")
 	# Handle player death sounds and death animations from here...
-	
+
 
 
 func _physics_process(delta):
@@ -147,6 +154,10 @@ func _process(delta):
 	if synchronizer.is_multiplayer_authority():
 		if $Camera3D/RayCast3D.is_colliding():
 			var collider=$Camera3D/RayCast3D.get_collider()
+			
+			if collider == null: # error handle
+				return
+				
 			if collider.is_in_group("interact"):
 				collider.selected=true
 				if selected !=null and selected!=collider:
