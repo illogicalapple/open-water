@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cr4334u7y26sv"]
+[gd_scene load_steps=7 format=3 uid="uid://cr4334u7y26sv"]
 
 [ext_resource type="Script" path="res://player_character/player_character.gd" id="1_tml4c"]
 [ext_resource type="Script" path="res://player_character/multiplayer_synchronizer.gd" id="3_ovx13"]
+[ext_resource type="AudioStream" uid="uid://dsgpkr3r3oi7o" path="res://assets/sfx/ouchmp3-14591 from PIXABAY via pixabay.mp3" id="3_yig25"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_r3mn4"]
 
@@ -41,3 +42,11 @@ target_position = Vector3(0, 0, -3)
 root_path = NodePath(".")
 replication_config = SubResource("SceneReplicationConfig_pcmc8")
 script = ExtResource("3_ovx13")
+
+[node name="HitBox" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
+shape = SubResource("CapsuleShape3D_hn6cf")
+
+[node name="PlayerHurtAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_yig25")
