@@ -20,6 +20,7 @@ var multiplayer_peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 @onready var menu: Control = $MenuControl
 
 func _ready():
+	States.game_state = States.GameStates.IN_GAME
 	$GUI.hide()
 
 # join multiplayer room

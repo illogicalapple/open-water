@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://bx0myc4jfmfja"]
+
+[ext_resource type="Script" path="res://scenes/objects/enemies/enemy.gd" id="1_y5whu"]
+[ext_resource type="AudioStream" uid="uid://dsgpkr3r3oi7o" path="res://assets/sfx/ouchmp3-14591 from PIXABAY via pixabay.mp3" id="3_us21x"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qa3sh"]
+albedo_color = Color(0.67451, 0, 0.129412, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_aehka"]
+material = SubResource("StandardMaterial3D_qa3sh")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pg0jn"]
+size = Vector3(1.05066, 2, 1.09826)
+
+[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("hitbox", "hurt_audio")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+collision_layer = 32
+collision_mask = 15
+script = ExtResource("1_y5whu")
+hitbox = NodePath("HitBox")
+hurt_audio = NodePath("HurtAudio")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.06216, 0, 0, 0, 1.97331, 0, 0, 0, 1.06216, 0, 0, 0)
+mesh = SubResource("BoxMesh_aehka")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_pg0jn")
+
+[node name="HitBox" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
+shape = SubResource("BoxShape3D_pg0jn")
+
+[node name="HurtAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_us21x")
