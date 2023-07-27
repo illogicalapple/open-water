@@ -65,7 +65,7 @@ func _physics_process(delta):
 	# ~M125
 	
 	
-	if synchronizer.is_multiplayer_authority(): # always gotta check if you're connected
+	if synchronizer.is_multiplayer_authority(): # always gotta check if you're the authority
 		if States.character_state == States.CharacterStates.NOCLIP: $CollisionShape3D.disabled = true # disables collisions in noclip mode (see states.gd)
 		else: $CollisionShape3D.disabled = false # otherwise, it resets
 		var can_fly = (States.character_state == States.CharacterStates.FLY or States.character_state == States.CharacterStates.NOCLIP) # can fly?
@@ -149,6 +149,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 		if Input.is_action_just_pressed("attack"):
 			weapon.attack()
+		
 
 func _process(delta):
 	if synchronizer.is_multiplayer_authority():
@@ -168,6 +169,3 @@ func _process(delta):
 			if selected !=null:
 				selected.selected=false
 			selected=null
-
-
-
