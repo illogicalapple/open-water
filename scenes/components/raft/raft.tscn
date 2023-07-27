@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cr2xw7d138i6s"]
+[gd_scene load_steps=7 format=3 uid="uid://cr2xw7d138i6s"]
 
 [ext_resource type="Script" path="res://scenes/components/raft/raftfloat.gd" id="1_o6vt3"]
 [ext_resource type="PackedScene" uid="uid://b0ndy6yikdj1u" path="res://assets/3D models/raft.gltf" id="1_w2h1l"]
@@ -10,6 +10,16 @@ size = Vector3(9, 0.5, 10)
 [sub_resource type="BoxShape3D" id="BoxShape3D_2odw0"]
 resource_local_to_scene = true
 size = Vector3(10, 10, 0.1)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ew1jo"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/sync = true
+properties/1/watch = false
 
 [node name="Raft" type="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.310413, -0.0586481, 0.210363)
@@ -78,3 +88,6 @@ shape = SubResource("BoxShape3D_2odw0")
 
 [node name="chair" parent="." instance=ExtResource("3_adxhj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.68959, 0.0586481, 0.789637)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_ew1jo")

@@ -1,6 +1,6 @@
 extends MultiplayerSynchronizer
 
-# syncs all of your rotation and position data, see main.gd
+# syncs all of your rotation and position data, see main.gdkkk
 @export var y_rotation:float:
 	set(val):
 		if is_multiplayer_authority():
