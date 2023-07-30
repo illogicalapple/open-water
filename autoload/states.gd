@@ -9,7 +9,7 @@ func example_function():
 		pass
 
 # First-level State:
-enum GameStates {MAIN_MENU, ESCAPE_MENU, IN_GAME, SETTINGS}
+enum GameStates {MAIN_MENU, ESCAPE_MENU, IN_GAME, SETTINGS, DEATH_MENU}
 enum CharacterStates {NOCLIP, FLY, SWIM, RUN, NORMAL, DRIVING}
 
 # Second-level States:
