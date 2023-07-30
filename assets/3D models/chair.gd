@@ -20,6 +20,6 @@ func _process(delta):
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.is_pressed():
-		if event.button_index==MOUSE_BUTTON_RIGHT:
+		if event.button_index==MOUSE_BUTTON_RIGHT and selected:
 			States.character_state=States.CharacterStates.DRIVING
 			usedseat=true
