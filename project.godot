@@ -21,6 +21,7 @@ Debug="*res://autoload/debug.tscn"
 Settings="*res://scenes/settings/settings_menu.tscn"
 States="*res://autoload/states.gd"
 EscapeMenu="*res://autoload/escape_menu.tscn"
+DeathMenu="*res://autoload/death_menu.tscn"
 Character="*res://autoload/character_data.gd"
 
 [display]
@@ -28,6 +29,8 @@ Character="*res://autoload/character_data.gd"
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/mode=2
+window/size/window_width_override=960
+window/size/window_height_override=540
 
 [input]
 
@@ -107,6 +110,11 @@ interact={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":2,"position":Vector2(163, 10),"global_position":Vector2(166, 42),"factor":1.0,"button_index":2,"canceled":false,"pressed":true,"double_click":false,"script":null)
 ]
 }
+attack={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"double_click":false,"script":null)
+]
+}
 
 [layer_names]
 
@@ -115,6 +123,7 @@ interact={
 3d_physics/layer_3="Ground"
 3d_physics/layer_4="Fencing"
 3d_physics/layer_5="Water"
+3d_physics/layer_6="Mob"
 
 [rendering]
 

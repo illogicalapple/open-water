@@ -9,17 +9,13 @@ var is_underwater: bool = false:
 		else:
 			$Underwater.hide()
 			($WorldEnvironment.environment as Environment).fog_density = 0.004
-			
-var time: Dictionary = {
-	"hour": 7,
-	"minute": 0,
-	"am": true
-}
+
 var multiplayer_peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 
 @onready var menu: Control = $MenuControl
 
 func _ready():
+	States.game_state = States.GameStates.IN_GAME
 	$GUI.hide()
 
 # join multiplayer room

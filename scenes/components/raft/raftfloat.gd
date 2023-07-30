@@ -16,30 +16,29 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var dir=Vector2(0,0)
-	var time=get_parent().get_node("Water").time
-	for e in $colliders.get_children():
-		var pos=e.global_position+Vector3(time/0.05,0,time/2)
-		var debug=e.global_position
-		if noise1.get_noise_2d(pos.x,pos.z)>pos.y-global_position.y:
-			var difference=noise1.get_noise_2d(pos.x,pos.z)*5-pos.y-global_position.y
-			if "x+" in e.name:
-				dir.x+=difference
-			else:
-				dir.x-=difference
-			if "z+"in e.name:
-				dir.y+=difference
-			else:
-				dir.y-=difference
+	if multiplayer.is_server():
+		var dir=Vector2(0,0)
+		for e in $colliders.get_children():
+			var pos=e.global_position
+			var debug=e.global_position
+			if noise1.get_noise_2d(pos.x,pos.z)>pos.y-global_position.y:
+				var difference=noise1.get_noise_2d(pos.x,pos.z)*5-pos.y-global_position.y
+				if "x+" in e.name:
+					dir.x+=difference
+				else:
+					dir.x-=difference
+				if "z+"in e.name:
+					dir.y+=difference
+				else:
+					dir.y-=difference
 		
+		veloc+=dir*delta/2
+		veloc-=veloc.normalized()*delta
+		rotation.x+=veloc.x*delta
+		rotation.z+=veloc.y*delta
+		rotation_degrees.x=clamp(rotation_degrees.x,-15,15)
+		rotation_degrees.z=clamp(rotation_degrees.z,-15,15)
 	if (noise1.get_noise_2d(player_pos.x, player_pos.y) + noise2.get_noise_2d(player_pos.x, player_pos.y)) / 2 > player_pos.y:
 		get_parent().is_underwater = true
 	else:
 		get_parent().is_underwater = false
-		
-	veloc+=dir*delta/2
-	veloc-=veloc.normalized()*delta
-	rotation.x+=veloc.x*delta
-	rotation.z+=veloc.y*delta
-	rotation_degrees.x=clamp(rotation_degrees.x,-15,15)
-	rotation_degrees.z=clamp(rotation_degrees.z,-15,15)
