@@ -1,8 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://dg3ginoetdnt0"]
+[gd_scene load_steps=5 format=3 uid="uid://dg3ginoetdnt0"]
 
 [ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://resources/menu_theme.tres" id="1_cn16e"]
 [ext_resource type="Texture2D" uid="uid://s4uyffq77bmq" path="res://assets/images/inventory/square.png" id="1_t5wlf"]
 [ext_resource type="Script" path="res://scenes/components/inventory_item.gd" id="1_yn3yu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hwm3"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0, 0, 0, 0.392157)
 
 [node name="InventoryItem" type="TextureButton"]
 process_mode = 3
@@ -38,7 +45,25 @@ offset_bottom = -8.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_font_sizes/font_size = 20
-text = "hi"
+text = "0
+"
 horizontal_alignment = 2
 
+[node name="Tooltip" type="RichTextLabel" parent="."]
+visible = false
+z_index = 200
+layout_mode = 1
+offset_right = 211.0
+offset_bottom = 49.0
+theme_override_font_sizes/normal_font_size = 16
+theme_override_font_sizes/bold_font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_4hwm3")
+bbcode_enabled = true
+text = "[b]testing[/b]
+description"
+fit_content = true
+scroll_active = false
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="." to="." method="_on_pressed"]
