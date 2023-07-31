@@ -5,14 +5,17 @@ uniform vec3 offset;
 void vertex(){
 	//vec2 pos =VERTEX.xz+vec2(time/10.0,time/1.0);
 	vec2 pos =VERTEX.xz+offset.xz+vec2(200,200);
-	
+	vec2 pos2=vec2(pos.x+1.0,pos.y+1.0);
 	vec4 noise1data=texture(noise1,pos/400.0);
 	vec4 noise2data=texture(noise2,pos/400.0);
+	
+	vec4 diff1=texture(noise1,pos2/400.0);
+	vec4 diff2=texture(noise2,pos2/400.0);
+	float differencecount=(diff1.r+diff2.r);
 	float height=noise1data.r+noise2data.r;
-	height /=2.0;
-	VERTEX.y+=clamp(height*5.0,2,5);
-	height=clamp(height,0.1,0.6);
-	COLOR.g=1.0;
+	VERTEX.y+=height*20.0;
+	float difference=(differencecount-height);
+	COLOR.rgb=vec3(0.0,clamp(0.2+difference,0.1,0.8),0.0);
 	
 }
 void fragment() {
