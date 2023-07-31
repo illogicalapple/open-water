@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dy11i6trmi8rt"]
+[gd_scene load_steps=19 format=3 uid="uid://dy11i6trmi8rt"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_vaiso"]
 [ext_resource type="PackedScene" uid="uid://cr2xw7d138i6s" path="res://scenes/components/raft/raft.tscn" id="3_ac4oe"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bx0myc4jfmfja" path="res://scenes/objects/enemies/enemy.tscn" id="7_7w8m3"]
 [ext_resource type="PackedScene" uid="uid://b180ygyhwkwxe" path="res://assets/3D models/redfish.gltf" id="7_83dfp"]
 [ext_resource type="PackedScene" uid="uid://dnruu2jmaved0" path="res://assets/3D models/arshvir_shield.glb" id="10_mkme5"]
+[ext_resource type="Shader" path="res://scenes/terrain.gdshader" id="12_xm2am"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_672vs"]
 size = Vector3(1400, 1, 1400)
@@ -24,6 +25,16 @@ size = Vector3(38592.5, 0.563, 880.673)
 albedo_color = Color(0.541176, 0.372549, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_brgo6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jqrg8"]
+render_priority = 0
+shader = ExtResource("12_xm2am")
+shader_parameter/offset = null
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1p5e8"]
+size = Vector2(50, 50)
+subdivide_width = 20
+subdivide_depth = 20
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_vaiso")
@@ -144,6 +155,11 @@ mesh = SubResource("BoxMesh_brgo6")
 
 [node name="redfish" parent="." instance=ExtResource("7_83dfp")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 10)
+
+[node name="terrain" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.02102, 0)
+material_override = SubResource("ShaderMaterial_jqrg8")
+mesh = SubResource("PlaneMesh_1p5e8")
 
 [connection signal="pressed" from="MenuControl/Menu/Actions/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="MenuControl/Menu/Actions/Host" to="." method="_on_host_pressed"]
