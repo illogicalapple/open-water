@@ -71,6 +71,7 @@ shader_parameter/noise = SubResource("NoiseTexture2D_kk2rt")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_inmaa"]
 material = SubResource("ShaderMaterial_ky4hm")
+flip_faces = true
 size = Vector2(800, 800)
 
 [node name="Main" type="Node3D"]
