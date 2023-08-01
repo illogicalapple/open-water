@@ -55,7 +55,7 @@ func hide_all_reset_buttons() -> void:
 		reset_submenu_button.disabled = true
 		
 		for key in key_paths.keys():
-			var button : Button = get_button_from_key(key, true)
+			var button : TextureButton = get_button_from_key(key, true)
 			button.disabled = true
 	
 #@warning_ignore("native_method_override")
