@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dy11i6trmi8rt"]
+[gd_scene load_steps=28 format=3 uid="uid://dy11i6trmi8rt"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_vaiso"]
 [ext_resource type="PackedScene" uid="uid://cr2xw7d138i6s" path="res://scenes/components/raft/raft.tscn" id="3_ac4oe"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://b180ygyhwkwxe" path="res://assets/3D models/redfish.gltf" id="7_83dfp"]
 [ext_resource type="PackedScene" uid="uid://dnruu2jmaved0" path="res://assets/3D models/arshvir_shield.glb" id="10_mkme5"]
 [ext_resource type="Shader" path="res://scenes/terrain.gdshader" id="12_xm2am"]
+[ext_resource type="Shader" path="res://scenes/clouds.gdshader" id="13_yiwfe"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_672vs"]
 size = Vector3(1400, 1, 1400)
@@ -54,11 +55,31 @@ size = Vector2(300, 300)
 subdivide_width = 20
 subdivide_depth = 20
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7l4si"]
+fractal_octaves = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kk2rt"]
+width = 800
+height = 800
+seamless = true
+noise = SubResource("FastNoiseLite_7l4si")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ky4hm"]
+render_priority = 0
+shader = ExtResource("13_yiwfe")
+shader_parameter/noise = SubResource("NoiseTexture2D_kk2rt")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_inmaa"]
+material = SubResource("ShaderMaterial_ky4hm")
+size = Vector2(800, 800)
+
 [node name="Main" type="Node3D"]
 script = ExtResource("1_vaiso")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 7.073, 0)
+transform = Transform3D(0.671746, 3.23806e-08, -0.740781, 0.740781, -2.9363e-08, 0.671746, 0, -1, -4.37114e-08, 0, 7.073, 0)
+light_energy = 0.5
+directional_shadow_blend_splits = true
 
 [node name="Underwater" type="ColorRect" parent="."]
 visible = false
@@ -178,6 +199,10 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 10)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -26.2573, 0)
 material_override = SubResource("ShaderMaterial_jqrg8")
 mesh = SubResource("PlaneMesh_1p5e8")
+
+[node name="Clouds" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 61.3355, 0)
+mesh = SubResource("PlaneMesh_inmaa")
 
 [connection signal="pressed" from="MenuControl/Menu/Actions/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="MenuControl/Menu/Actions/Host" to="." method="_on_host_pressed"]
