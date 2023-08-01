@@ -2,7 +2,6 @@ extends Control
 
 ## Works with the States autoload to manage the current state of the MainMenu.
 
-@onready var world_select_menu := $"World Select"
 @onready var main_select_menu := $"Main Select"
 
 var main_scene : PackedScene = preload("res://scenes/main.tscn")
