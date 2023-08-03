@@ -9,10 +9,10 @@ var revert_property_changes : Dictionary = {}
 #@export_group("Labels") # Using category instead of group because don't want to expand group every time.
 
 @export_group("Default Buttons") 
-@export var default_submenu_button : Button
+@export var default_submenu_button : BaseButton
 
 @export_group("Reset Buttons") 
-@export var reset_submenu_button : Button
+@export var reset_submenu_button : BaseButton
 
 # Storing save data with 3 values for now.
 # 1. Key for its dictionary (e.g., "FOV")
@@ -33,7 +33,7 @@ func _ready() -> void:
 	pass
 
 
-func get_button_from_key(key : String, reset_button : bool) -> Button:
+func get_button_from_key(key : String, reset_button : bool) -> BaseButton:
 	if not key_button_pairs.has(key):
 		printerr("can't get default button. Unknown key: ", key)
 		return null
@@ -55,9 +55,10 @@ func hide_all_reset_buttons() -> void:
 		reset_submenu_button.disabled = true
 		
 		for key in key_paths.keys():
-			var button : TextureButton = get_button_from_key(key, true)
+			var button = get_button_from_key(key, true)
 			button.disabled = true
 	
+
 #@warning_ignore("native_method_override")
 #func get_class():
 #	return "VideoSubMenu"
@@ -124,7 +125,7 @@ func set_property_button_enable(value: float, key : String, default_button : boo
 			return
 	
 	# Gets default/reset value and button.
-	var button : Button 
+	var button : BaseButton 
 	var property_value
 	
 	# Get the dictionary where all change from the default/reset values are stored.

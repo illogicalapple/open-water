@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://riiby56w7xo0"]
+[gd_scene load_steps=9 format=3 uid="uid://riiby56w7xo0"]
 
 [ext_resource type="Theme" uid="uid://yqhp0x75g3lx" path="res://resources/menu_theme.tres" id="1_hy3ew"]
 [ext_resource type="Script" path="res://scenes/start_menu.gd" id="1_ir7u2"]
 [ext_resource type="Theme" uid="uid://bwi6khexsicp8" path="res://resources/settings_theme.tres" id="4_jpll4"]
-[ext_resource type="Environment" uid="uid://4e77lfajjddk" path="res://resources/environment.tres" id="5_rkoax"]
 [ext_resource type="FontFile" uid="uid://dx8lolqoauhjo" path="res://assets/fonts/Inconsolata/Inconsolata-Regular.ttf" id="5_x80t6"]
 [ext_resource type="PackedScene" uid="uid://dovpvwg125weo" path="res://scenes/components/ocean_viewport.tscn" id="6_jqn3j"]
 
@@ -77,9 +76,6 @@ size_flags_horizontal = 0
 text = "exit"
 
 [node name="OceanViewport" parent="." instance=ExtResource("6_jqn3j")]
-
-[node name="WorldEnvironment2" type="WorldEnvironment" parent="OceanViewport"]
-environment = ExtResource("5_rkoax")
 
 [connection signal="pressed" from="Main Select/VBoxContainer/Start" to="." method="start_pressed"]
 [connection signal="pressed" from="Main Select/VBoxContainer/Settings" to="." method="enter_settings_menu"]

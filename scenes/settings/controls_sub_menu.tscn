@@ -13,10 +13,10 @@ grow_vertical = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_pul57")
 script = ExtResource("1_rb8xs")
-mouse_sensitivity_slider = NodePath("ControlsSettings/VBoxContainer/Mouse Sensitivity/HBoxVontainer/DPISlider")
-mouse_sensitivity_label = NodePath("ControlsSettings/VBoxContainer/Mouse Sensitivity/HBoxVontainer/Value")
-default_mouse_sensitivity = NodePath("")
-reset_mouse_sensitivity = NodePath("")
+mouse_sensitivity_slider = NodePath("ControlsSettings/VBoxContainer/Sensitivity/Slider/DPISlider")
+mouse_sensitivity_label = NodePath("ControlsSettings/VBoxContainer/Sensitivity/Slider/Value")
+default_mouse_sensitivity = NodePath("ControlsSettings/VBoxContainer/Sensitivity/HBoxContainer/default")
+reset_mouse_sensitivity = NodePath("ControlsSettings/VBoxContainer/Sensitivity/HBoxContainer/reset")
 default_submenu_button = NodePath("SubMenu Local Buttons/Default submenu")
 reset_submenu_button = NodePath("SubMenu Local Buttons/Reset submenu")
 
@@ -43,19 +43,19 @@ horizontal_scroll_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Mouse Sensitivity" type="HSplitContainer" parent="ControlsSettings/VBoxContainer"]
+[node name="Sensitivity" type="HSplitContainer" parent="ControlsSettings/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 split_offset = 69420
 
-[node name="HBoxVontainer" type="HBoxContainer" parent="ControlsSettings/VBoxContainer/Mouse Sensitivity"]
+[node name="Slider" type="HBoxContainer" parent="ControlsSettings/VBoxContainer/Sensitivity"]
 layout_mode = 2
 
-[node name="Title" type="Label" parent="ControlsSettings/VBoxContainer/Mouse Sensitivity/HBoxVontainer"]
+[node name="Title" type="Label" parent="ControlsSettings/VBoxContainer/Sensitivity/Slider"]
 layout_mode = 2
 text = "sensitivity"
 
-[node name="DPISlider" type="HSlider" parent="ControlsSettings/VBoxContainer/Mouse Sensitivity/HBoxVontainer"]
+[node name="DPISlider" type="HSlider" parent="ControlsSettings/VBoxContainer/Sensitivity/Slider"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -64,25 +64,25 @@ max_value = 5.0
 step = 0.01
 value = 0.5
 
-[node name="Value" type="Label" parent="ControlsSettings/VBoxContainer/Mouse Sensitivity/HBoxVontainer"]
+[node name="Value" type="Label" parent="ControlsSettings/VBoxContainer/Sensitivity/Slider"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ControlsSettings/VBoxContainer/Mouse Sensitivity"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ControlsSettings/VBoxContainer/Sensitivity"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 3
 
-[node name="default" type="TextureButton" parent="ControlsSettings/VBoxContainer/Mouse Sensitivity/HBoxContainer"]
+[node name="default" type="TextureButton" parent="ControlsSettings/VBoxContainer/Sensitivity/HBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("3_3dqul")
 
-[node name="reset" type="TextureButton" parent="ControlsSettings/VBoxContainer/Mouse Sensitivity/HBoxContainer"]
+[node name="reset" type="TextureButton" parent="ControlsSettings/VBoxContainer/Sensitivity/HBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("3_3dqul")
 
 [connection signal="pressed" from="SubMenu Local Buttons/Default submenu" to="." method="_on_default_submenu_pressed"]
 [connection signal="pressed" from="SubMenu Local Buttons/Reset submenu" to="." method="_on_reset_submenu_pressed"]
-[connection signal="value_changed" from="ControlsSettings/VBoxContainer/Mouse Sensitivity/HBoxVontainer/DPISlider" to="." method="mouse_sensitivity_slider_change"]
-[connection signal="value_changed" from="ControlsSettings/VBoxContainer/Mouse Sensitivity/HBoxVontainer/DPISlider" to="." method="slider_change" binds= ["MOUSE_SENSITIVITY"]]
-[connection signal="pressed" from="ControlsSettings/VBoxContainer/Mouse Sensitivity/HBoxContainer/default" to="." method="set_to_default" binds= ["MOUSE_SENSITIVITY"]]
-[connection signal="pressed" from="ControlsSettings/VBoxContainer/Mouse Sensitivity/HBoxContainer/reset" to="." method="reset" binds= ["MOUSE_SENSITIVITY"]]
+[connection signal="value_changed" from="ControlsSettings/VBoxContainer/Sensitivity/Slider/DPISlider" to="." method="mouse_sensitivity_slider_change"]
+[connection signal="value_changed" from="ControlsSettings/VBoxContainer/Sensitivity/Slider/DPISlider" to="." method="slider_change" binds= ["MOUSE_SENSITIVITY"]]
+[connection signal="pressed" from="ControlsSettings/VBoxContainer/Sensitivity/HBoxContainer/default" to="." method="set_to_default" binds= ["MOUSE_SENSITIVITY"]]
+[connection signal="pressed" from="ControlsSettings/VBoxContainer/Sensitivity/HBoxContainer/reset" to="." method="reset" binds= ["MOUSE_SENSITIVITY"]]
