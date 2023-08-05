@@ -61,6 +61,9 @@ script = ExtResource("1_vaiso")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.671746, 3.23806e-08, -0.740781, 0.740781, -2.9363e-08, 0.671746, 0, -1, -4.37114e-08, 0, 7.073, 0)
 light_energy = 0.5
+shadow_enabled = true
+shadow_normal_bias = 1.0
+shadow_opacity = 0.7
 directional_shadow_blend_splits = true
 
 [node name="Underwater" type="ColorRect" parent="."]
