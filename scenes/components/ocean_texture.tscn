@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bd3f7wi00wvap"]
+[gd_scene load_steps=8 format=3 uid="uid://bd3f7wi00wvap"]
 
 [ext_resource type="Shader" path="res://scenes/main.gdshader" id="1_j14s3"]
 
@@ -24,8 +24,8 @@ noise = SubResource("FastNoiseLite_inw88")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wawqv"]
 render_priority = 0
 shader = ExtResource("1_j14s3")
-shader_parameter/offset = Vector3(0, -5.25731, 0)
-shader_parameter/time = null
+shader_parameter/offset = Vector3(-0.310413, -5.25731, 0.210363)
+shader_parameter/time = 1231.31
 shader_parameter/noise1 = SubResource("NoiseTexture2D_b3lqb")
 shader_parameter/noise2 = SubResource("NoiseTexture2D_1poex")
 
@@ -34,24 +34,8 @@ size = Vector3(800, 1, 800)
 subdivide_width = 128
 subdivide_depth = 128
 
-[sub_resource type="GDScript" id="GDScript_x1jck"]
-script/source = "extends MeshInstance3D
-var time=0
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	
-	pass
-"
-
 [node name="Texture" type="MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58211, 0)
 material_override = SubResource("ShaderMaterial_wawqv")
 cast_shadow = 0
 mesh = SubResource("BoxMesh_2snvr")
-script = SubResource("GDScript_x1jck")

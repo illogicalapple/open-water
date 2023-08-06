@@ -1,5 +1,5 @@
 
-extends Node3D
+extends MeshInstance3D
 var ourplayer=null
 var time=0
 # Called when the node enters the scene tree for the first time.
@@ -9,8 +9,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	time+=delta
-	$Texture.material_override.set_shader_parameter("time",time)
 	#finding player of game instance
 	if ourplayer==null:
 		for e in get_parent().get_children():
@@ -19,9 +17,8 @@ func _process(delta):
 					#multiplayer authority c:
 					ourplayer=e
 	else:
-		position=Vector3(ourplayer.position.x,position.y,ourplayer.position.z)
+		var pos=floor(Vector3(ourplayer.position.x,position.y,ourplayer.position.z)/20)*20
+		pos.y=position.y 
+		position=pos
 		#follow player on x and z coordinates
-	$Texture.material_override.set_shader_parameter("offset",position)
-	get_parent().get_node("terrain").material_override.set_shader_parameter("offset",position)
-	#make it look like it's just infinite(offseting)
-	pass
+	self.material_override.set_shader_parameter("offset",position)

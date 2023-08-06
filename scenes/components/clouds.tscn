@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://bdvxp7wkp3mwe"]
+
+[ext_resource type="Shader" path="res://scenes/clouds.gdshader" id="1_g1otj"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7l4si"]
+fractal_octaves = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kk2rt"]
+width = 800
+height = 800
+seamless = true
+noise = SubResource("FastNoiseLite_7l4si")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ky4hm"]
+render_priority = 0
+shader = ExtResource("1_g1otj")
+shader_parameter/noise = SubResource("NoiseTexture2D_kk2rt")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_inmaa"]
+material = SubResource("ShaderMaterial_ky4hm")
+flip_faces = true
+size = Vector2(800, 800)
+
+[node name="Clouds" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 61.3355, 0)
+mesh = SubResource("PlaneMesh_inmaa")
