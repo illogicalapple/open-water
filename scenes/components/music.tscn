@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjqw6tw180sso"]
+
+[ext_resource type="Script" path="res://scenes/components/music.gd" id="1_28o65"]
+[ext_resource type="AudioStream" uid="uid://cnbfu10xvrgsn" path="res://assets/music/morning.wav" id="2_h3xev"]
+
+[node name="Music" type="Node"]
+script = ExtResource("1_28o65")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_h3xev")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 180.0
+one_shot = true
+
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
