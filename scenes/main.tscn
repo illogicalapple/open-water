@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dy11i6trmi8rt"]
+[gd_scene load_steps=25 format=3 uid="uid://dy11i6trmi8rt"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_vaiso"]
 [ext_resource type="PackedScene" uid="uid://cr2xw7d138i6s" path="res://scenes/components/raft/raft.tscn" id="3_ac4oe"]
@@ -11,6 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://bx0myc4jfmfja" path="res://scenes/objects/enemies/enemy.tscn" id="7_7w8m3"]
 [ext_resource type="PackedScene" uid="uid://b180ygyhwkwxe" path="res://assets/3D models/redfish.gltf" id="7_83dfp"]
 [ext_resource type="PackedScene" uid="uid://dnruu2jmaved0" path="res://assets/3D models/arshvir_shield.glb" id="10_mkme5"]
+[ext_resource type="Shader" path="res://scenes/terrain.gdshader" id="12_xm2am"]
+[ext_resource type="PackedScene" uid="uid://bdvxp7wkp3mwe" path="res://scenes/components/clouds.tscn" id="13_bjcnp"]
+[ext_resource type="Script" path="res://scenes/terrain.gd" id="13_r1vs5"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_672vs"]
 size = Vector3(1400, 1, 1400)
@@ -25,11 +28,44 @@ albedo_color = Color(0.541176, 0.372549, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_brgo6"]
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_2g8sy"]
+seed = 435667
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xce0n"]
+width = 400
+height = 400
+noise = SubResource("FastNoiseLite_2g8sy")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7twyp"]
+seed = 324325
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dkjx5"]
+width = 400
+height = 400
+noise = SubResource("FastNoiseLite_7twyp")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jqrg8"]
+render_priority = 0
+shader = ExtResource("12_xm2am")
+shader_parameter/offset = null
+shader_parameter/noise1 = SubResource("NoiseTexture2D_xce0n")
+shader_parameter/noise2 = SubResource("NoiseTexture2D_dkjx5")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1p5e8"]
+size = Vector2(400, 400)
+subdivide_width = 20
+subdivide_depth = 20
+
 [node name="Main" type="Node3D"]
 script = ExtResource("1_vaiso")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 7.073, 0)
+transform = Transform3D(0.671746, 3.23806e-08, -0.740781, 0.740781, -2.9363e-08, 0.671746, 0, -1, -4.37114e-08, 0, 7.073, 0)
+light_energy = 0.5
+shadow_enabled = true
+shadow_normal_bias = 1.0
+shadow_opacity = 0.7
+directional_shadow_blend_splits = true
 
 [node name="Underwater" type="ColorRect" parent="."]
 visible = false
@@ -119,7 +155,6 @@ script = ExtResource("4_g5v78")
 
 [node name="Texture" parent="Water" instance=ExtResource("5_hbkas")]
 mesh = SubResource("BoxMesh_672vs")
-script = null
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://player_character/player_character.tscn")
@@ -144,6 +179,14 @@ mesh = SubResource("BoxMesh_brgo6")
 
 [node name="redfish" parent="." instance=ExtResource("7_83dfp")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 10)
+
+[node name="terrain" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -21.6094, 0)
+material_override = SubResource("ShaderMaterial_jqrg8")
+mesh = SubResource("PlaneMesh_1p5e8")
+script = ExtResource("13_r1vs5")
+
+[node name="Clouds" parent="." instance=ExtResource("13_bjcnp")]
 
 [connection signal="pressed" from="MenuControl/Menu/Actions/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="MenuControl/Menu/Actions/Host" to="." method="_on_host_pressed"]

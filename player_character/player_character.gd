@@ -125,8 +125,12 @@ func _physics_process(delta):
 		if abs(veloc.x)<0.1:veloc.x=0
 		if abs(veloc.z)<0.1:veloc.z=0
 		# sets fov
-		camera.fov = Settings.video_submenu.get_fov()
-		$Camera3D/thirdperson.fov = Settings.video_submenu.get_fov()
+		if Input.is_action_pressed("zoom"):
+			camera.fov = Settings.video_submenu.get_fov() / 3
+			$Camera3D/thirdperson.fov = Settings.video_submenu.get_fov() / 3
+		else:
+			camera.fov = Settings.video_submenu.get_fov()
+			$Camera3D/thirdperson.fov = Settings.video_submenu.get_fov()
 		get_parent().get_node("Raft").player_pos = position
 
 func _unhandled_input(event: InputEvent) -> void:

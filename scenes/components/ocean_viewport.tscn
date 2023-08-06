@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dovpvwg125weo"]
+[gd_scene load_steps=4 format=3 uid="uid://dovpvwg125weo"]
 
 [ext_resource type="PackedScene" uid="uid://bd3f7wi00wvap" path="res://scenes/components/ocean_texture.tscn" id="1_w80uq"]
+[ext_resource type="PackedScene" uid="uid://bdvxp7wkp3mwe" path="res://scenes/components/clouds.tscn" id="3_4cvs1"]
 [ext_resource type="Environment" uid="uid://4e77lfajjddk" path="res://resources/environment.tres" id="3_g127w"]
 
 [node name="OceanViewport" type="SubViewport"]
@@ -15,3 +16,5 @@ environment = ExtResource("3_g127w")
 
 [node name="Texture" parent="." instance=ExtResource("1_w80uq")]
 skeleton = NodePath("")
+
+[node name="Clouds" parent="." instance=ExtResource("3_4cvs1")]
