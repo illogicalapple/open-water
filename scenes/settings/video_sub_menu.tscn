@@ -8,7 +8,7 @@ default_font = ExtResource("1_y3xel")
 default_font_size = 50
 LineEdit/font_sizes/font_size = 16
 
-[node name="VideoSubMenu" type="VBoxContainer" node_paths=PackedStringArray("fov_slider", "fov_slider_label", "default_FOV", "reset_FOV", "default_submenu_button", "reset_submenu_button")]
+[node name="VideoSubMenu" type="VBoxContainer" node_paths=PackedStringArray("fov_slider", "shadowtoggle", "fov_slider_label", "default_FOV", "default_SHADOWS", "reset_FOV", "reset_SHADOWS", "default_submenu_button", "reset_submenu_button")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -18,9 +18,12 @@ size_flags_horizontal = 3
 theme = SubResource("Theme_gebpi")
 script = ExtResource("1_1udyx")
 fov_slider = NodePath("VideoSettings/VBoxContainer/FOV/HBoxVontainer/FOVSlider")
+shadowtoggle = NodePath("VideoSettings/VBoxContainer/shadows/CheckButton")
 fov_slider_label = NodePath("VideoSettings/VBoxContainer/FOV/HBoxVontainer/Value")
 default_FOV = NodePath("VideoSettings/VBoxContainer/FOV/HBoxContainer/default")
+default_SHADOWS = NodePath("VideoSettings/VBoxContainer/shadows/HBoxContainer2/default")
 reset_FOV = NodePath("VideoSettings/VBoxContainer/FOV/HBoxContainer/reset")
+reset_SHADOWS = NodePath("VideoSettings/VBoxContainer/shadows/HBoxContainer2/reset")
 default_submenu_button = NodePath("SubMenu Local Buttons/Default submenu")
 reset_submenu_button = NodePath("SubMenu Local Buttons/Reset submenu")
 
@@ -82,9 +85,35 @@ text = "default"
 layout_mode = 2
 text = "reset"
 
+[node name="shadows" type="HBoxContainer" parent="VideoSettings/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VideoSettings/VBoxContainer/shadows"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "shadows"
+
+[node name="CheckButton" type="CheckButton" parent="VideoSettings/VBoxContainer/shadows"]
+layout_mode = 2
+button_pressed = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VideoSettings/VBoxContainer/shadows"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="default" type="Button" parent="VideoSettings/VBoxContainer/shadows/HBoxContainer2"]
+layout_mode = 2
+text = "default"
+
+[node name="reset" type="Button" parent="VideoSettings/VBoxContainer/shadows/HBoxContainer2"]
+layout_mode = 2
+text = "reset"
+
 [connection signal="pressed" from="SubMenu Local Buttons/Default submenu" to="." method="_on_default_submenu_pressed"]
 [connection signal="pressed" from="SubMenu Local Buttons/Reset submenu" to="." method="_on_reset_submenu_pressed"]
 [connection signal="value_changed" from="VideoSettings/VBoxContainer/FOV/HBoxVontainer/FOVSlider" to="." method="fov_slider_change"]
 [connection signal="value_changed" from="VideoSettings/VBoxContainer/FOV/HBoxVontainer/FOVSlider" to="." method="slider_change" binds= ["FOV"]]
 [connection signal="pressed" from="VideoSettings/VBoxContainer/FOV/HBoxContainer/default" to="." method="set_to_default" binds= ["FOV"]]
 [connection signal="pressed" from="VideoSettings/VBoxContainer/FOV/HBoxContainer/reset" to="." method="reset" binds= ["FOV"]]
+[connection signal="pressed" from="VideoSettings/VBoxContainer/shadows/HBoxContainer2/default" to="." method="set_to_default" binds= ["SHADOWS"]]
+[connection signal="pressed" from="VideoSettings/VBoxContainer/shadows/HBoxContainer2/reset" to="." method="reset" binds= ["SHADOWS"]]

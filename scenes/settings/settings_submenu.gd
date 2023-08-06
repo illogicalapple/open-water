@@ -111,7 +111,7 @@ func _on_reset_submenu_pressed() -> void:
 
 ## Checks to disable/enable the default and reset buttons for a specific property.
 ## To do so: checks if the property is deviated from its default/reset value.
-func set_property_button_enable(value: float, key : String, default_button : bool) -> void:
+func set_property_button_enable(value , key : String, default_button : bool) -> void:
 	
 	# If checking reset button, must ensure we are in settings menu.
 	# Since reset settings only exists when in settings menu... No need to check otherwise.
