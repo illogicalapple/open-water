@@ -14,6 +14,9 @@ var multiplayer_peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 
 @onready var menu: Control = $MenuControl
 
+func _process(delta):
+	$DirectionalLight3D.shadow_enabled=Settings.video_submenu.get_shadows()
+
 func _ready():
 	States.game_state = States.GameStates.IN_GAME
 	$GUI.hide()
