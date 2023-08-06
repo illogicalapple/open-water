@@ -17,7 +17,8 @@ func _process(delta):
 					#multiplayer authority c:
 					ourplayer=e
 	else:
-		var pos=floor(Vector3(ourplayer.position.x,position.y,ourplayer.position.z)/50)*50
-		pos.y=position.y
+		var pos=floor(Vector3(ourplayer.position.x,position.y,ourplayer.position.z)/20)*20
+		pos.y=position.y 
+		position=pos
 		#follow player on x and z coordinates
 	self.material_override.set_shader_parameter("offset",position)
