@@ -22,6 +22,5 @@ func _process(delta):
 		position=Vector3(ourplayer.position.x,position.y,ourplayer.position.z)
 		#follow player on x and z coordinates
 	$Texture.material_override.set_shader_parameter("offset",position)
-	get_parent().get_node("terrain").material_override.set_shader_parameter("offset",position)
 	#make it look like it's just infinite(offseting)
 	pass
