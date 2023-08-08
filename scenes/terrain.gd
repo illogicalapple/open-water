@@ -1,4 +1,4 @@
-@tool
+
 extends MeshInstance3D
 var ourplayer=null
 var time=0
