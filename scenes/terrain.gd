@@ -49,6 +49,7 @@ func _ready():
 		arr_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
 		var m = self
 		m.mesh = arr_mesh
+	$StaticBody3D/CollisionShape3D.shape=arr_mesh.create_trimesh_shape()
 
 	pass # Replace with function body.
 
