@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cr2xw7d138i6s"]
+[gd_scene load_steps=6 format=3 uid="uid://cr2xw7d138i6s"]
 
 [ext_resource type="Script" path="res://scenes/components/raft/raftfloat.gd" id="1_o6vt3"]
 [ext_resource type="PackedScene" uid="uid://b0ndy6yikdj1u" path="res://assets/3D models/raft.gltf" id="1_w2h1l"]
@@ -6,10 +6,6 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i6wcq"]
 size = Vector3(9, 0.5, 10)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_2odw0"]
-resource_local_to_scene = true
-size = Vector3(10, 10, 0.1)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ew1jo"]
 properties/0/path = NodePath(".:position")
@@ -47,44 +43,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 6)
 
 [node name="x+z+" type="Node3D" parent="colliders"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -4)
-
-[node name="fencing" type="Node3D" parent="."]
-visible = false
-
-[node name="StaticBody3D" type="StaticBody3D" parent="fencing"]
-collision_layer = 8
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="fencing/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0466152, 2.75031, 6.22161)
-shape = SubResource("BoxShape3D_2odw0")
-
-[node name="StaticBody3D4" type="StaticBody3D" parent="fencing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.96179)
-collision_layer = 8
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="fencing/StaticBody3D4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0466152, 2.75031, 5.59634)
-shape = SubResource("BoxShape3D_2odw0")
-
-[node name="StaticBody3D2" type="StaticBody3D" parent="fencing"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.47071, 0, 0)
-collision_layer = 8
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="fencing/StaticBody3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19062, 2.75031, 1.27352)
-shape = SubResource("BoxShape3D_2odw0")
-
-[node name="StaticBody3D3" type="StaticBody3D" parent="fencing"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -6.07238, 0, 0)
-collision_layer = 8
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="fencing/StaticBody3D3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19062, 2.75031, 1.70295)
-shape = SubResource("BoxShape3D_2odw0")
 
 [node name="chair" parent="." instance=ExtResource("3_adxhj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.68959, 0.0586481, 0.789637)
