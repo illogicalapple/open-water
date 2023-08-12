@@ -29,7 +29,8 @@ class_name VideoSubMenu # Giving class name cus want auto-complete.
 		[fov_slider.get_path(), # Path to node with the property in it.
 		"value" # Property on that node.
 		],
-	"SHADOWS":[shadowtoggle.get_path(), # Path to node with the property in it.
+	"SHADOWS":
+		[shadowtoggle.get_path(), # Path to node with the property in it.
 		"button_pressed" # Property on that node.
 		]
 }

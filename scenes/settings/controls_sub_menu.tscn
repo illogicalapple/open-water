@@ -83,6 +83,6 @@ texture_normal = ExtResource("3_3dqul")
 [connection signal="pressed" from="SubMenu Local Buttons/Default submenu" to="." method="_on_default_submenu_pressed"]
 [connection signal="pressed" from="SubMenu Local Buttons/Reset submenu" to="." method="_on_reset_submenu_pressed"]
 [connection signal="value_changed" from="ControlsSettings/VBoxContainer/Sensitivity/Slider/DPISlider" to="." method="mouse_sensitivity_slider_change"]
-[connection signal="value_changed" from="ControlsSettings/VBoxContainer/Sensitivity/Slider/DPISlider" to="." method="slider_change" binds= ["MOUSE_SENSITIVITY"]]
+[connection signal="value_changed" from="ControlsSettings/VBoxContainer/Sensitivity/Slider/DPISlider" to="." method="setting_changed" binds= ["MOUSE_SENSITIVITY"]]
 [connection signal="pressed" from="ControlsSettings/VBoxContainer/Sensitivity/HBoxContainer/default" to="." method="set_to_default" binds= ["MOUSE_SENSITIVITY"]]
 [connection signal="pressed" from="ControlsSettings/VBoxContainer/Sensitivity/HBoxContainer/reset" to="." method="reset" binds= ["MOUSE_SENSITIVITY"]]

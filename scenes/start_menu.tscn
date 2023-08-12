@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://dovpvwg125weo" path="res://scenes/components/ocean_viewport.tscn" id="6_jqn3j"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_rjmmt"]
-viewport_path = NodePath("OceanViewport")
 
 [sub_resource type="FontVariation" id="FontVariation_cqaty"]
 base_font = ExtResource("5_x80t6")

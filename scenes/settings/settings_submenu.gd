@@ -68,7 +68,23 @@ func hide_all_reset_buttons() -> void:
 #	return value == "VideoSubMenu"
 
 # Saves any settings from any slider:
-func slider_change(value: float, key : String) -> void:
+#func slider_change(value: float, key : String) -> void:
+#	var key_array = key_paths[key]
+#	var node_path = key_array[0]
+#	var property_path = key_array[1]
+#
+#	var save_value = [node_path, property_path, value]
+#
+#	var settings_key = Settings.get_setting_key_from_submenu_or_null(self) # Will be "video_settings" or "key_map_setting", etc.
+#	if settings_key == null:
+#		printerr("cannot save setting")
+#		return
+#	Settings.settings[settings_key] [key] = save_value
+#
+#	set_property_button_enable(value, key, true) # For default buttons
+#	set_property_button_enable(value, key, false) # For reset buttons
+
+func setting_changed(value, key : String) -> void:
 	var key_array = key_paths[key]
 	var node_path = key_array[0]
 	var property_path = key_array[1]
