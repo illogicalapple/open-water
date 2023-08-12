@@ -112,8 +112,8 @@ func _physics_process(delta):
 			var raftveloc=Vector2()
 			
 			
-			if Input.is_key_pressed(KEY_W):raftveloc.x=10
-			if Input.is_key_pressed(KEY_S):raftveloc.x=-10
+			if Input.is_key_pressed(KEY_W):raftveloc.x=10*5
+			if Input.is_key_pressed(KEY_S):raftveloc.x=-50
 			if Input.is_key_pressed(KEY_D):raftveloc.y=-1
 			if Input.is_key_pressed(KEY_A):raftveloc.y=1
 			

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dy11i6trmi8rt"]
+[gd_scene load_steps=18 format=3 uid="uid://dy11i6trmi8rt"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_vaiso"]
 [ext_resource type="PackedScene" uid="uid://cr2xw7d138i6s" path="res://scenes/components/raft/raft.tscn" id="3_ac4oe"]
@@ -11,9 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://bx0myc4jfmfja" path="res://scenes/objects/enemies/enemy.tscn" id="7_7w8m3"]
 [ext_resource type="PackedScene" uid="uid://b180ygyhwkwxe" path="res://assets/3D models/redfish.gltf" id="7_83dfp"]
 [ext_resource type="PackedScene" uid="uid://dnruu2jmaved0" path="res://assets/3D models/arshvir_shield.glb" id="10_mkme5"]
-[ext_resource type="PackedScene" uid="uid://wepgft2o17n1" path="res://scenes/components/terrain.tscn" id="12_fb2og"]
 [ext_resource type="PackedScene" uid="uid://bdvxp7wkp3mwe" path="res://scenes/components/clouds.tscn" id="13_bjcnp"]
-[ext_resource type="PackedScene" uid="uid://cjqw6tw180sso" path="res://scenes/components/music.tscn" id="15_x00wg"]
+[ext_resource type="Script" path="res://scenes/terrgen.gd" id="14_4x73e"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_672vs"]
 size = Vector3(1400, 1, 1400)
@@ -152,11 +151,10 @@ mesh = SubResource("BoxMesh_brgo6")
 [node name="redfish" parent="." instance=ExtResource("7_83dfp")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 10)
 
-[node name="terrain" parent="." instance=ExtResource("12_fb2og")]
-
 [node name="Clouds" parent="." instance=ExtResource("13_bjcnp")]
 
-[node name="Music" parent="." instance=ExtResource("15_x00wg")]
+[node name="terrgen" type="Node3D" parent="."]
+script = ExtResource("14_4x73e")
 
 [connection signal="pressed" from="MenuControl/Menu/Actions/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="MenuControl/Menu/Actions/Host" to="." method="_on_host_pressed"]
