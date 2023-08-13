@@ -8,7 +8,7 @@ var distance_per_points=20
 var width=20
 var depth=20
 var noiseseed=randi()
-var maxload=Vector2(width/2,depth/2)
+var maxload=Vector2(width,depth)
 
 var firstpos:Vector3
 var globalpos=floor(position/distance_per_points)
@@ -16,12 +16,8 @@ var coordinate=Vector2()
 func gn(x,z) ->float:#shortening get_noise_2d
 #	x*=distance_per_points
 #	
-	var debug=Vector2(x,z)
-	var globalx=x+floor(position.x/distance_per_points)
-	var globalz=z+floor(position.z/distance_per_points)
-	var data= noise.get_noise_2d(globalx,globalz)*20
-	x=globalx-firstpos.x
-	z=globalz-firstpos.z
+	var data= noise.get_noise_2d(x,z)*20
+	
 	
 #	return (data/(width/2)*abs(abs(width/2)-x))+data+(data/(depth/2)*abs(abs(depth/2)-z))/3
 	var data2:float=float(data)/(width/2)
@@ -40,7 +36,7 @@ func _ready():
 	firstpos+=Vector3(width/2,0,depth/2)
 	for e in get_parent().get_children():
 		
-		if e.is_in_group("terrain") and e!=self:if abs(e.position.x-position.x)<width or abs(e.position.z-position.z)<depth:
+		if e.is_in_group("terrain") and e!=self:if abs(e.position.x-position.x)/distance_per_points<e.width or abs(e.position.z-position.z)/distance_per_points<e.depth:
 			queue_free()
 	terrgen()
 	
@@ -105,11 +101,6 @@ func _process(delta):
 		var pos=floor(Vector3(ourplayer.position.x,position.y,ourplayer.position.z)/distance_per_points)*distance_per_points
 		
 		pos.y=position.y 
-		var clampvalue1=firstpos-Vector3(maxload.x/2,0,maxload.y/2)
-		var clampvalue2=firstpos+Vector3(maxload.x/2,0,maxload.y/2)
-		
-		position.x=clamp(pos.x/distance_per_points,clampvalue1.x,clampvalue2.x)*distance_per_points
-		position.z=clamp(pos.z/distance_per_points,clampvalue1.z,clampvalue2.z)*distance_per_points
 		position.y=pos.y
 		var globpos=position
 		#unload if player is too far
