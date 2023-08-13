@@ -8,13 +8,15 @@ var distance_per_points=20
 var width=20
 var depth=20
 var noiseseed=randi()
-var maxload=10
+var maxload=Vector2(width/2,depth/2)
+
 var firstpos:Vector3
 var globalpos=floor(position/distance_per_points)
 var coordinate=Vector2()
 func gn(x,z) ->float:#shortening get_noise_2d
 #	x*=distance_per_points
 #	
+	var debug=Vector2(x,z)
 	var globalx=x+floor(position.x/distance_per_points)
 	var globalz=z+floor(position.z/distance_per_points)
 	var data= noise.get_noise_2d(globalx,globalz)*20
@@ -22,14 +24,18 @@ func gn(x,z) ->float:#shortening get_noise_2d
 	z=globalz-firstpos.z
 	
 #	return (data/(width/2)*abs(abs(width/2)-x))+data+(data/(depth/2)*abs(abs(depth/2)-z))/3
-	var data2=(data/(width/2)*abs(abs(width/2)-abs(x)))
-	data2=(data2/(depth/2)*abs(abs(depth/2)-abs(z)))
+	var data2:float=float(data)/(width/2)
+	#print(data)
+	data2*=abs(abs(width/2)-abs(x))
+	data2/=(depth/2)
+	data2*=abs(abs(depth/2)-abs(z))
+	#print(data2)
 	return data2
 
 func _ready():
 	
 	globalpos=floor(position/distance_per_points)
-	var halfmxl=maxload/2
+	var halfmxl=maxload.x/2
 	firstpos=globalpos-Vector3(halfmxl,0,halfmxl)
 	firstpos+=Vector3(width/2,0,depth/2)
 	for e in get_parent().get_children():
@@ -51,8 +57,8 @@ func terrgen():
 	var index=PackedInt32Array()
 	var usedindex=0
 	noise.seed=noiseseed
-	for x in range(-floor(maxload/2),ceil(maxload/2)):
-		for z in range(-floor(maxload/2),ceil(maxload/2)):
+	for x in range(-floor(maxload.x/2),ceil(maxload.x/2)):
+		for z in range(-floor(maxload.y/2),ceil(maxload.y/2)):
 			
 			
 			
@@ -94,24 +100,28 @@ func _process(delta):
 					#multiplayer authority c:
 					ourplayer=e
 	else:
-		var playerpos_inVector2=Vector2(ourplayer.position.x,ourplayer.position.z)
-		var posinVector2=Vector2(position.x,position.z)
-		if abs(playerpos_inVector2.x-posinVector2.x)>width*3 or abs(playerpos_inVector2.y-posinVector2.y)>depth*3:
-			queue_free()
+		
 		var prevpos=position
 		var pos=floor(Vector3(ourplayer.position.x,position.y,ourplayer.position.z)/distance_per_points)*distance_per_points
 		
 		pos.y=position.y 
-		var clampvalue1=firstpos-Vector3(maxload/2,0,maxload/2)
-		var clampvalue2=firstpos+Vector3(maxload/2,0,maxload/2)
+		var clampvalue1=firstpos-Vector3(maxload.x/2,0,maxload.y/2)
+		var clampvalue2=firstpos+Vector3(maxload.x/2,0,maxload.y/2)
 		
 		position.x=clamp(pos.x/distance_per_points,clampvalue1.x,clampvalue2.x)*distance_per_points
 		position.z=clamp(pos.z/distance_per_points,clampvalue1.z,clampvalue2.z)*distance_per_points
 		position.y=pos.y
 		var globpos=position
+		#unload if player is too far
+		var playerpos_inVector2=Vector2(ourplayer.position.x,ourplayer.position.z)
+		var posinVector2=Vector2(position.x,position.z)
+		var spawndistance=get_parent().get_node("terrgen").spawndistance
+		if abs(playerpos_inVector2.x-posinVector2.x)>(width+spawndistance*2)*3 or abs(playerpos_inVector2.y-posinVector2.y)>(depth+spawndistance)*3:
+			delete()
 		if position!=prevpos:
 			terrgen()
 		#follow player on x and z coordinates
 #	self.material_override.set_shader_parameter("offset",position)
 func delete():
 	get_parent().get_node("terrgen").spawned.erase(coordinate)
+	queue_free()
