@@ -10,15 +10,23 @@ func _ready():
 	rng.randomize()
 	pass # Replace with function body.
 
+func generate():
+	var a = rng.randi_range(15, 50)
+	for i in range(a):
+		gen_island()
 
-func searchisland():
+func gen_island():
+	"""
 	var x = rng.randf_range(spawndistance, maxdistance)
 	rng.randomize()
 	var z = rng.randf_range(spawndistance, maxdistance)
+	"""
+	var x = 0
+	var z = 0
 	if not Vector2(x,z) in spawned:
 		var island=preload("res://scenes/components/terrain.tscn").instantiate()
 		island.position=Vector3(x,-15,z)
-		get_parent().add_child(island)
+		get_parent().add_child.call_deferred(island)
 		island.coordinate=Vector2(x,z)
 		island.noiseseed=rng.state
 		spawned.append(Vector2(x,z))
@@ -37,7 +45,7 @@ func _process(delta):
 		pos.y=position.y 
 		position=pos
 		if position!=prevpos:
-			searchisland()
+			pass
 		#follow player on x and z coordinates
 #	self.material_override.set_shader_parameter("offset",position)
 	pass

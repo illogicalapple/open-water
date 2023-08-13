@@ -66,6 +66,7 @@ func _physics_process(delta):
 	
 	
 	if synchronizer.is_multiplayer_authority(): # always gotta check if you're the authority
+		$Camera3D.current = true
 		if States.character_state == States.CharacterStates.NOCLIP: $CollisionShape3D.disabled = true # disables collisions in noclip mode (see states.gd)
 		else: $CollisionShape3D.disabled = false # otherwise, it resets
 		var can_fly = (States.character_state == States.CharacterStates.FLY or States.character_state == States.CharacterStates.NOCLIP) # can fly?
@@ -131,7 +132,10 @@ func _physics_process(delta):
 		else:
 			camera.fov = Settings.video_submenu.get_fov()
 			$Camera3D/thirdperson.fov = Settings.video_submenu.get_fov()
+			
 		get_parent().get_node("Raft").player_pos = position
+	else:
+		$Camera3D.current = false
 
 func _unhandled_input(event: InputEvent) -> void:
 	if synchronizer.is_multiplayer_authority():

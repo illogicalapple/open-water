@@ -37,6 +37,7 @@ func _on_host_pressed():
 	multiplayer.multiplayer_peer = multiplayer_peer
 	multiplayer_peer.peer_connected.connect(func(id): add_player_character(id))
 	menu.visible = false
+	Terrgen.generate()
 	add_player_character()
 	$GUI.show()
 
