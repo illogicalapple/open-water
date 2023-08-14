@@ -70,7 +70,7 @@ func _physics_process(delta):
 		var direction = Vector3.ZERO # resets direction, which is basically velocity
 		if not is_on_floor(): # if it's not on the floor
 			if not can_fly:
-				direction.y -= 0.4 # gravity but only if you can't fly
+				direction.y -= 0.4  # gravity but only if you can't fly
 			if Input.is_action_pressed("crouch") and can_fly:
 				position.y -= 15 * delta # crouch to move down when you can fly
 		if can_fly:
@@ -95,7 +95,11 @@ func _physics_process(delta):
 		if Input.is_key_pressed(KEY_A): direction -= global_transform.basis.x
 		elif Input.is_key_pressed(KEY_D): direction += global_transform.basis.x
 		# velocity stuff:
-		veloc += (direction*speed)*delta*4
+		var goalveloc=(direction*speed)
+		veloc.x -= (veloc.x-goalveloc.x)*delta*4
+		veloc.z -= (veloc.z-goalveloc.z)*delta*4
+		veloc.y += (direction.y*speed)*delta*4
+		
 		if position.y<$"../Raft".position.y:
 			veloc.y+=1*delta
 		if direction.x==0 and direction.z==0:
