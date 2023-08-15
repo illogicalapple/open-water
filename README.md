@@ -2,9 +2,7 @@
 
 Open source multiplayer rafting game made with Godot (4.1).
 
-Not much currently planned: 
-- Intended to have multiplayer features.
-- Intended to have performance options (e.g., turn shadows off).
+[More information](/illogicalapple/raft-game/wiki)
 ## Credits
 ### Multiplayer: https://github.com/TheGodojo/Multiplayer-Nodes-Complete
 
