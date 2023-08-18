@@ -131,7 +131,10 @@ func _physics_process(delta):
 		else:
 			camera.fov = Settings.video_submenu.get_fov()
 			$Camera3D/thirdperson.fov = Settings.video_submenu.get_fov()
+			
 		get_parent().get_node("Raft").player_pos = position
+	else:
+		pass
 
 func _unhandled_input(event: InputEvent) -> void:
 	if synchronizer.is_multiplayer_authority():
