@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bd3f7wi00wvap"]
+[gd_scene load_steps=9 format=3 uid="uid://bd3f7wi00wvap"]
 
 [ext_resource type="Shader" path="res://scenes/main.gdshader" id="1_j14s3"]
 
@@ -34,8 +34,14 @@ size = Vector3(800, 1, 800)
 subdivide_width = 128
 subdivide_depth = 128
 
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_8ip7j"]
+clearcoat_enabled = true
+clearcoat_roughness = 0.35
+refraction_enabled = true
+refraction_texture_channel = 2
+
 [node name="Texture" type="MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58211, 0)
 material_override = SubResource("ShaderMaterial_wawqv")
-cast_shadow = 0
 mesh = SubResource("BoxMesh_2snvr")
+surface_material_override/0 = SubResource("ORMMaterial3D_8ip7j")

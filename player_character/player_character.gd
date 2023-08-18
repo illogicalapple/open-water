@@ -54,13 +54,11 @@ func died() -> void:
 	# Handle player death sounds and death animations from here...
 
 
-
 func _physics_process(delta):
 	# this runs every tick
 	
 	if is_on_floor():
 		veloc.y=0
-	
 	#uuuuum sorry i forgot to reset gravity on floor C:
 	# ~M125
 	
@@ -72,15 +70,21 @@ func _physics_process(delta):
 		var direction = Vector3.ZERO # resets direction, which is basically velocity
 		if not is_on_floor(): # if it's not on the floor
 			if not can_fly:
-				direction.y -= 0.4 # gravity but only if you can't fly
+				direction.y -= 0.4  # gravity but only if you can't fly
 			if Input.is_action_pressed("crouch") and can_fly:
 				position.y -= 15 * delta # crouch to move down when you can fly
 		if can_fly:
 			velocity.y = 0 # no gravity
 			if Input.is_action_pressed("jump"): position.y += 15 * delta
 		else:
-			if is_on_floor() and Input.is_action_pressed("jump"):
-				direction.y += jumpheight
+			if Input.is_action_pressed("jump"):
+				if position.y<$"../Raft".position.y and Input.is_action_just_pressed("jump"): direction.y+=15
+				elif is_on_floor():direction.y += jumpheight
+		
+		if position.y<$"../Raft".position.y:
+			if veloc.y<$"../Raft".position.y-position.y:
+				veloc.y+=$"../Raft".position.y-position.y*delta
+		
 		if (States.character_state==States.CharacterStates.DRIVING
 		 and Input.is_action_pressed("jump")
 		):States.character_state=States.CharacterStates.NORMAL
@@ -91,7 +95,13 @@ func _physics_process(delta):
 		if Input.is_key_pressed(KEY_A): direction -= global_transform.basis.x
 		elif Input.is_key_pressed(KEY_D): direction += global_transform.basis.x
 		# velocity stuff:
-		veloc += (direction*speed)*delta*4
+		var goalveloc=(direction*speed)
+		veloc.x -= (veloc.x-goalveloc.x)*delta*4
+		veloc.z -= (veloc.z-goalveloc.z)*delta*4
+		veloc.y += (direction.y*speed)*delta*4
+		
+		if position.y<$"../Raft".position.y:
+			veloc.y+=1*delta
 		if direction.x==0 and direction.z==0:
 			var vel=veloc.normalized()
 			vel.y=0

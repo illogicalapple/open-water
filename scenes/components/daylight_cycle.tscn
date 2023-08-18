@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwq3ol44oqrd6"]
+
+[ext_resource type="Texture2D" uid="uid://bt5iiu6muwp5u" path="res://assets/images/sun.png" id="1_jhvk5"]
+[ext_resource type="Script" path="res://scenes/components/daylight_cycle.gd" id="2_pietx"]
+
+[node name="DaylightCycle" type="Sprite3D"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 12.2029, 0)
+modulate = Color(3, 3, 3, 1)
+texture = ExtResource("1_jhvk5")
+script = ExtResource("2_pietx")

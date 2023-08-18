@@ -3,8 +3,7 @@ extends Node3D
 var rng=RandomNumberGenerator.new()
 var ourplayer=null
 var spawned=[]
-var spawndistance=80
-var maxdistance = 100000
+var spawndistance=400
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	rng.randomize()
@@ -15,21 +14,21 @@ func generate():
 	for i in range(a):
 		gen_island()
 
-func gen_island():
-	"""
-	var x = rng.randf_range(spawndistance, maxdistance)
-	rng.randomize()
-	var z = rng.randf_range(spawndistance, maxdistance)
-	"""
-	var x = 0
-	var z = 0
-	if not Vector2(x,z) in spawned:
-		var island=preload("res://scenes/components/terrain.tscn").instantiate()
-		island.position=Vector3(x,-15,z)
-		get_parent().add_child.call_deferred(island)
-		island.coordinate=Vector2(x,z)
-		island.noiseseed=rng.state
-		spawned.append(Vector2(x,z))
+func searchisland():
+	var numbersx=Vector2(floor(position.x-spawndistance),floor(position.x+spawndistance))
+	var numbersz=Vector2(floor(position.z-spawndistance),floor(position.z+spawndistance))
+	for x in range(numbersx.x,numbersx.y,20):for z in range(numbersz.x,numbersz.y,20):
+		rng.state=(12745*x+67395*z)*3.45
+		var random=rng.randi_range(1,3000)
+		if random==150 and not Vector2(x,z)in spawned:
+			var island=preload("res://scenes/components/terrain.tscn").instantiate()
+			island.position=Vector3(x,-15,z)
+			get_parent().add_child(island)
+			island.coordinate=Vector2(x,z)
+			
+			island.noiseseed=(12745*x+67395*z)*3.45
+			spawned.append(Vector2(x,z))
+			print("shouldspawn")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
