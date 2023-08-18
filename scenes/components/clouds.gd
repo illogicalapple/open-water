@@ -15,5 +15,8 @@ func _process(delta):
 					#multiplayer authority c:
 					ourplayer=e
 	else:
+		position.x=ourplayer.position.x
+		position.z=ourplayer.position.z
 		material_override.set_shader_parameter("offset",Vector2(position.x,position.z))
+		
 	pass

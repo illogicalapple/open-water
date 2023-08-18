@@ -38,7 +38,7 @@ func _process(delta):
 		rotation.z+=veloc.y*delta
 		rotation_degrees.x=clamp(rotation_degrees.x,-15,15)
 		rotation_degrees.z=clamp(rotation_degrees.z,-15,15)
-	if (noise1.get_noise_2d(player_pos.x, player_pos.y) + noise2.get_noise_2d(player_pos.x, player_pos.y)) / 2 > player_pos.y:
+	if (noise1.get_noise_2d(player_pos.x, player_pos.y) + noise2.get_noise_2d(player_pos.x, player_pos.y)) / 2 > player_pos.y+1:
 		get_parent().is_underwater = true
 	else:
 		get_parent().is_underwater = false
