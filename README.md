@@ -1,11 +1,11 @@
-# Untitled Raft Game
+# Open Water
 
 Open source multiplayer rafting game made with Godot (4.1).
+![image](https://github.com/illogicalapple/raft-game/assets/80916557/dece0308-69a6-4638-aa08-c6a85c52929f)
 
-Not much currently planned: 
-- Intended to have multiplayer features.
-- Intended to have performance options (e.g., turn shadows off).
+
+[More information](/illogicalapple/raft-game/wiki)
 ## Credits
-### Multiplayer: https://github.com/TheGodojo/Multiplayer-Nodes-Complete
+### Multiplayer tutorial: https://github.com/TheGodojo/Multiplayer-Nodes-Complete
 
-Join The Official Discord Server: https://discord.gg/Q9DCtNGUmj
+[Join the official discord server](https://discord.gg/Q9DCtNGUmj)
