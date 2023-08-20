@@ -2,11 +2,16 @@ extends MarginContainer
 
 # WARNING: Does not currently support multiple keys for a single action.
 
+signal remap_key_heard
+
 @export var action_list : VBoxContainer
 @export var base_action : HBoxContainer
+@export var remap_prompt : CanvasLayer
+
 
 # All these actions should MATCH the name in the InputMap in project settings.
 # The order in whch they appear here will be the order they appear in the menu.
+# 
 # If there is a way to get all the actions from the project settings without
 # getting any of the build-in ones, should probably get the actions like that
 # instead of naming them all here. 
@@ -25,7 +30,11 @@ var action_names : Array[StringName] = [
 	"inv_5",
 ]
 
+var listening_for_key : bool = false # true when listening for a key
+var heard_key : InputEvent # is set to the key that was heard when listening
+
 func _ready() -> void:
+	remap_prompt.visible = false
 	base_action.visible = false
 	build_action_list()
 
@@ -52,16 +61,50 @@ func build_action_list() -> void:
 		
 		var remap_button : Button = action_node.get_child(2)
 		remap_button.pressed.connect(remap_action.bind(action))
-		
 		action_node.visible = true
 
+
+func _input(event: InputEvent) -> void:
+	if listening_for_key:
+		# Events we don't want to listen for:
+		if event is InputEventMouseMotion or event is InputEventScreenTouch:
+			return
+		
+		# The event that get through above filter is heard:
+		heard_key = event
+		listening_for_key = false
+		remap_key_heard.emit()
+
 func remap_action(action : String) -> void:
-	print ("remap: ", action)
+	remap_prompt.visible = true
+	
+	# prompt for key.
+	listening_for_key = true
+	await remap_key_heard # Waits for remap key to be heard
+	
+	print ("remapping ", action , " to : ", heard_key)
+	
+	# Replace all keys for the action and add this one instead.
+	InputMap.action_erase_events(action)
+	InputMap.action_add_event(action, heard_key)
+	
+	# Want to edit the node label to display the new key being used for the action.
+	# Find the node label and set its text to the key string:
+	var node_index : int = action_names.find(action)
+	var action_node : HBoxContainer = action_list.get_child(node_index + 1, true)
+	var key_label : Label = action_node.get_child(1)
+	key_label.set_text(heard_key.as_text())
+	
+	remap_prompt.visible = false
+
+
+
+
 
 # Gets all events for actions inside action_names from the InputMap.
 # Returns all actions (keys) and their events (values) as a dictionary. 
 func get_actions() -> Dictionary:
-	var actions : Dictionary
+	var actions : Dictionary = {}
 	
 	for action in action_names:
 		if not InputMap.has_action(action):
@@ -70,7 +113,7 @@ func get_actions() -> Dictionary:
 		
 		var action_events : Array[InputEvent] = InputMap.action_get_events(action)
 		
-		var action_keys : Array[String] 
+		var action_keys : Array[String] = []
 		
 		# For every single action, get all the keys linked to it:
 		for action_event in action_events: 
