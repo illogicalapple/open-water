@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dy11i6trmi8rt"]
+[gd_scene load_steps=21 format=3 uid="uid://dy11i6trmi8rt"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_vaiso"]
 [ext_resource type="PackedScene" uid="uid://cr2xw7d138i6s" path="res://scenes/components/raft/raft.tscn" id="3_ac4oe"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bx0myc4jfmfja" path="res://scenes/objects/enemies/enemy.tscn" id="7_7w8m3"]
 [ext_resource type="PackedScene" uid="uid://b180ygyhwkwxe" path="res://assets/3D models/redfish.gltf" id="7_83dfp"]
 [ext_resource type="PackedScene" uid="uid://dnruu2jmaved0" path="res://assets/3D models/arshvir_shield.glb" id="10_mkme5"]
+[ext_resource type="Script" path="res://scenes/Land.gd" id="11_cpmbu"]
 [ext_resource type="PackedScene" uid="uid://bdvxp7wkp3mwe" path="res://scenes/components/clouds.tscn" id="13_bjcnp"]
 [ext_resource type="Script" path="res://scenes/terrgen.gd" id="14_4x73e"]
 [ext_resource type="PackedScene" uid="uid://cjqw6tw180sso" path="res://scenes/components/music.tscn" id="14_cws5m"]
@@ -140,6 +141,7 @@ environment = ExtResource("6_7mpl1")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15.2367, 0)
 collision_layer = 4
 collision_mask = 0
+script = ExtResource("11_cpmbu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Land"]
 shape = SubResource("BoxShape3D_8tnaj")
