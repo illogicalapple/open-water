@@ -110,6 +110,7 @@ size_flags_horizontal = 0
 text = "key mapping"
 
 [node name="VideoSubMenu" parent="MarginContainer/MarginContainer/VBoxContainer/SubMenus" instance=ExtResource("5_llo0m")]
+visible = false
 layout_mode = 2
 
 [node name="ControlsSubMenu" parent="MarginContainer/MarginContainer/VBoxContainer/SubMenus" instance=ExtResource("4_ogpwa")]
