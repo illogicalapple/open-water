@@ -74,6 +74,8 @@ func _input(event: InputEvent) -> void:
 		heard_key = event
 		listening_for_key = false
 		remap_key_heard.emit()
+		
+		get_tree().get_root().set_input_as_handled()
 
 func remap_action(action : String) -> void:
 	remap_prompt.visible = true
