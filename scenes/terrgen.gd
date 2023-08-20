@@ -12,7 +12,8 @@ func _ready():
 func generate():
 	var a = rng.randi_range(15, 50)
 	for i in range(a):
-		gen_island()
+		#gen_island()
+		pass
 
 func searchisland():
 	var numbersx=Vector2(floor(position.x-spawndistance),floor(position.x+spawndistance))

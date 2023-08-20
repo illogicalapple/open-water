@@ -8,6 +8,7 @@ script = ExtResource("1_28o65")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_h3xev")
+volume_db = -45.0
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 180.0
