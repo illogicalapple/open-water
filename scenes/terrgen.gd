@@ -9,10 +9,10 @@ func _ready():
 	rng.randomize()
 	pass # Replace with function body.
 
-func generate():
-	var a = rng.randi_range(15, 50)
-	for i in range(a):
-		gen_island()
+#func generate():
+#	var a = rng.randi_range(15, 50)
+#	for i in range(a):
+#		gen_island()
 
 func searchisland():
 	var numbersx=Vector2(floor(position.x-spawndistance),floor(position.x+spawndistance))
@@ -22,7 +22,7 @@ func searchisland():
 		var random=rng.randi_range(1,3000)
 		if random==150 and not Vector2(x,z)in spawned:
 			var island=preload("res://scenes/components/terrain.tscn").instantiate()
-			island.position=Vector3(x,-15,z)
+			island.position=Vector3(x,-16,z)
 			get_parent().add_child(island)
 			island.coordinate=Vector2(x,z)
 			
@@ -44,7 +44,7 @@ func _process(delta):
 		pos.y=position.y 
 		position=pos
 		if position!=prevpos:
-			pass
+			searchisland()
 		#follow player on x and z coordinates
 #	self.material_override.set_shader_parameter("offset",position)
 	pass
